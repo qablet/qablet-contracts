@@ -8,3 +8,6 @@ pytest-cov
 mypy
 gitchangelog
 mkdocs
+pyarrow
+pandas
+numpy
