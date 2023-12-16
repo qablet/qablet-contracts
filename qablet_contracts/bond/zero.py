@@ -6,7 +6,14 @@ from qablet_contracts.timetable import timetable_from_dicts
 
 
 def zcb_timetable(ccy: str, maturity: float) -> dict:
-    """timetable from zero coupon bond."""
+    """Create timetable for a zero coupon bond.
+
+    Args:
+        ccy: the currency of the bond.
+        maturity: the maturity of the bond in years.
+
+    """
+
     events = [
         {
             "track": "",
@@ -22,7 +29,14 @@ def zcb_timetable(ccy: str, maturity: float) -> dict:
 def zbp_timetable(
     ccy: str, opt_maturity: float, bond_maturity: float, strike: float
 ) -> dict:
-    """timetable for zero coupon bond put."""
+    """Create timetable for a zero coupon bond put.
+
+    Args:
+        ccy: the currency of the bond.
+        opt_maturity: the maturity of the option in years.
+        bond_maturity: the maturity of the option in years.
+        strike: the option strike.
+    """
 
     events = [
         {

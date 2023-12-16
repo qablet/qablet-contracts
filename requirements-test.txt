@@ -8,6 +8,7 @@ pytest-cov
 mypy
 gitchangelog
 mkdocs
+mkdocstrings
 pyarrow
 pandas
 numpy

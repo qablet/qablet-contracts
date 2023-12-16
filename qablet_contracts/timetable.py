@@ -2,10 +2,6 @@
 
 import pyarrow as pa
 
-# timetable is a dictionary with the following fields:
-# - events: a list of events (pyarrow struct array)
-# - expressions: a dictionary of expressions (key: string, value: function)
-
 DICT_TYPE = pa.dictionary(pa.int64(), pa.string())
 EVENT_SCHEMA = pa.schema(
     [
@@ -18,8 +14,25 @@ EVENT_SCHEMA = pa.schema(
 )
 
 
-def timetable_from_dicts(events) -> dict:
-    """Create timetable from a list of dicts (recordbatch version)."""
+def timetable_from_dicts(events: list[dict]) -> dict:
+    """Create timetable from a list of dicts.
+
+    Args:
+        events: a list of dicts with the following fields:
+
+            - track: string
+            - time: float
+            - op: string
+            - quantity: float
+            - unit: string
+
+    Returns:
+        a timetable dictionary with the following fields:
+
+            - events: a pyarrow record batch
+            - expressions: a dict for expressions, batches, and snappers
+
+    """
     return {
         "events": pa.RecordBatch.from_pylist(events, schema=EVENT_SCHEMA),
         "expressions": {},

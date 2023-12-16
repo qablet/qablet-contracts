@@ -1,2 +1,21 @@
 site_name: qablet_contracts
 theme: readthedocs
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [qablet_contracts]
+
+nav:
+  - 'index.md'
+  - 'Specifications':
+    - 'specifications/timetable.md'
+    - 'specifications/operations.md'
+    - 'specifications/units.md'
+    - 'specifications/expressions.md'
+  - 'Examples':
+    - 'examples/introduction.md'
+    - 'examples/bond.md'
