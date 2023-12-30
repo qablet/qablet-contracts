@@ -12,3 +12,4 @@ mkdocstrings
 pyarrow
 pandas
 numpy
+ruff

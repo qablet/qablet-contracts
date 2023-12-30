@@ -6,8 +6,8 @@ DICT_TYPE = pa.dictionary(pa.int64(), pa.string())
 EVENT_SCHEMA = pa.schema(
     [
         pa.field("track", DICT_TYPE),
-        pa.field("time", pa.float64()),  # TODO: use pa.timestamp() instead?
-        pa.field("op", pa.string()),  # TODO: use pa.dictionary() instead?
+        pa.field("time", pa.float64()),
+        pa.field("op", DICT_TYPE),
         pa.field("quantity", pa.float64()),
         pa.field("unit", DICT_TYPE),
     ]
