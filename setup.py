@@ -32,15 +32,12 @@ def read_requirements(path):
 setup(
     name="qablet_contracts",
     version=read("qablet_contracts", "VERSION"),
-    description="Awesome qablet_contracts created by qablet",
+    description="qablet_contracts created by qablet",
     url="https://github.com/qablet/qablet-contracts/",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
     author="qablet",
     packages=find_packages(exclude=["tests", ".github"]),
     install_requires=read_requirements("requirements.txt"),
-    entry_points={
-        "console_scripts": ["qablet_contracts = qablet_contracts.__main__:main"]
-    },
     extras_require={"test": read_requirements("requirements-test.txt")},
 )
