@@ -8,11 +8,48 @@ A contract is described by a list of events. An event has five properties:
 - quantity
 - unit
 
+Here is an example of an equity call option contract on SPX, with strike 2800 and one year expiration.
+It is described using three events.
+
+```python
+ track  time op  quantity unit
+   .     1.0  >       0.0  USD
+   .     1.0  +   -2800.0  USD
+   .     1.0  +       1.0  SPX
+```
+
+
+### Track
+
+A String representing the contract, a leg of the contract, or a state of the contract.
+
+### Time
+
+The time of an event in years (float).
+
+### Op
+
+A string which can be `+`, `>`, `<`, or a condition. See more in the [Operations](operations.md) section.
+
+### Quantity
+
+The quantity being paid (float).
+
+### Unit
+
+A string that represents what is being paid. It can be a currency like `USD`, `EUR`, or
+a stock like `SPX`, `AAPL`, etc. See the [Units](units.md) section for all possible variants.
+
+
+## Utility
 A simple contract can be created using this method
+
 
 ::: qablet_contracts.timetable
 
-### Example
+## Example
+
+Define a contract that pays 100 USD after 1 year.
 
 ```python
 from api import timetable_from_dicts
@@ -35,32 +72,3 @@ Output:
   track  time op  quantity unit
 0         1.0  +     100.0  USD
 ```
-
-## Track
-
-A String representing the contract, a leg of the contract, or a state of the contract.
-
-## Time
-
-The time of an event in years (f64).
-
-## Op
-
-A string which can be `+`, `>`, `<`, or a condition. See more in the Operations section.
-
-## Quantity
-
-The quantity being paid (f64).
-
-## Unit
-
-A string represents what is being paid. It can be a 
-
-  - a currency like `USD`, `EUR`
-  - a stock, or a commodity, like `AAPL`, `CL` 
-  - a Track
-  - an Expression, e.g. a libor fixing, a barrier, or a digital.
-  - a Batch event
-  - a Snapper, or a Snap
-
-See more in the Units section.

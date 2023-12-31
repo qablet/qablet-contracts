@@ -9,6 +9,7 @@ mypy
 gitchangelog
 mkdocs
 mkdocstrings
+mkdocstrings-python
 pyarrow
 pandas
 numpy
