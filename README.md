@@ -2,44 +2,19 @@
 
 This is a work in progress.
 
-[![codecov](https://codecov.io/gh/qablet/qablet-contracts/branch/main/graph/badge.svg?token=qablet-contracts_token_here)](https://codecov.io/gh/qablet/qablet-contracts)
 [![CI](https://github.com/qablet/qablet-contracts/actions/workflows/main.yml/badge.svg)](https://github.com/qablet/qablet-contracts/actions/workflows/main.yml)
 
-Awesome qablet_contracts created by qablet
+
+**Qablet Contracts documentation is at [qablet.github.io/qablet-contracts](https://qablet.github.io/qablet-contracts/).**
+
+A Qablet timetable defines a financial product using a sequence of payments, choices and conditions. A valuation model implemented with a Qablet parser can value any contract, as long as the contract can be described using a Qablet Timetable. 
+
+qablet_contracts contains code to create qablet timetables.
+It does not contain models that price qablet timetables. Such models will be available in other independent projects.  
+
 
 ## Install it from PyPI
 
 ```bash
 pip install qablet_contracts
 ```
-
-## What is qablet
-TBD
-
-## How to use qablet-contracts
-TBD
-
-## What is in this repo?
-TBD
-
-## Provide feedback
-
-## Usage
-
-```py
-from qablet_contracts import BaseClass
-from qablet_contracts import base_function
-
-BaseClass().base_method()
-base_function()
-```
-
-```bash
-$ python -m qablet_contracts
-#or
-$ qablet_contracts
-```
-
-## Development
-
-TBD.
