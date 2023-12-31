@@ -41,7 +41,7 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../..">Welcome to Qablet Contracts</a>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Specifications</span></p>
@@ -50,6 +50,16 @@
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Operations</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#payment">Payment</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#choice-of-contract-holder">Choice of contract holder</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#choice-of-contracts-counterparty">Choice of contract's counterparty</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#contingent-event">Contingent Event</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#snapper">Snapper</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../units/">Unit</a>
@@ -89,7 +99,54 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="operations">Operations</h1>
-<p>TBD</p>
+<p>The <strong>op</strong> column contains a string which can be <code>+</code>, <code>&gt;</code>, <code>&lt;</code>, or a condition</p>
+<h3 id="payment">Payment</h3>
+<p><code>+</code> in the ops column indicates that the contract holder will receive
+the payment specified by the <strong>quantity</strong> and the <strong>unit</strong>,
+and then continue to receive whatever else is further down in the timetable
+in the same track.</p>
+<p>Example: A bond paying 5 USD semi-annually and maturing in two years. </p>
+<pre><code class="language-python">  track  time op  quantity unit
+         0.5  +         5  USD
+         1.0  +         5  USD
+         1.5  +         5  USD
+         2.0  +       105  USD
+</code></pre>
+<h3 id="choice-of-contract-holder">Choice of contract holder</h3>
+<p><code>&gt;</code> in the ops column indicates that the <strong>contract holder can choose</strong> from the following two options</p>
+<ul>
+<li>receive the payment specified by the <strong>quantity</strong> and the <strong>unit</strong>, and then terminate the contract.</li>
+<li>or, instead of that payment, receive whatever else is further down in the timetable in the same track.</li>
+</ul>
+<p>Example: An European Call Option with strike 2800, expiring in 1 year.</p>
+<pre><code class="language-python">  track  time op  quantity unit
+         1.0  &gt;       0.0  USD
+         1.0  +   -2800.0  USD
+         1.0  +       1.0  SPX
+</code></pre>
+<h3 id="choice-of-contracts-counterparty">Choice of contract's counterparty</h3>
+<p><code>&lt;</code> in the ops column indicates that the <strong>counterparty can choose</strong> from the following two options</p>
+<ul>
+<li>pay the holder the payment specified by the <strong>quantity</strong> and the <strong>unit</strong>, and then terminate the contract.</li>
+<li>or, instead of that payment, pay the holder whatever else is further down in the timetable in the same track.</li>
+</ul>
+<p>Example: A callable bond, paying 5 USD semi-annually, maturing in two years, and callable at the end of the first year.</p>
+<pre><code class="language-python">  track  time op  quantity unit
+         0.5  +         5  USD
+         1.0  +         5  USD
+         1.0  &lt;       100  USD
+         1.5  +         5  USD
+         2.0  +       105  USD
+</code></pre>
+<h3 id="contingent-event">Contingent Event</h3>
+<p>Anything else in the <code>op</code> column is the string name of an expression.</p>
+<ul>
+<li>If the expression evaluates to true, the holder will receive the payment specified by the <strong>quantity</strong> and the <strong>unit</strong>, and then terminate the contract.</li>
+<li>If the expression evaluates to false, then instead of that payment, holder will receive whatever else is further down in the timetable in the same track.</li>
+</ul>
+<p>Example: knock-in or knock-out events in a barrier option.</p>
+<h3 id="snapper">Snapper</h3>
+<p>If the <strong>unit</strong> column contains a Snapper, i.e. a path dependent calculation to be performed at that time, then the <strong>op</strong> column is ignored.</p>
               
             </div>
           </div><footer>

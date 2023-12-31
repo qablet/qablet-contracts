@@ -41,7 +41,7 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../..">Welcome to Qablet Contracts</a>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
                 </li>
               </ul>
               <p class="caption"><span class="caption-text">Specifications</span></p>
@@ -89,14 +89,18 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="unit">Unit</h1>
-<p>A string represents what is being paid. It can be a </p>
+<p>A string representing what is being paid. It can be a </p>
 <ul>
 <li>a currency like <code>USD</code>, <code>EUR</code></li>
 <li>a stock, or a commodity, like <code>AAPL</code>, <code>CL</code> </li>
-<li>a Track</li>
+<li>a Track, e.g. the fixed leg of a swap</li>
 <li>an Expression, e.g. a libor fixing, a barrier, or a digital.</li>
-<li>a Batch event</li>
-<li>a Snapper, or a Snap</li>
+<li>a Batch event, e.g. issuers option to deliver one of many bonds</li>
+<li>a Snap, i.e. a path dependent quantity, e.g. an accumulator cliquet.</li>
+</ul>
+<p>It can also represent an action, such as</p>
+<ul>
+<li>a Snapper, e.g update an accumulator from the current return.</li>
 </ul>
               
             </div>
