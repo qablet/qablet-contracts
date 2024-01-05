@@ -19,3 +19,5 @@ nav:
   - 'Examples':
     - 'examples/introduction.md'
     - 'examples/bond.md'
+    - 'examples/equity.md'
+    - 'examples/rate.md'

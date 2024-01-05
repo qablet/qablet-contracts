@@ -5,18 +5,17 @@ Create timetables for Zero Coupon Bond and related contracts.
 from qablet_contracts.timetable import timetable_from_dicts
 
 
-def zcb_timetable(ccy: str, maturity: float) -> dict:
+def zcb_timetable(ccy: str, maturity: float, track: str = "") -> dict:
     """Create timetable for a zero coupon bond.
 
     Args:
         ccy: the currency of the bond.
         maturity: the maturity of the bond in years.
-
+        track: an optional identifier for the contract.
     """
-
     events = [
         {
-            "track": "",
+            "track": track,
             "time": maturity,
             "op": "+",
             "quantity": 1,
@@ -27,7 +26,7 @@ def zcb_timetable(ccy: str, maturity: float) -> dict:
 
 
 def zbp_timetable(
-    ccy: str, opt_maturity: float, bond_maturity: float, strike: float
+    ccy: str, opt_maturity: float, bond_maturity: float, strike: float, track: str = ""
 ) -> dict:
     """Create timetable for a zero coupon bond put.
 
@@ -36,25 +35,26 @@ def zbp_timetable(
         opt_maturity: the maturity of the option in years.
         bond_maturity: the maturity of the option in years.
         strike: the option strike.
+        track: an optional identifier for the contract.
     """
 
     events = [
         {
-            "track": "",
+            "track": track,
             "time": opt_maturity,
             "op": ">",
             "quantity": 0,
             "unit": ccy,
-        },  # Choose greater of nothing or continue to remaining events
+        },  # Choose greater of nothing (get 0) or exercise (continue to remaining events)
         {
-            "track": "",
+            "track": track,
             "time": opt_maturity,
             "op": "+",
             "quantity": strike,
             "unit": ccy,
         },  # get strike at expiration
         {
-            "track": "",
+            "track": track,
             "time": bond_maturity,
             "op": "+",
             "quantity": -1,
