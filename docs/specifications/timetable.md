@@ -13,19 +13,19 @@ It is described using three events.
 
 ```python
  track  time op  quantity unit
-   .     1.0  >       0.0  USD
-   .     1.0  +   -2800.0  USD
-   .     1.0  +       1.0  SPX
+         1.0  >       0.0  USD
+         1.0  +   -2800.0  USD
+         1.0  +       1.0  SPX
 ```
 
 
 ### Track
 
-A String representing the contract, a leg of the contract, or a state of the contract.
+A string identifier for the contract, a leg of the contract, or a state of the contract.
 
 ### Time
 
-The time of an event in years (float).
+The time of an event in years (float) from the valuation date.
 
 ### Op
 
@@ -41,8 +41,13 @@ A string that represents what is being paid. It can be a currency like `USD`, `E
 a stock like `SPX`, `AAPL`, etc. See the [Units](units.md) section for all possible variants.
 
 
-## Utility
-A simple contract can be created using this method
+## How to create a timetable
+The timetable is a dictionary with two components.
+
+- events, the sequence of events stored as a pyarrow recordbatch
+- expresions, a dictionary defining any snappers, batches, or expressions used in the timetable
+
+A simple timetable can be created using this method, from a list of dicts.
 
 
 ::: qablet_contracts.timetable

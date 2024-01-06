@@ -1,4 +1,6 @@
-# Utils for creating vanilla options timetable
+"""
+Utils for creating vanilla options timetable
+"""
 
 from qablet_contracts.timetable import timetable_from_dicts
 

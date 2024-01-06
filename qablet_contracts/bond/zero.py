@@ -1,5 +1,5 @@
 """
-Create timetables for Zero Coupon Bond and related contracts.
+This module contains examples of creating timetables for Zero Coupon Bond and related contracts.
 """
 
 from qablet_contracts.timetable import timetable_from_dicts

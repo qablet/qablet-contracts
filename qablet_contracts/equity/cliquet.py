@@ -1,4 +1,6 @@
-# Utils for cliquet options
+"""
+Utils for cliquet options
+"""
 
 import numpy as np
 import pyarrow as pa

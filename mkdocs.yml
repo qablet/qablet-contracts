@@ -15,9 +15,10 @@ nav:
     - 'specifications/timetable.md'
     - 'specifications/operations.md'
     - 'specifications/units.md'
+    - 'specifications/snapper.md'
+    - 'specifications/batch.md'
     - 'specifications/expressions.md'
   - 'Examples':
-    - 'examples/introduction.md'
     - 'examples/bond.md'
     - 'examples/equity.md'
     - 'examples/rate.md'
