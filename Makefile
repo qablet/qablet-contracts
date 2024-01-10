@@ -111,7 +111,3 @@ switch-to-poetry: ## Switch to poetry package manager.
 	@echo "You have switched to https://python-poetry.org/ package manager."
 	@echo "Please run 'poetry shell' or 'poetry run qablet_contracts'"
 
-.PHONY: init
-init:             ## Initialize the project based on an application template.
-	@./.github/init.sh
-

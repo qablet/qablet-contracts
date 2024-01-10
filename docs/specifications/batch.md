@@ -1,3 +1,3 @@
 # Batch
 
-Details coming soon.
+To be documented in a future revision.

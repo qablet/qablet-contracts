@@ -95,7 +95,7 @@ def swaption_timetable(
 
 if __name__ == "__main__":
     # Create the bermuda swaption
-    times = np.linspace(1, 6, 6)  # Start at 1 year, mature at 6 years.
+    times = np.linspace(1, 6, 6).tolist()  # Start at 1 year, mature at 6 years.
     strike_rate = 0.03
     timetable = bermuda_swaption_timetable("USD", times, strike_rate)
 

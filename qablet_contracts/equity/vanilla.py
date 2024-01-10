@@ -52,5 +52,5 @@ def option_timetable(
 
 if __name__ == "__main__":
     # Create the option
-    timetable = option_timetable("USD", "SPX", 2900, 0.5)
+    timetable = option_timetable("USD", "SPX", 2900, 0.5, True)
     print(timetable["events"].to_pandas())

@@ -1,5 +1,5 @@
 """
-Utils for cliquet options
+Utils for creating cliquet contracts.
 """
 
 import numpy as np
@@ -105,7 +105,7 @@ def clique_timetable(
 if __name__ == "__main__":
     # Create the cliquet
     global_floor = 0.0
-    fixings = np.linspace(0, 3, 7)  # T = 3 years, N = 6 fixings
+    fixings = np.linspace(0, 3, 7).tolist()  # T = 3 years, N = 6 fixings
     local_floor = -0.03
     local_cap = 0.05
     timetable = clique_timetable(
