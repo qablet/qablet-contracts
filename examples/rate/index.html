@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Bonds - qablet_contracts</title>
+    <title>Rates - qablet_contracts</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Bonds";
-        var mkdocs_page_input_path = "examples\\bond.md";
+        var mkdocs_page_name = "Rates";
+        var mkdocs_page_input_path = "examples\\rate.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -61,19 +61,21 @@
               </ul>
               <p class="caption"><span class="caption-text">Examples</span></p>
               <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Bonds</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.bond.zero">zero</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.bond.zero.zbp_timetable">zbp_timetable()</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.bond.zero.zcb_timetable">zcb_timetable()</a>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../bond/">Bonds</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../equity/">Equities</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../rate/">Rates</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Rates</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.rate.swaption">swaption</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.rate.swaption.bermuda_swaption_timetable">bermuda_swaption_timetable()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.rate.swaption.simple_swap_period">simple_swap_period()</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.rate.swaption.swaption_timetable">swaption_timetable()</a>
+    </li>
+    </ul>
                   </li>
               </ul>
       </div>
@@ -91,7 +93,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">Examples</li>
-      <li class="breadcrumb-item active">Bonds</li>
+      <li class="breadcrumb-item active">Rates</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -100,17 +102,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="bonds">Bonds</h1>
+                <h1 id="rates">Rates</h1>
+<p>This module contains examples of creating timetables for rate contracts such as swaps and swaptions.</p>
 
 
 <div class="doc doc-object doc-module">
 
 
 
-<a id="qablet_contracts.bond.zero"></a>
+<a id="qablet_contracts.rate.swaption"></a>
   <div class="doc doc-contents first">
-  
-      <p>This module contains examples of creating timetables for Zero Coupon Bond and related contracts.</p>
 
   
 
@@ -130,15 +131,15 @@
 
 
 
-<h2 id="qablet_contracts.bond.zero.zbp_timetable" class="doc doc-heading">
-          <code class="highlight language-python">zbp_timetable(ccy, opt_maturity, bond_maturity, strike, track='')</code>
+<h2 id="qablet_contracts.rate.swaption.bermuda_swaption_timetable" class="doc doc-heading">
+          <code class="highlight language-python">bermuda_swaption_timetable(ccy, times, strike_rate, track='')</code>
 
 </h2>
 
 
   <div class="doc doc-contents ">
   
-      <p>Create timetable for a zero coupon bond put.</p>
+      <p>Create timetable for a co-terminal bermuda swaption.</p>
 
 
 
@@ -157,31 +158,23 @@
                   (<code>str</code>)
               –
               <div class="doc-md-description">
-                <p>the currency of the bond.</p>
+                <p>the currency of the swap.</p>
               </div>
             </li>
             <li>
-              <b><code>opt_maturity</code></b>
-                  (<code>float</code>)
+              <b><code>times</code></b>
+                  (<code>list[float]</code>)
               –
               <div class="doc-md-description">
-                <p>the maturity of the option in years.</p>
+                <p>the period times of the underlying swap, including the inception and maturity.</p>
               </div>
             </li>
             <li>
-              <b><code>bond_maturity</code></b>
+              <b><code>strike_rate</code></b>
                   (<code>float</code>)
               –
               <div class="doc-md-description">
-                <p>the maturity of the option in years.</p>
-              </div>
-            </li>
-            <li>
-              <b><code>strike</code></b>
-                  (<code>float</code>)
-              –
-              <div class="doc-md-description">
-                <p>the option strike.</p>
+                <p>the strike rate of the swaption (in units, i.e. 0.02 means 200 bps).</p>
               </div>
             </li>
             <li>
@@ -200,47 +193,36 @@
   </tbody>
 </table>
           <details class="quote">
-            <summary>Source code in <code>qablet_contracts\bond\zero.py</code></summary>
-            <pre class="highlight"><code class="language-python">def zbp_timetable(
-    ccy: str,
-    opt_maturity: float,
-    bond_maturity: float,
-    strike: float,
-    track: str = "",
+            <summary>Source code in <code>qablet_contracts\rate\swaption.py</code></summary>
+            <pre class="highlight"><code class="language-python">def bermuda_swaption_timetable(
+    ccy: str, times: list[float], strike_rate: float, track: str = ""
 ) -&gt; dict:
-    """Create timetable for a zero coupon bond put.
+    """Create timetable for a co-terminal bermuda swaption.
 
     Args:
-        ccy: the currency of the bond.
-        opt_maturity: the maturity of the option in years.
-        bond_maturity: the maturity of the option in years.
-        strike: the option strike.
+        ccy: the currency of the swap.
+        times: the period times of the underlying swap, including the inception and maturity.
+        strike_rate: the strike rate of the swaption (in units, i.e. 0.02 means 200 bps).
         track: an optional identifier for the contract.
     """
 
-    events = [
-        {
-            "track": track,
-            "time": opt_maturity,
-            "op": "&gt;",
-            "quantity": 0,
-            "unit": ccy,
-        },  # Choose greater of nothing (get 0) or exercise (continue to remaining events)
-        {
-            "track": track,
-            "time": opt_maturity,
-            "op": "+",
-            "quantity": strike,
-            "unit": ccy,
-        },  # get strike at expiration
-        {
-            "track": track,
-            "time": bond_maturity,
-            "op": "+",
-            "quantity": -1,
-            "unit": ccy,
-        },  # pay bond notional at bond expiration
-    ]
+    events = []
+    for start, end in zip(times[0:-1], times[1:]):
+        # option expiration event before each period
+        events.append(
+            {
+                "track": track + ".opt",
+                "time": start,
+                "op": "&gt;",
+                "quantity": 1,
+                "unit": track + ".swp",
+            }
+        )
+        # payment event for the underlying swap
+        events.extend(
+            simple_swap_period(ccy, start, end, strike_rate, track + ".swp")
+        )
+
     return timetable_from_dicts(events)</code></pre>
           </details>
   </div>
@@ -253,15 +235,15 @@
 
 
 
-<h2 id="qablet_contracts.bond.zero.zcb_timetable" class="doc doc-heading">
-          <code class="highlight language-python">zcb_timetable(ccy, maturity, track='')</code>
+<h2 id="qablet_contracts.rate.swaption.simple_swap_period" class="doc doc-heading">
+          <code class="highlight language-python">simple_swap_period(ccy, start, end, fixed_rate, track='')</code>
 
 </h2>
 
 
   <div class="doc doc-contents ">
   
-      <p>Create timetable for a zero coupon bond.</p>
+      <p>Simple representation of a swap period, paying fixed, receiving floating rate.</p>
 
 
 
@@ -280,15 +262,31 @@
                   (<code>str</code>)
               –
               <div class="doc-md-description">
-                <p>the currency of the bond.</p>
+                <p>the currency of the swap.</p>
               </div>
             </li>
             <li>
-              <b><code>maturity</code></b>
+              <b><code>start</code></b>
                   (<code>float</code>)
               –
               <div class="doc-md-description">
-                <p>the maturity of the bond in years.</p>
+                <p>the start of the period in years.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>end</code></b>
+                  (<code>float</code>)
+              –
+              <div class="doc-md-description">
+                <p>the end of the period in years.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>fixed_rate</code></b>
+                  (<code>float</code>)
+              –
+              <div class="doc-md-description">
+                <p>the fixed annual rate of the swap.</p>
               </div>
             </li>
             <li>
@@ -307,24 +305,137 @@
   </tbody>
 </table>
           <details class="quote">
-            <summary>Source code in <code>qablet_contracts\bond\zero.py</code></summary>
-            <pre class="highlight"><code class="language-python">def zcb_timetable(ccy: str, maturity: float, track: str = "") -&gt; dict:
-    """Create timetable for a zero coupon bond.
+            <summary>Source code in <code>qablet_contracts\rate\swaption.py</code></summary>
+            <pre class="highlight"><code class="language-python">def simple_swap_period(
+    ccy: str, start: float, end: float, fixed_rate: float, track: str = ""
+) -&gt; list:
+    """Simple representation of a swap period, paying fixed, receiving floating rate.
 
     Args:
-        ccy: the currency of the bond.
-        maturity: the maturity of the bond in years.
+        ccy: the currency of the swap.
+        start: the start of the period in years.
+        end: the end of the period in years.
+        fixed_rate: the fixed annual rate of the swap.
         track: an optional identifier for the contract.
     """
-    events = [
+    return [
         {
             "track": track,
-            "time": maturity,
+            "time": start,
             "op": "+",
             "quantity": 1,
             "unit": ccy,
-        }  # get bond notional at bond expiration
+        },
+        {
+            "track": track,
+            "time": end,
+            "op": "+",
+            "quantity": -1 - fixed_rate * (end - start),
+            "unit": ccy,
+        },
+    ]</code></pre>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h2 id="qablet_contracts.rate.swaption.swaption_timetable" class="doc doc-heading">
+          <code class="highlight language-python">swaption_timetable(ccy, times, strike_rate, track='')</code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Create timetable for a vanilla swaption.</p>
+
+
+
+<table class="field-list">
+  <colgroup>
+    <col class="field-name" />
+    <col class="field-body" />
+  </colgroup>
+  <tbody valign="top">
+    <tr class="field">
+      <th class="field-name">Parameters:</th>
+      <td class="field-body">
+        <ul class="first simple">
+            <li>
+              <b><code>ccy</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>the currency of the swap.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>times</code></b>
+                  (<code>list[float]</code>)
+              –
+              <div class="doc-md-description">
+                <p>the period times of the underlying swap, including the inception and maturity.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>strike_rate</code></b>
+                  (<code>float</code>)
+              –
+              <div class="doc-md-description">
+                <p>the strike rate of the swaption (in units, i.e. 0.02 means 200 bps).</p>
+              </div>
+            </li>
+            <li>
+              <b><code>track</code></b>
+                  (<code>str</code>, default:
+                      <code>&#39;&#39;</code>
+)
+              –
+              <div class="doc-md-description">
+                <p>an optional identifier for the contract.</p>
+              </div>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+          <details class="quote">
+            <summary>Source code in <code>qablet_contracts\rate\swaption.py</code></summary>
+            <pre class="highlight"><code class="language-python">def swaption_timetable(
+    ccy: str, times: list[float], strike_rate: float, track: str = ""
+) -&gt; dict:
+    """Create timetable for a vanilla swaption.
+
+    Args:
+        ccy: the currency of the swap.
+        times: the period times of the underlying swap, including the inception and maturity.
+        strike_rate: the strike rate of the swaption (in units, i.e. 0.02 means 200 bps).
+        track: an optional identifier for the contract.
+    """
+
+    # option expiration event at beginning of the swap
+    events = [
+        {
+            "track": track + ".opt",
+            "time": times[0],
+            "op": "&gt;",
+            "quantity": 1,
+            "unit": track + ".swp",
+        }
     ]
+    # payment events for the underlying swap
+    for start, end in zip(times[0:-1], times[1:]):
+        events.extend(
+            simple_swap_period(ccy, start, end, strike_rate, track + ".swp")
+        )
+
     return timetable_from_dicts(events)</code></pre>
           </details>
   </div>
@@ -342,8 +453,7 @@
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../../specifications/expressions/" class="btn btn-neutral float-left" title="Expressions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../equity/" class="btn btn-neutral float-right" title="Equities">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../equity/" class="btn btn-neutral float-left" title="Equities"><span class="icon icon-circle-arrow-left"></span> Previous</a>
     </div>
 
   <hr/>
@@ -366,10 +476,8 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../../specifications/expressions/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../equity/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
-    
-      <span><a href="../equity/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

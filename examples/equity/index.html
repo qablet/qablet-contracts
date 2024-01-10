@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Bonds - qablet_contracts</title>
+    <title>Equities - qablet_contracts</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Bonds";
-        var mkdocs_page_input_path = "examples\\bond.md";
+        var mkdocs_page_name = "Equities";
+        var mkdocs_page_input_path = "examples\\equity.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -61,17 +61,19 @@
               </ul>
               <p class="caption"><span class="caption-text">Examples</span></p>
               <ul class="current">
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Bonds</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../bond/">Bonds</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Equities</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.bond.zero">zero</a>
+    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.equity.vanilla">vanilla</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.bond.zero.zbp_timetable">zbp_timetable()</a>
+    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.equity.vanilla.option_timetable">option_timetable()</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.bond.zero.zcb_timetable">zcb_timetable()</a>
+    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.equity.cliquet">cliquet</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.equity.cliquet.clique_timetable">clique_timetable()</a>
     </li>
     </ul>
-                  </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../equity/">Equities</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../rate/">Rates</a>
                   </li>
@@ -91,7 +93,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">Examples</li>
-      <li class="breadcrumb-item active">Bonds</li>
+      <li class="breadcrumb-item active">Equities</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -100,17 +102,18 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="bonds">Bonds</h1>
+                <h1 id="equities">Equities</h1>
+<p>This module contains examples of creating timetables for equity vanilla and exotic contracts.</p>
 
 
 <div class="doc doc-object doc-module">
 
 
 
-<a id="qablet_contracts.bond.zero"></a>
+<a id="qablet_contracts.equity.vanilla"></a>
   <div class="doc doc-contents first">
   
-      <p>This module contains examples of creating timetables for Zero Coupon Bond and related contracts.</p>
+      <p>Utils for creating vanilla options timetable</p>
 
   
 
@@ -130,15 +133,15 @@
 
 
 
-<h2 id="qablet_contracts.bond.zero.zbp_timetable" class="doc doc-heading">
-          <code class="highlight language-python">zbp_timetable(ccy, opt_maturity, bond_maturity, strike, track='')</code>
+<h2 id="qablet_contracts.equity.vanilla.option_timetable" class="doc doc-heading">
+          <code class="highlight language-python">option_timetable(ccy, asset_name, strike, maturity, is_call, track='')</code>
 
 </h2>
 
 
   <div class="doc doc-contents ">
   
-      <p>Create timetable for a zero coupon bond put.</p>
+      <p>Create timetable for an equity vanilla call option.</p>
 
 
 
@@ -157,23 +160,15 @@
                   (<code>str</code>)
               –
               <div class="doc-md-description">
-                <p>the currency of the bond.</p>
+                <p>the currency of the option.</p>
               </div>
             </li>
             <li>
-              <b><code>opt_maturity</code></b>
-                  (<code>float</code>)
+              <b><code>asset_name</code></b>
+                  (<code>str</code>)
               –
               <div class="doc-md-description">
-                <p>the maturity of the option in years.</p>
-              </div>
-            </li>
-            <li>
-              <b><code>bond_maturity</code></b>
-                  (<code>float</code>)
-              –
-              <div class="doc-md-description">
-                <p>the maturity of the option in years.</p>
+                <p>the name of the underlying asset.</p>
               </div>
             </li>
             <li>
@@ -185,6 +180,22 @@
               </div>
             </li>
             <li>
+              <b><code>maturity</code></b>
+                  (<code>float</code>)
+              –
+              <div class="doc-md-description">
+                <p>the maturity of the option in years.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>is_call</code></b>
+                  (<code>bool</code>)
+              –
+              <div class="doc-md-description">
+                <p>true if the option is a call.</p>
+              </div>
+            </li>
+            <li>
               <b><code>track</code></b>
                   (<code>str</code>, default:
                       <code>&#39;&#39;</code>
@@ -200,46 +211,48 @@
   </tbody>
 </table>
           <details class="quote">
-            <summary>Source code in <code>qablet_contracts\bond\zero.py</code></summary>
-            <pre class="highlight"><code class="language-python">def zbp_timetable(
+            <summary>Source code in <code>qablet_contracts\equity\vanilla.py</code></summary>
+            <pre class="highlight"><code class="language-python">def option_timetable(
     ccy: str,
-    opt_maturity: float,
-    bond_maturity: float,
+    asset_name: str,
     strike: float,
+    maturity: float,
+    is_call: bool,
     track: str = "",
 ) -&gt; dict:
-    """Create timetable for a zero coupon bond put.
+    """Create timetable for an equity vanilla call option.
 
     Args:
-        ccy: the currency of the bond.
-        opt_maturity: the maturity of the option in years.
-        bond_maturity: the maturity of the option in years.
+        ccy: the currency of the option.
+        asset_name: the name of the underlying asset.
         strike: the option strike.
+        maturity: the maturity of the option in years.
+        is_call: true if the option is a call.
         track: an optional identifier for the contract.
     """
 
     events = [
         {
             "track": track,
-            "time": opt_maturity,
+            "time": maturity,
             "op": "&gt;",
             "quantity": 0,
             "unit": ccy,
-        },  # Choose greater of nothing (get 0) or exercise (continue to remaining events)
+        },
         {
             "track": track,
-            "time": opt_maturity,
+            "time": maturity,
             "op": "+",
-            "quantity": strike,
+            "quantity": -strike,
             "unit": ccy,
-        },  # get strike at expiration
+        },
         {
             "track": track,
-            "time": bond_maturity,
+            "time": maturity,
             "op": "+",
-            "quantity": -1,
-            "unit": ccy,
-        },  # pay bond notional at bond expiration
+            "quantity": 1,
+            "unit": asset_name,
+        },
     ]
     return timetable_from_dicts(events)</code></pre>
           </details>
@@ -248,20 +261,49 @@
 </div>
 
 
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<a id="qablet_contracts.equity.cliquet"></a>
+  <div class="doc doc-contents first">
+  
+      <p>Utils for creating cliquet contracts.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
 <div class="doc doc-object doc-function">
 
 
 
 
-<h2 id="qablet_contracts.bond.zero.zcb_timetable" class="doc doc-heading">
-          <code class="highlight language-python">zcb_timetable(ccy, maturity, track='')</code>
+<h2 id="qablet_contracts.equity.cliquet.clique_timetable" class="doc doc-heading">
+          <code class="highlight language-python">clique_timetable(ccy, asset_name, fixings, global_floor, local_floor, local_cap, track='')</code>
 
 </h2>
 
 
   <div class="doc doc-contents ">
   
-      <p>Create timetable for a zero coupon bond.</p>
+      <p>Create timetable for an accumulator cliquet.</p>
 
 
 
@@ -284,11 +326,43 @@
               </div>
             </li>
             <li>
-              <b><code>maturity</code></b>
+              <b><code>asset_name</code></b>
+                  (<code>str</code>)
+              –
+              <div class="doc-md-description">
+                <p>the name of the underlying asset.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>fixings</code></b>
+                  (<code>list[float]</code>)
+              –
+              <div class="doc-md-description">
+                <p>the fixing times of the cliquet.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>global_floor</code></b>
                   (<code>float</code>)
               –
               <div class="doc-md-description">
-                <p>the maturity of the bond in years.</p>
+                <p>the global floor of the cliquet.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>local_floor</code></b>
+                  (<code>float</code>)
+              –
+              <div class="doc-md-description">
+                <p>the local floor of the cliquet.</p>
+              </div>
+            </li>
+            <li>
+              <b><code>local_cap</code></b>
+                  (<code>float</code>)
+              –
+              <div class="doc-md-description">
+                <p>the local cap of the cliquet.</p>
               </div>
             </li>
             <li>
@@ -307,25 +381,100 @@
   </tbody>
 </table>
           <details class="quote">
-            <summary>Source code in <code>qablet_contracts\bond\zero.py</code></summary>
-            <pre class="highlight"><code class="language-python">def zcb_timetable(ccy: str, maturity: float, track: str = "") -&gt; dict:
-    """Create timetable for a zero coupon bond.
+            <summary>Source code in <code>qablet_contracts\equity\cliquet.py</code></summary>
+            <pre class="highlight"><code class="language-python">def clique_timetable(
+    ccy: str,
+    asset_name: str,
+    fixings: list[float],
+    global_floor: float,
+    local_floor: float,
+    local_cap: float,
+    track: str = "",
+) -&gt; dict:
+    """Create timetable for an accumulator cliquet.
 
     Args:
         ccy: the currency of the bond.
-        maturity: the maturity of the bond in years.
+        asset_name: the name of the underlying asset.
+        fixings: the fixing times of the cliquet.
+        global_floor: the global floor of the cliquet.
+        local_floor: the local floor of the cliquet.
+        local_cap: the local cap of the cliquet.
         track: an optional identifier for the contract.
     """
+
+    maturity = fixings[-1]
+
+    # define timetable
     events = [
+        {
+            "track": None,
+            "time": fixings[0],
+            "op": "s",
+            "quantity": 0,
+            "unit": "_INIT",  # initialize accumulator
+        }
+    ]
+    for fixing_time in fixings[1:]:
+        events.append(
+            {
+                "track": None,
+                "time": fixing_time,
+                "op": "s",
+                "quantity": 0,
+                "unit": "_UPDATE",  # update accumulator
+            }
+        )
+    events.append(
         {
             "track": track,
             "time": maturity,
-            "op": "+",
-            "quantity": 1,
+            "op": "&gt;",  # global floor
+            "quantity": global_floor,
             "unit": ccy,
-        }  # get bond notional at bond expiration
-    ]
-    return timetable_from_dicts(events)</code></pre>
+        }
+    )
+    events.append(
+        {
+            "track": track,
+            "time": maturity,
+            "op": "+",  # pay the accumulated amount
+            "quantity": 1,
+            "unit": "_A",
+        }
+    )
+
+    # define accumulator functions
+    def accumulator_init_fn(inputs):
+        [s] = inputs
+        return [0, s]  # [A, S_last]
+
+    def accumulator_update_fn(inputs):
+        [s, s_last, a] = inputs
+
+        ret = s / s_last - 1.0  # ret = S / S_last - 1
+        ret = np.maximum(local_floor, ret)
+        ret = np.minimum(local_cap, ret)
+
+        return [a + ret, s]  # [A, S_last]
+
+    return {
+        "events": pa.RecordBatch.from_pylist(events, schema=EVENT_SCHEMA),
+        "expressions": {
+            "_INIT": {
+                "type": "snapper",
+                "inp": [asset_name],
+                "snap_fn": accumulator_init_fn,
+                "out": ["_A", "_S_last"],
+            },
+            "_UPDATE": {
+                "type": "snapper",
+                "inp": [asset_name, "_S_last", "_A"],
+                "snap_fn": accumulator_update_fn,
+                "out": ["_A", "_S_last"],
+            },
+        },
+    }</code></pre>
           </details>
   </div>
 
@@ -342,8 +491,8 @@
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../../specifications/expressions/" class="btn btn-neutral float-left" title="Expressions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../equity/" class="btn btn-neutral float-right" title="Equities">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../bond/" class="btn btn-neutral float-left" title="Bonds"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../rate/" class="btn btn-neutral float-right" title="Rates">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -366,10 +515,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../../specifications/expressions/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../bond/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../equity/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../rate/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

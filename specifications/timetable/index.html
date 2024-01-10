@@ -58,7 +58,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#unit">Unit</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#utility">Utility</a>
+    <li class="toctree-l2"><a class="reference internal" href="#how-to-create-a-timetable">How to create a timetable</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.timetable">timetable</a>
     </li>
@@ -72,14 +72,20 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../units/">Unit</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../snapper/">Snapper</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../batch/">Batch</a>
+                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../expressions/">Expressions</a>
                   </li>
               </ul>
               <p class="caption"><span class="caption-text">Examples</span></p>
               <ul>
-                  <li class="toctree-l1"><a class="reference internal" href="../../examples/introduction/">Introduction</a>
-                  </li>
                   <li class="toctree-l1"><a class="reference internal" href="../../examples/bond/">Bonds</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../examples/equity/">Equities</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../examples/rate/">Rates</a>
                   </li>
               </ul>
       </div>
@@ -118,14 +124,14 @@
 <p>Here is an example of an equity call option contract on SPX, with strike 2800 and one year expiration.
 It is described using three events.</p>
 <pre><code class="language-python"> track  time op  quantity unit
-   .     1.0  &gt;       0.0  USD
-   .     1.0  +   -2800.0  USD
-   .     1.0  +       1.0  SPX
+         1.0  &gt;       0.0  USD
+         1.0  +   -2800.0  USD
+         1.0  +       1.0  SPX
 </code></pre>
 <h3 id="track">Track</h3>
-<p>A String representing the contract, a leg of the contract, or a state of the contract.</p>
+<p>A string identifier for the contract, a leg of the contract, or a state of the contract.</p>
 <h3 id="time">Time</h3>
-<p>The time of an event in years (float).</p>
+<p>The time of an event in years (float) from the valuation date.</p>
 <h3 id="op">Op</h3>
 <p>A string which can be <code>+</code>, <code>&gt;</code>, <code>&lt;</code>, or a condition. See more in the <a href="../operations/">Operations</a> section.</p>
 <h3 id="quantity">Quantity</h3>
@@ -133,8 +139,13 @@ It is described using three events.</p>
 <h3 id="unit">Unit</h3>
 <p>A string that represents what is being paid. It can be a currency like <code>USD</code>, <code>EUR</code>, or
 a stock like <code>SPX</code>, <code>AAPL</code>, etc. See the <a href="../units/">Units</a> section for all possible variants.</p>
-<h2 id="utility">Utility</h2>
-<p>A simple contract can be created using this method</p>
+<h2 id="how-to-create-a-timetable">How to create a timetable</h2>
+<p>The timetable is a dictionary with two components.</p>
+<ul>
+<li>events, the sequence of events stored as a pyarrow recordbatch</li>
+<li>expresions, a dictionary defining any snappers, batches, or expressions used in the timetable</li>
+</ul>
+<p>A simple timetable can be created using this method, from a list of dicts.</p>
 
 
 <div class="doc doc-object doc-module">

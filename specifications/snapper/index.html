@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Operations - qablet_contracts</title>
+    <title>Snapper - qablet_contracts</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Operations";
-        var mkdocs_page_input_path = "specifications\\operations.md";
+        var mkdocs_page_name = "Snapper";
+        var mkdocs_page_input_path = "specifications\\snapper.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -48,23 +48,13 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../timetable/">Timetable</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Operations</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#payment">Payment</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#choice-of-contract-holder">Choice of contract holder</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#choice-of-contracts-counterparty">Choice of contract's counterparty</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#contingent-event">Contingent Event</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#snapper">Snapper</a>
-    </li>
-    </ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../operations/">Operations</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../units/">Unit</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../snapper/">Snapper</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Snapper</a>
+    <ul class="current">
+    </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../batch/">Batch</a>
                   </li>
@@ -95,7 +85,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
           <li class="breadcrumb-item">Specifications</li>
-      <li class="breadcrumb-item active">Operations</li>
+      <li class="breadcrumb-item active">Snapper</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -104,61 +94,45 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="operations">Operations</h1>
-<p>The <strong>op</strong> column contains a string which can be <code>+</code>, <code>&gt;</code>, <code>&lt;</code>, or a condition</p>
-<h3 id="payment">Payment</h3>
-<p><code>+</code> in the ops column indicates that the contract holder will receive
-the payment specified by the <strong>quantity</strong> and the <strong>unit</strong>,
-and then continue to receive whatever else is further down in the timetable
-in the same track.</p>
-<p>Example: A bond paying 5 USD semi-annually and maturing in two years. </p>
-<pre><code class="language-python">  track  time op  quantity unit
-         0.5  +         5  USD
-         1.0  +         5  USD
-         1.5  +         5  USD
-         2.0  +       105  USD
+                <h1 id="snapper">Snapper</h1>
+<p>A Snapper represents a <strong>path dependent calculation</strong>, e.g. calculating returns in an equity cliquet. In the following timetable, the first event represents a <strong>snapper</strong> operation <code>UPDATE</code>. This operation stores its result in a <strong>snap</strong>. The second event represents a payment for the contract, which pays <code>A</code>, the value of the snap.</p>
+<pre><code class="language-python">  track  time       op  quantity  unit
+    NaN   0.5   UPDATE       0.0  None
+    0.0   3.0        +       1.0     A
 </code></pre>
-<h3 id="choice-of-contract-holder">Choice of contract holder</h3>
-<p><code>&gt;</code> in the ops column indicates that the <strong>contract holder can choose</strong> from the following two options</p>
+<p>A snapper is defined in the dataset, with four parameters. </p>
 <ul>
-<li>receive the payment specified by the <strong>quantity</strong> and the <strong>unit</strong>, and then terminate the contract.</li>
-<li>or, instead of that payment, receive whatever else is further down in the timetable in the same track.</li>
+<li><strong>type</strong>, which must be "snapper"</li>
+<li><strong>inp</strong>, a list of inputs to the snap_fn. These can be assets, such as "SPX", whose value comes from the model. These can also be snaps, such as "A" or "S_last", which has been stored as a result of previous snapper operation. </li>
+<li><strong>snap_fn</strong>, a python function that takes the inputs, and returns snap values. The length of expected inputs list must match the length of <strong>inp</strong>, while the length of the output list must match the length of <strong>out</strong>.</li>
+<li><strong>out</strong>, the list of name of snap variables where the result is stored.  </li>
 </ul>
-<p>Example: An European Call Option with strike 2800, expiring in 1 year.</p>
-<pre><code class="language-python">  track  time op  quantity unit
-         1.0  &gt;       0.0  USD
-         1.0  +   -2800.0  USD
-         1.0  +       1.0  SPX
+<p>e.g.</p>
+<pre><code class="language-python"># Define the function
+def accumulator_update_fn(inputs):
+    [s, s_last, a] = inputs
+
+    ret = s / s_last - 1.0  # ret = S / S_last - 1
+    ret = np.maximum(local_floor, ret)
+    ret = np.minimum(local_cap, ret)
+
+    return [a + ret, s]  # [A, S_last]
+
+# Define the snapper
+&quot;UPDATE&quot;: {
+    &quot;type&quot;: &quot;snapper&quot;,
+    &quot;inp&quot;: [&quot;SPX&quot;, &quot;S_last&quot;, &quot;A&quot;],
+    &quot;snap_fn&quot;: accumulator_update_fn,
+    &quot;out&quot;: [&quot;A&quot;, &quot;S_last&quot;],
+},
 </code></pre>
-<h3 id="choice-of-contracts-counterparty">Choice of contract's counterparty</h3>
-<p><code>&lt;</code> in the ops column indicates that the <strong>counterparty can choose</strong> from the following two options</p>
-<ul>
-<li>pay the holder the payment specified by the <strong>quantity</strong> and the <strong>unit</strong>, and then terminate the contract.</li>
-<li>or, instead of that payment, pay the holder whatever else is further down in the timetable in the same track.</li>
-</ul>
-<p>Example: A callable bond, paying 5 USD semi-annually, maturing in two years, and callable at the end of the first year.</p>
-<pre><code class="language-python">  track  time op  quantity unit
-         0.5  +         5  USD
-         1.0  +         5  USD
-         1.0  &lt;       100  USD
-         1.5  +         5  USD
-         2.0  +       105  USD
-</code></pre>
-<h3 id="contingent-event">Contingent Event</h3>
-<p>Anything else in the <code>op</code> column is the string name of an expression.</p>
-<ul>
-<li>If the expression evaluates to true, the holder will receive the payment specified by the <strong>quantity</strong> and the <strong>unit</strong>, and then terminate the contract.</li>
-<li>If the expression evaluates to false, then instead of that payment, holder will receive whatever else is further down in the timetable in the same track.</li>
-</ul>
-<p>Example: knock-in or knock-out events in a barrier option.</p>
-<h3 id="snapper">Snapper</h3>
-<p>If the <strong>unit</strong> column contains a Snapper, i.e. a path dependent calculation to be performed at that time, then the <strong>op</strong> column is ignored.</p>
+<p>Note: The values of the inputs will be a float, or a 1-D numpy array (e.g. the value of that variable in each Monte-Carlo path, or each point of a Finite Difference grid axis). All numpy arrays will be of the same size, or of length 1. The values of the output of the snap_fn must also be a scalar, of size 1, or same size as the inputs. A snapper written using arithmetic operations like <code>+</code>, <code>-</code>, <code>*</code>, and numpy functions would satisfy these requirements.</p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../timetable/" class="btn btn-neutral float-left" title="Timetable"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../units/" class="btn btn-neutral float-right" title="Unit">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../units/" class="btn btn-neutral float-left" title="Unit"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../batch/" class="btn btn-neutral float-right" title="Batch">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -181,10 +155,10 @@ in the same track.</p>
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../timetable/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../units/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../units/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../batch/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
