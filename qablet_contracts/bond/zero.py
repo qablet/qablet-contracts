@@ -26,7 +26,11 @@ def zcb_timetable(ccy: str, maturity: float, track: str = "") -> dict:
 
 
 def zbp_timetable(
-    ccy: str, opt_maturity: float, bond_maturity: float, strike: float, track: str = ""
+    ccy: str,
+    opt_maturity: float,
+    bond_maturity: float,
+    strike: float,
+    track: str = "",
 ) -> dict:
     """Create timetable for a zero coupon bond put.
 

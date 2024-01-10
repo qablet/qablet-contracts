@@ -59,7 +59,9 @@ def bermuda_swaption_timetable(
             }
         )
         # payment event for the underlying swap
-        events.extend(simple_swap_period(ccy, start, end, strike_rate, track + ".swp"))
+        events.extend(
+            simple_swap_period(ccy, start, end, strike_rate, track + ".swp")
+        )
 
     return timetable_from_dicts(events)
 
@@ -88,14 +90,18 @@ def swaption_timetable(
     ]
     # payment events for the underlying swap
     for start, end in zip(times[0:-1], times[1:]):
-        events.extend(simple_swap_period(ccy, start, end, strike_rate, track + ".swp"))
+        events.extend(
+            simple_swap_period(ccy, start, end, strike_rate, track + ".swp")
+        )
 
     return timetable_from_dicts(events)
 
 
 if __name__ == "__main__":
     # Create the bermuda swaption
-    times = np.linspace(1, 6, 6).tolist()  # Start at 1 year, mature at 6 years.
+    times = np.linspace(
+        1, 6, 6
+    ).tolist()  # Start at 1 year, mature at 6 years.
     strike_rate = 0.03
     timetable = bermuda_swaption_timetable("USD", times, strike_rate)
 
