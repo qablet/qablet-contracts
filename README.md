@@ -1,7 +1,5 @@
 # qablet_contracts
 
-This is a work in progress.
-
 [![CI](https://github.com/qablet/qablet-contracts/actions/workflows/main.yml/badge.svg)](https://github.com/qablet/qablet-contracts/actions/workflows/main.yml)
 
 
@@ -9,7 +7,7 @@ This is a work in progress.
 
 A Qablet timetable defines a financial product using a sequence of payments, choices and conditions. A valuation model implemented with a Qablet parser can value any contract, as long as the contract can be described using a Qablet Timetable. 
 
-qablet_contracts contains code to create qablet timetables.
+This repositary contains code to create qablet timetables.
 It does not contain models that price qablet timetables. Such models will be available in other independent projects.  
 
 

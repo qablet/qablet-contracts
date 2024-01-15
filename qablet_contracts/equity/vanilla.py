@@ -36,14 +36,14 @@ def option_timetable(
             "track": track,
             "time": maturity,
             "op": "+",
-            "quantity": -strike,
+            "quantity": -strike if is_call else strike,
             "unit": ccy,
         },
         {
             "track": track,
             "time": maturity,
             "op": "+",
-            "quantity": 1,
+            "quantity": 1 if is_call else -1,
             "unit": asset_name,
         },
     ]
