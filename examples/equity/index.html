@@ -67,11 +67,11 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.equity.vanilla">vanilla</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.equity.vanilla.option_timetable">option_timetable()</a>
+    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.equity.vanilla.option_timetable">option_timetable</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.equity.cliquet">cliquet</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.equity.cliquet.clique_timetable">clique_timetable()</a>
+    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.equity.cliquet.clique_timetable">clique_timetable</a>
     </li>
     </ul>
                   </li>
@@ -132,9 +132,8 @@
 
 
 
-
 <h2 id="qablet_contracts.equity.vanilla.option_timetable" class="doc doc-heading">
-          <code class="highlight language-python">option_timetable(ccy, asset_name, strike, maturity, is_call, track='')</code>
+          <code class="highlight language-python"><span class="n">option_timetable</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">asset_name</span><span class="p">,</span> <span class="n">strike</span><span class="p">,</span> <span class="n">maturity</span><span class="p">,</span> <span class="n">is_call</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
 
 </h2>
 
@@ -212,49 +211,92 @@
 </table>
           <details class="quote">
             <summary>Source code in <code>qablet_contracts\equity\vanilla.py</code></summary>
-            <pre class="highlight"><code class="language-python">def option_timetable(
-    ccy: str,
-    asset_name: str,
-    strike: float,
-    maturity: float,
-    is_call: bool,
-    track: str = "",
-) -&gt; dict:
-    """Create timetable for an equity vanilla call option.
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">option_timetable</span><span class="p">(</span>
+    <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">asset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">strike</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">maturity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">is_call</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create timetable for an equity vanilla call option.</span>
 
-    Args:
-        ccy: the currency of the option.
-        asset_name: the name of the underlying asset.
-        strike: the option strike.
-        maturity: the maturity of the option in years.
-        is_call: true if the option is a call.
-        track: an optional identifier for the contract.
-    """
+<span class="sd">    Args:</span>
+<span class="sd">        ccy: the currency of the option.</span>
+<span class="sd">        asset_name: the name of the underlying asset.</span>
+<span class="sd">        strike: the option strike.</span>
+<span class="sd">        maturity: the maturity of the option in years.</span>
+<span class="sd">        is_call: true if the option is a call.</span>
+<span class="sd">        track: an optional identifier for the contract.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    events = [
-        {
-            "track": track,
-            "time": maturity,
-            "op": "&gt;",
-            "quantity": 0,
-            "unit": ccy,
-        },
-        {
-            "track": track,
-            "time": maturity,
-            "op": "+",
-            "quantity": -strike,
-            "unit": ccy,
-        },
-        {
-            "track": track,
-            "time": maturity,
-            "op": "+",
-            "quantity": 1,
-            "unit": asset_name,
-        },
-    ]
-    return timetable_from_dicts(events)</code></pre>
+    <span class="n">events</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
+            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">maturity</span><span class="p">,</span>
+            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">ccy</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
+            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">maturity</span><span class="p">,</span>
+            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="o">-</span><span class="n">strike</span> <span class="k">if</span> <span class="n">is_call</span> <span class="k">else</span> <span class="n">strike</span><span class="p">,</span>
+            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">ccy</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
+            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">maturity</span><span class="p">,</span>
+            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">is_call</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">asset_name</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="n">timetable_from_dicts</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
           </details>
   </div>
 
@@ -294,9 +336,8 @@
 
 
 
-
 <h2 id="qablet_contracts.equity.cliquet.clique_timetable" class="doc doc-heading">
-          <code class="highlight language-python">clique_timetable(ccy, asset_name, fixings, global_floor, local_floor, local_cap, track='')</code>
+          <code class="highlight language-python"><span class="n">clique_timetable</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">asset_name</span><span class="p">,</span> <span class="n">fixings</span><span class="p">,</span> <span class="n">global_floor</span><span class="p">,</span> <span class="n">local_floor</span><span class="p">,</span> <span class="n">local_cap</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
 
 </h2>
 
@@ -382,99 +423,192 @@
 </table>
           <details class="quote">
             <summary>Source code in <code>qablet_contracts\equity\cliquet.py</code></summary>
-            <pre class="highlight"><code class="language-python">def clique_timetable(
-    ccy: str,
-    asset_name: str,
-    fixings: list[float],
-    global_floor: float,
-    local_floor: float,
-    local_cap: float,
-    track: str = "",
-) -&gt; dict:
-    """Create timetable for an accumulator cliquet.
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">clique_timetable</span><span class="p">(</span>
+    <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">asset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">fixings</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="n">global_floor</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">local_floor</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">local_cap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create timetable for an accumulator cliquet.</span>
 
-    Args:
-        ccy: the currency of the bond.
-        asset_name: the name of the underlying asset.
-        fixings: the fixing times of the cliquet.
-        global_floor: the global floor of the cliquet.
-        local_floor: the local floor of the cliquet.
-        local_cap: the local cap of the cliquet.
-        track: an optional identifier for the contract.
-    """
+<span class="sd">    Args:</span>
+<span class="sd">        ccy: the currency of the bond.</span>
+<span class="sd">        asset_name: the name of the underlying asset.</span>
+<span class="sd">        fixings: the fixing times of the cliquet.</span>
+<span class="sd">        global_floor: the global floor of the cliquet.</span>
+<span class="sd">        local_floor: the local floor of the cliquet.</span>
+<span class="sd">        local_cap: the local cap of the cliquet.</span>
+<span class="sd">        track: an optional identifier for the contract.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    maturity = fixings[-1]
+    <span class="n">maturity</span> <span class="o">=</span> <span class="n">fixings</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-    # define timetable
-    events = [
-        {
-            "track": None,
-            "time": fixings[0],
-            "op": "s",
-            "quantity": 0,
-            "unit": "_INIT",  # initialize accumulator
-        }
-    ]
-    for fixing_time in fixings[1:]:
-        events.append(
-            {
-                "track": None,
-                "time": fixing_time,
-                "op": "s",
-                "quantity": 0,
-                "unit": "_UPDATE",  # update accumulator
-            }
-        )
-    events.append(
-        {
-            "track": track,
-            "time": maturity,
-            "op": "&gt;",  # global floor
-            "quantity": global_floor,
-            "unit": ccy,
-        }
-    )
-    events.append(
-        {
-            "track": track,
-            "time": maturity,
-            "op": "+",  # pay the accumulated amount
-            "quantity": 1,
-            "unit": "_A",
-        }
-    )
+    <span class="c1"># define timetable</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">fixings</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;_INIT&quot;</span><span class="p">,</span>  <span class="c1"># initialize accumulator</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+    <span class="k">for</span> <span class="n">fixing_time</span> <span class="ow">in</span> <span class="n">fixings</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">fixing_time</span><span class="p">,</span>
+                <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;_UPDATE&quot;</span><span class="p">,</span>  <span class="c1"># update accumulator</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+    <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
+            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">maturity</span><span class="p">,</span>
+            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>  <span class="c1"># global floor</span>
+            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="n">global_floor</span><span class="p">,</span>
+            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">ccy</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
+            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">maturity</span><span class="p">,</span>
+            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>  <span class="c1"># pay the accumulated amount</span>
+            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;_A&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
 
-    # define accumulator functions
-    def accumulator_init_fn(inputs):
-        [s] = inputs
-        return [0, s]  # [A, S_last]
+    <span class="c1"># define accumulator functions</span>
+    <span class="k">def</span> <span class="nf">accumulator_init_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+        <span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span>
+        <span class="k">return</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="p">]</span>  <span class="c1"># [A, S_last]</span>
 
-    def accumulator_update_fn(inputs):
-        [s, s_last, a] = inputs
+    <span class="k">def</span> <span class="nf">accumulator_update_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+        <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">s_last</span><span class="p">,</span> <span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span>
 
-        ret = s / s_last - 1.0  # ret = S / S_last - 1
-        ret = np.maximum(local_floor, ret)
-        ret = np.minimum(local_cap, ret)
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">s</span> <span class="o">/</span> <span class="n">s_last</span> <span class="o">-</span> <span class="mf">1.0</span>  <span class="c1"># ret = S / S_last - 1</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">local_floor</span><span class="p">,</span> <span class="n">ret</span><span class="p">)</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">local_cap</span><span class="p">,</span> <span class="n">ret</span><span class="p">)</span>
 
-        return [a + ret, s]  # [A, S_last]
+        <span class="k">return</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="n">ret</span><span class="p">,</span> <span class="n">s</span><span class="p">]</span>  <span class="c1"># [A, S_last]</span>
 
-    return {
-        "events": pa.RecordBatch.from_pylist(events, schema=EVENT_SCHEMA),
-        "expressions": {
-            "_INIT": {
-                "type": "snapper",
-                "inp": [asset_name],
-                "snap_fn": accumulator_init_fn,
-                "out": ["_A", "_S_last"],
-            },
-            "_UPDATE": {
-                "type": "snapper",
-                "inp": [asset_name, "_S_last", "_A"],
-                "snap_fn": accumulator_update_fn,
-                "out": ["_A", "_S_last"],
-            },
-        },
-    }</code></pre>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;events&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">RecordBatch</span><span class="o">.</span><span class="n">from_pylist</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">EVENT_SCHEMA</span><span class="p">),</span>
+        <span class="s2">&quot;expressions&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;_INIT&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;snapper&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;inp&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">asset_name</span><span class="p">],</span>
+                <span class="s2">&quot;snap_fn&quot;</span><span class="p">:</span> <span class="n">accumulator_init_fn</span><span class="p">,</span>
+                <span class="s2">&quot;out&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;_A&quot;</span><span class="p">,</span> <span class="s2">&quot;_S_last&quot;</span><span class="p">],</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;_UPDATE&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;snapper&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;inp&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">asset_name</span><span class="p">,</span> <span class="s2">&quot;_S_last&quot;</span><span class="p">,</span> <span class="s2">&quot;_A&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;snap_fn&quot;</span><span class="p">:</span> <span class="n">accumulator_update_fn</span><span class="p">,</span>
+                <span class="s2">&quot;out&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;_A&quot;</span><span class="p">,</span> <span class="s2">&quot;_S_last&quot;</span><span class="p">],</span>
+            <span class="p">},</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+</code></pre></div></td></tr></table></div>
           </details>
   </div>
 

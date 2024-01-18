@@ -62,7 +62,7 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.timetable">timetable</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.timetable.timetable_from_dicts">timetable_from_dicts()</a>
+    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.timetable.timetable_from_dicts">timetable_from_dicts</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#example">Example</a>
     </li>
@@ -172,9 +172,8 @@ a stock like <code>SPX</code>, <code>AAPL</code>, etc. See the <a href="../units
 
 
 
-
 <h2 id="qablet_contracts.timetable.timetable_from_dicts" class="doc doc-heading">
-          <code class="highlight language-python">timetable_from_dicts(events)</code>
+          <code class="highlight language-python"><span class="n">timetable_from_dicts</span><span class="p">(</span><span class="n">events</span><span class="p">)</span></code>
 
 </h2>
 
@@ -245,29 +244,52 @@ a stock like <code>SPX</code>, <code>AAPL</code>, etc. See the <a href="../units
 </table>
           <details class="quote">
             <summary>Source code in <code>qablet_contracts\timetable.py</code></summary>
-            <pre class="highlight"><code class="language-python">def timetable_from_dicts(events: list[dict]) -&gt; dict:
-    """Create timetable from a list of dicts.
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">timetable_from_dicts</span><span class="p">(</span><span class="n">events</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create timetable from a list of dicts.</span>
 
-    Args:
-        events: a list of dicts with the following fields:
+<span class="sd">    Args:</span>
+<span class="sd">        events: a list of dicts with the following fields:</span>
 
-            - track: string
-            - time: float
-            - op: string
-            - quantity: float
-            - unit: string
+<span class="sd">            - track: string</span>
+<span class="sd">            - time: float</span>
+<span class="sd">            - op: string</span>
+<span class="sd">            - quantity: float</span>
+<span class="sd">            - unit: string</span>
 
-    Returns:
-        a timetable dictionary with the following fields:
+<span class="sd">    Returns:</span>
+<span class="sd">        a timetable dictionary with the following fields:</span>
 
-            - events: a pyarrow record batch
-            - expressions: a dict for expressions, batches, and snappers
+<span class="sd">            - events: a pyarrow record batch</span>
+<span class="sd">            - expressions: a dict for expressions, batches, and snappers</span>
 
-    """
-    return {
-        "events": pa.RecordBatch.from_pylist(events, schema=EVENT_SCHEMA),
-        "expressions": {},
-    }</code></pre>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;events&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">RecordBatch</span><span class="o">.</span><span class="n">from_pylist</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">EVENT_SCHEMA</span><span class="p">),</span>
+        <span class="s2">&quot;expressions&quot;</span><span class="p">:</span> <span class="p">{},</span>
+    <span class="p">}</span>
+</code></pre></div></td></tr></table></div>
           </details>
   </div>
 

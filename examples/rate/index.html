@@ -69,11 +69,11 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.rate.swaption">swaption</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.rate.swaption.bermuda_swaption_timetable">bermuda_swaption_timetable()</a>
+    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.rate.swaption.bermuda_swaption_timetable">bermuda_swaption_timetable</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.rate.swaption.simple_swap_period">simple_swap_period()</a>
+    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.rate.swaption.simple_swap_period">simple_swap_period</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.rate.swaption.swaption_timetable">swaption_timetable()</a>
+    <li class="toctree-l2"><a class="reference internal" href="#qablet_contracts.rate.swaption.swaption_timetable">swaption_timetable</a>
     </li>
     </ul>
                   </li>
@@ -130,9 +130,8 @@
 
 
 
-
 <h2 id="qablet_contracts.rate.swaption.bermuda_swaption_timetable" class="doc doc-heading">
-          <code class="highlight language-python">bermuda_swaption_timetable(ccy, times, strike_rate, track='')</code>
+          <code class="highlight language-python"><span class="n">bermuda_swaption_timetable</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">strike_rate</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
 
 </h2>
 
@@ -194,36 +193,66 @@
 </table>
           <details class="quote">
             <summary>Source code in <code>qablet_contracts\rate\swaption.py</code></summary>
-            <pre class="highlight"><code class="language-python">def bermuda_swaption_timetable(
-    ccy: str, times: list[float], strike_rate: float, track: str = ""
-) -&gt; dict:
-    """Create timetable for a co-terminal bermuda swaption.
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">bermuda_swaption_timetable</span><span class="p">(</span>
+    <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">times</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">strike_rate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create timetable for a co-terminal bermuda swaption.</span>
 
-    Args:
-        ccy: the currency of the swap.
-        times: the period times of the underlying swap, including the inception and maturity.
-        strike_rate: the strike rate of the swaption (in units, i.e. 0.02 means 200 bps).
-        track: an optional identifier for the contract.
-    """
+<span class="sd">    Args:</span>
+<span class="sd">        ccy: the currency of the swap.</span>
+<span class="sd">        times: the period times of the underlying swap, including the inception and maturity.</span>
+<span class="sd">        strike_rate: the strike rate of the swaption (in units, i.e. 0.02 means 200 bps).</span>
+<span class="sd">        track: an optional identifier for the contract.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    events = []
-    for start, end in zip(times[0:-1], times[1:]):
-        # option expiration event before each period
-        events.append(
-            {
-                "track": track + ".opt",
-                "time": start,
-                "op": "&gt;",
-                "quantity": 1,
-                "unit": track + ".swp",
-            }
-        )
-        # payment event for the underlying swap
-        events.extend(
-            simple_swap_period(ccy, start, end, strike_rate, track + ".swp")
-        )
+    <span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+        <span class="c1"># option expiration event before each period</span>
+        <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span> <span class="o">+</span> <span class="s2">&quot;.opt&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">start</span><span class="p">,</span>
+                <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">track</span> <span class="o">+</span> <span class="s2">&quot;.swp&quot;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="c1"># payment event for the underlying swap</span>
+        <span class="n">events</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+            <span class="n">simple_swap_period</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">strike_rate</span><span class="p">,</span> <span class="n">track</span> <span class="o">+</span> <span class="s2">&quot;.swp&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
 
-    return timetable_from_dicts(events)</code></pre>
+    <span class="k">return</span> <span class="n">timetable_from_dicts</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
           </details>
   </div>
 
@@ -234,9 +263,8 @@
 
 
 
-
 <h2 id="qablet_contracts.rate.swaption.simple_swap_period" class="doc doc-heading">
-          <code class="highlight language-python">simple_swap_period(ccy, start, end, fixed_rate, track='')</code>
+          <code class="highlight language-python"><span class="n">simple_swap_period</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">fixed_rate</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
 
 </h2>
 
@@ -306,34 +334,62 @@
 </table>
           <details class="quote">
             <summary>Source code in <code>qablet_contracts\rate\swaption.py</code></summary>
-            <pre class="highlight"><code class="language-python">def simple_swap_period(
-    ccy: str, start: float, end: float, fixed_rate: float, track: str = ""
-) -&gt; list:
-    """Simple representation of a swap period, paying fixed, receiving floating rate.
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">simple_swap_period</span><span class="p">(</span>
+    <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">end</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">fixed_rate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Simple representation of a swap period, paying fixed, receiving floating rate.</span>
 
-    Args:
-        ccy: the currency of the swap.
-        start: the start of the period in years.
-        end: the end of the period in years.
-        fixed_rate: the fixed annual rate of the swap.
-        track: an optional identifier for the contract.
-    """
-    return [
-        {
-            "track": track,
-            "time": start,
-            "op": "+",
-            "quantity": 1,
-            "unit": ccy,
-        },
-        {
-            "track": track,
-            "time": end,
-            "op": "+",
-            "quantity": -1 - fixed_rate * (end - start),
-            "unit": ccy,
-        },
-    ]</code></pre>
+<span class="sd">    Args:</span>
+<span class="sd">        ccy: the currency of the swap.</span>
+<span class="sd">        start: the start of the period in years.</span>
+<span class="sd">        end: the end of the period in years.</span>
+<span class="sd">        fixed_rate: the fixed annual rate of the swap.</span>
+<span class="sd">        track: an optional identifier for the contract.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
+            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">start</span><span class="p">,</span>
+            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">ccy</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
+            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">end</span><span class="p">,</span>
+            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span> <span class="n">fixed_rate</span> <span class="o">*</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">),</span>
+            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">ccy</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">]</span>
+</code></pre></div></td></tr></table></div>
           </details>
   </div>
 
@@ -344,9 +400,8 @@
 
 
 
-
 <h2 id="qablet_contracts.rate.swaption.swaption_timetable" class="doc doc-heading">
-          <code class="highlight language-python">swaption_timetable(ccy, times, strike_rate, track='')</code>
+          <code class="highlight language-python"><span class="n">swaption_timetable</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">strike_rate</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
 
 </h2>
 
@@ -408,35 +463,64 @@
 </table>
           <details class="quote">
             <summary>Source code in <code>qablet_contracts\rate\swaption.py</code></summary>
-            <pre class="highlight"><code class="language-python">def swaption_timetable(
-    ccy: str, times: list[float], strike_rate: float, track: str = ""
-) -&gt; dict:
-    """Create timetable for a vanilla swaption.
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span>
+<span class="normal">96</span>
+<span class="normal">97</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">swaption_timetable</span><span class="p">(</span>
+    <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">times</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">strike_rate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create timetable for a vanilla swaption.</span>
 
-    Args:
-        ccy: the currency of the swap.
-        times: the period times of the underlying swap, including the inception and maturity.
-        strike_rate: the strike rate of the swaption (in units, i.e. 0.02 means 200 bps).
-        track: an optional identifier for the contract.
-    """
+<span class="sd">    Args:</span>
+<span class="sd">        ccy: the currency of the swap.</span>
+<span class="sd">        times: the period times of the underlying swap, including the inception and maturity.</span>
+<span class="sd">        strike_rate: the strike rate of the swaption (in units, i.e. 0.02 means 200 bps).</span>
+<span class="sd">        track: an optional identifier for the contract.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    # option expiration event at beginning of the swap
-    events = [
-        {
-            "track": track + ".opt",
-            "time": times[0],
-            "op": "&gt;",
-            "quantity": 1,
-            "unit": track + ".swp",
-        }
-    ]
-    # payment events for the underlying swap
-    for start, end in zip(times[0:-1], times[1:]):
-        events.extend(
-            simple_swap_period(ccy, start, end, strike_rate, track + ".swp")
-        )
+    <span class="c1"># option expiration event at beginning of the swap</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span> <span class="o">+</span> <span class="s2">&quot;.opt&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">track</span> <span class="o">+</span> <span class="s2">&quot;.swp&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+    <span class="c1"># payment events for the underlying swap</span>
+    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">times</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+        <span class="n">events</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+            <span class="n">simple_swap_period</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">strike_rate</span><span class="p">,</span> <span class="n">track</span> <span class="o">+</span> <span class="s2">&quot;.swp&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
 
-    return timetable_from_dicts(events)</code></pre>
+    <span class="k">return</span> <span class="n">timetable_from_dicts</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
           </details>
   </div>
 
