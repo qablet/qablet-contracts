@@ -1,4 +1,6 @@
-# Utils for creating swaptions
+"""
+This module contains examples of creating timetables for rate contracts such as swaps and swaptions.
+"""
 
 import numpy as np
 from qablet_contracts.timetable import timetable_from_dicts
@@ -34,16 +36,68 @@ def simple_swap_period(
     ]
 
 
-def bermuda_swaption_timetable(
+def swaption_timetable(
     ccy: str, times: list[float], strike_rate: float, track: str = ""
 ) -> dict:
-    """Create timetable for a co-terminal bermuda swaption.
+    """Create timetable for a **Vanilla Swaption**.
 
     Args:
         ccy: the currency of the swap.
         times: the period times of the underlying swap, including the inception and maturity.
         strike_rate: the strike rate of the swaption (in units, i.e. 0.02 means 200 bps).
         track: an optional identifier for the contract.
+
+    Examples:
+        >>> tt = swaption_timetable("USD", [0.5, 1.0, 1.5], 0.05)
+        >>> tt["events"].to_pandas()
+          track  time op  quantity  unit
+        0  .opt   0.5  >     1.000  .swp
+        1  .swp   0.5  +     1.000   USD
+        2  .swp   1.0  +    -1.025   USD
+        3  .swp   1.0  +     1.000   USD
+        4  .swp   1.5  +    -1.025   USD
+    """
+
+    # option expiration event at beginning of the swap
+    events = [
+        {
+            "track": track + ".opt",
+            "time": times[0],
+            "op": ">",
+            "quantity": 1,
+            "unit": track + ".swp",
+        }
+    ]
+    # payment events for the underlying swap
+    for start, end in zip(times[0:-1], times[1:]):
+        events.extend(
+            simple_swap_period(ccy, start, end, strike_rate, track + ".swp")
+        )
+
+    return timetable_from_dicts(events)
+
+
+def bermuda_swaption_timetable(
+    ccy: str, times: list[float], strike_rate: float, track: str = ""
+) -> dict:
+    """Create timetable for a **Co-terminal Bermuda Swaption**.
+
+    Args:
+        ccy: the currency of the swap.
+        times: the period times of the underlying swap, including the inception and maturity.
+        strike_rate: the strike rate of the swaption (in units, i.e. 0.02 means 200 bps).
+        track: an optional identifier for the contract.
+
+    Examples:
+        >>> tt = bermuda_swaption_timetable("USD", [0.5, 1.0, 1.5], 0.05)
+        >>> tt["events"].to_pandas()
+          track  time op  quantity  unit
+        0  .opt   0.5  >     1.000  .swp
+        1  .swp   0.5  +     1.000   USD
+        2  .swp   1.0  +    -1.025   USD
+        3  .opt   1.0  >     1.000  .swp
+        4  .swp   1.0  +     1.000   USD
+        5  .swp   1.5  +    -1.025   USD
     """
 
     events = []
@@ -59,37 +113,6 @@ def bermuda_swaption_timetable(
             }
         )
         # payment event for the underlying swap
-        events.extend(
-            simple_swap_period(ccy, start, end, strike_rate, track + ".swp")
-        )
-
-    return timetable_from_dicts(events)
-
-
-def swaption_timetable(
-    ccy: str, times: list[float], strike_rate: float, track: str = ""
-) -> dict:
-    """Create timetable for a vanilla swaption.
-
-    Args:
-        ccy: the currency of the swap.
-        times: the period times of the underlying swap, including the inception and maturity.
-        strike_rate: the strike rate of the swaption (in units, i.e. 0.02 means 200 bps).
-        track: an optional identifier for the contract.
-    """
-
-    # option expiration event at beginning of the swap
-    events = [
-        {
-            "track": track + ".opt",
-            "time": times[0],
-            "op": ">",
-            "quantity": 1,
-            "unit": track + ".swp",
-        }
-    ]
-    # payment events for the underlying swap
-    for start, end in zip(times[0:-1], times[1:]):
         events.extend(
             simple_swap_period(ccy, start, end, strike_rate, track + ".swp")
         )

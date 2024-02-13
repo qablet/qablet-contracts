@@ -1,5 +1,8 @@
 site_name: qablet_contracts
-theme: readthedocs
+theme:
+  name: material
+  icon:
+    logo: material/triangle
 
 plugins:
   - search
@@ -8,6 +11,12 @@ plugins:
       handlers:
         python:
           paths: [qablet_contracts]
+          options:
+            members_order: source
+            show_root_toc_entry: false
+
+extra_css:
+  - stylesheets/extra.css
 
 nav:
   - 'index.md'
@@ -19,6 +28,10 @@ nav:
     - 'specifications/batch.md'
     - 'specifications/expressions.md'
   - 'Examples':
-    - 'examples/bond.md'
-    - 'examples/equity.md'
-    - 'examples/rate.md'
+    - Bond:
+      - 'examples/bond_zero.md'
+    - Equity:
+      - 'examples/equity_vanilla.md'
+      - 'examples/equity_cliquet.md'
+    - Rate:
+      - 'examples/rate_swaption.md'

@@ -11,8 +11,8 @@ A Snapper represents a **path dependent calculation**, e.g. calculating returns 
 A snapper is defined in the dataset, with four parameters. 
 
  - **type**, which must be "snapper"
- - **inp**, a list of inputs to the snap_fn. These can be assets, such as "SPX", whose value comes from the model. These can also be snaps, such as "A" or "S_last", which has been stored as a result of previous snapper operation. 
- - **snap_fn**, a python function that takes the inputs, and returns snap values. The length of expected inputs list must match the length of **inp**, while the length of the output list must match the length of **out**.
+ - **inp**, a list of inputs to the snapper **fn**. These can be assets, such as "SPX", whose value comes from the model. These can also be snaps, such as "A" or "S_last", which has been stored as a result of previous snapper operation. 
+ - **fn**, a python function that takes the inputs, and returns snap values. The length of expected inputs list must match the length of **inp**, while the length of the output list must match the length of **out**.
  - **out**, the list of name of snap variables where the result is stored.  
 
 
@@ -33,9 +33,9 @@ def accumulator_update_fn(inputs):
 "UPDATE": {
     "type": "snapper",
     "inp": ["SPX", "S_last", "A"],
-    "snap_fn": accumulator_update_fn,
+    "fn": accumulator_update_fn,
     "out": ["A", "S_last"],
 },
 ```
 
-Note: The values of the inputs will be a float, or a 1-D numpy array (e.g. the value of that variable in each Monte-Carlo path, or each point of a Finite Difference grid axis). All numpy arrays will be of the same size, or of length 1. The values of the output of the snap_fn must also be a scalar, of size 1, or same size as the inputs. A snapper written using arithmetic operations like `+`, `-`, `*`, and numpy functions would satisfy these requirements.
+Note: The values of the inputs will be a float, or a 1-D numpy array (e.g. the value of that variable in each Monte-Carlo path, or each point of a Finite Difference grid axis). All numpy arrays will be of the same size, or of length 1. The values of the output of the snapper **fn** must also be a scalar, of size 1, or same size as the inputs. A snapper written using arithmetic operations like `+`, `-`, `*`, and numpy functions would satisfy these requirements.

@@ -10,6 +10,7 @@ gitchangelog
 mkdocs
 mkdocstrings
 mkdocstrings-python
+mkdocs-material
 pyarrow
 pandas
 numpy

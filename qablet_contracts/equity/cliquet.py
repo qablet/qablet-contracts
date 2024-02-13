@@ -1,5 +1,5 @@
 """
-Utils for creating cliquet contracts.
+This module contains examples of creating timetables for equity cliquet contracts.
 """
 
 import numpy as np
@@ -16,7 +16,7 @@ def clique_timetable(
     local_cap: float,
     track: str = "",
 ) -> dict:
-    """Create timetable for an accumulator cliquet.
+    """Create timetable for an **Accumulator Cliquet**.
 
     Args:
         ccy: the currency of the bond.
@@ -26,6 +26,16 @@ def clique_timetable(
         local_floor: the local floor of the cliquet.
         local_cap: the local cap of the cliquet.
         track: an optional identifier for the contract.
+
+    Examples:
+        >>> tt = clique_timetable("USD", "SPX", [1.0, 2.0, 3.0], 0.01, -0.03, 0.05)
+        >>> tt["events"].to_pandas()
+          track  time op  quantity     unit
+        0   NaN   1.0  s      0.00    _INIT
+        1   NaN   2.0  s      0.00  _UPDATE
+        2   NaN   3.0  s      0.00  _UPDATE
+        3         3.0  >      0.01      USD
+        4         3.0  +      1.00       _A
     """
 
     maturity = fixings[-1]
@@ -89,13 +99,13 @@ def clique_timetable(
             "_INIT": {
                 "type": "snapper",
                 "inp": [asset_name],
-                "snap_fn": accumulator_init_fn,
+                "fn": accumulator_init_fn,
                 "out": ["_A", "_S_last"],
             },
             "_UPDATE": {
                 "type": "snapper",
                 "inp": [asset_name, "_S_last", "_A"],
-                "snap_fn": accumulator_update_fn,
+                "fn": accumulator_update_fn,
                 "out": ["_A", "_S_last"],
             },
         },
