@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../units/">
+        <link rel="prev" href="../expressions/">
       
       
-        <link rel="next" href="../phrase/">
+        <link rel="next" href="../snapper/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Expressions - qablet_contracts</title>
+        <title>Phrase - qablet_contracts</title>
       
     
     
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#expressions" class="md-skip">
+        <a href="#phrase" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Expressions
+              Phrase
             
           </span>
         </div>
@@ -312,6 +312,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../expressions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Expressions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -324,29 +345,18 @@
         
       
       
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
   
   <span class="md-ellipsis">
-    Expressions
+    Phrase
   </span>
   
 
-      </a>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../phrase/" class="md-nav__link">
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -355,6 +365,35 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#function-signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function Signature
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -684,6 +723,23 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#function-signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      Function Signature
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -697,13 +753,39 @@
                   
 
 
-<h1 id="expressions">Expressions</h1>
-<p>The event table is often requires one or more of the following to capture the features of contract.</p>
+<h1 id="phrase">Phrase</h1>
+<p>A Phrase represents a value calculated from one or more assets. e.g. calculating the barrier condition in a knock out option.</p>
+<p>A phrase is defined in the dataset, with three parameters.</p>
 <ul>
-<li>A <a href="../phrase/">Phrase</a> that represents a value calculated from one or more assets. e.g. calculating the barrier condition in a knock out option.</li>
-<li>A <a href="../snapper/">Snapper</a> that represents a <strong>path dependent calculation</strong>, e.g. calculating returns in an equity cliquet.</li>
-<li>A <a href="../batch/">Batch</a> that represents a transition from a set of tracks to another set of tracks.</li>
+<li><strong>type</strong>, which must be "phrase"</li>
+<li><strong>inp</strong>, a list of inputs to the phrase <strong>fn</strong>. An input can be an asset, such as "SPX", whose value comes from the model. It can also be a snap which has been stored as a result of previous snapper operation. It can also be another phrase.</li>
+<li><strong>fn</strong>, a python function that takes a list of inputs, and returns a list of outputs. The length of expected inputs list must match the length of <strong>inp</strong>, while the length of the output list must be exactly one.</li>
 </ul>
+<p>e.g.</p>
+<pre><code class="language-python">
+def ko_fn(inputs):
+    [S] = inputs
+    return [S &lt; barrier]
+
+&quot;KO&quot;: {
+    &quot;type&quot;: &quot;phrase&quot;,
+    &quot;inp&quot;: [asset_name],
+    &quot;fn&quot;: ko_fn,
+}
+
+</code></pre>
+<h2 id="function-signature">Function Signature</h2>
+<p>The function should expect that inputs is a list of items. </p>
+<ul>
+<li>The length of the list will match the length of <strong>inp</strong>.</li>
+<li>Each item in the list can be a float, or a 1-D numpy array of size 1 or N (where N is the number of Monte-Carlo paths, or the length of the Finite Difference grid's asset-axis).</li>
+</ul>
+<p>The function should return a list of items.</p>
+<ul>
+<li>For a phrase the length of the output list must be exactly <strong>one</strong>, while for a snapper the length of the output list must match the lnegth of <strong>out</strong>.</li>
+<li>Each item inthe list should be a float, or a 1-D numpy array of size 1 or N. </li>
+</ul>
+<p>The item requirements are consistent with <a href="https://numpy.org/doc/stable/user/basics.broadcasting.html">numpy broadcasting</a>, therefore a function written using arithmetic operations like <code>+</code>, <code>-</code>, <code>*</code>, or element-wise numpy functions (e.g. <code>numpy.maximum</code>, <code>np.sqrt</code>) would satisfy these requirements.</p>
 
 
 
