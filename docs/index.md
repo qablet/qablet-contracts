@@ -12,8 +12,8 @@ Start with the [timetable](specifications/timetable.md).
 
 The **EXAMPLES** section has code samples to create many common financial contracts such as
 bonds, options, swaps, and swaptions.
-Start with the [Bonds](examples/bond.md).
+Start with the [Bonds](examples/bond_zero.md).
 
 ## Valuation models
 
-Valuation models are available in other independent projects, such as qablet-basic. See [here](https://qablet-academy.github.io/intro/) for a set of notebooks that value contracts using the qablet-basic package.
+Valuation models are available in other independent projects, such as qablet-basic. See the [Qablet Learning Path](https://qablet-academy.github.io/intro/) for a set of Jupyter notebooks that value contracts using Monte-Carlo and Finite Difference models from the qablet-basic package.

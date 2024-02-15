@@ -1,19 +1,22 @@
 # Snapper
 
-A Snapper represents a **path dependent calculation**, e.g. calculating returns in an equity cliquet. In the following timetable, the first event represents a **snapper** operation `UPDATE`. This operation stores its result in a **snap**. The second event represents a payment for the contract, which pays `A`, the value of the snap.
+A Snapper represents a **path dependent calculation**, e.g. calculating returns in an equity cliquet. In the following timetable
+
+- the first event at time 0.5 represents a **snapper** operation `UPDATE`. This operation stores its result in a **snap**.
+- the second event at time 3.0 represents a payment for the contract, which pays `A`, the value of the snap.
 
 ```python
-  track  time       op  quantity  unit
-    NaN   0.5   UPDATE       0.0  None
-    0.0   3.0        +       1.0     A
+  track  time op  quantity     unit
+    NaN   0.5  s      0.00   UPDATE
+          3.0  +      1.00        A
 ```
 
 A snapper is defined in the dataset, with four parameters. 
 
  - **type**, which must be "snapper"
  - **inp**, a list of inputs to the snapper **fn**. These can be assets, such as "SPX", whose value comes from the model. These can also be snaps, such as "A" or "S_last", which has been stored as a result of previous snapper operation. 
- - **fn**, a python function that takes the inputs, and returns snap values. The length of expected inputs list must match the length of **inp**, while the length of the output list must match the length of **out**.
- - **out**, the list of name of snap variables where the result is stored.  
+ - **fn**, a python function that takes a list of inputs, and returns a list of outputs. The length of expected inputs list must match the length of **inp**, while the length of the output list must match the length of **out**.
+ - **out**, the list of name of snaps where the outputs are stored.  
 
 
 
@@ -38,4 +41,6 @@ def accumulator_update_fn(inputs):
 },
 ```
 
-Note: The values of the inputs will be a float, or a 1-D numpy array (e.g. the value of that variable in each Monte-Carlo path, or each point of a Finite Difference grid axis). All numpy arrays will be of the same size, or of length 1. The values of the output of the snapper **fn** must also be a scalar, of size 1, or same size as the inputs. A snapper written using arithmetic operations like `+`, `-`, `*`, and numpy functions would satisfy these requirements.
+
+## Function Signature
+See [Phrase Function Signature](phrase.md/#function-signature)

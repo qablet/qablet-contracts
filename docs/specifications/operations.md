@@ -2,7 +2,7 @@
 
 The **op** column contains a string which can be `+`, `>`, `<`, or a condition
 
-### Payment
+### Payment (+)
 
 `+` in the ops column indicates that the contract holder will receive
 the payment specified by the **quantity** and the **unit**,
@@ -20,7 +20,7 @@ Example: A bond paying 5 USD semi-annually and maturing in two years.
 ```
 
 
-### Choice of contract holder
+### Choice of contract holder (>)
 
 `>` in the ops column indicates that the **contract holder can choose** from the following two options
 
@@ -37,7 +37,7 @@ Example: An European Call Option with strike 2800, expiring in 1 year.
 ```
 
 
-### Choice of contract's counterparty
+### Choice of contract's counterparty (<)
 
 `<` in the ops column indicates that the **counterparty can choose** from the following two options
 
@@ -58,13 +58,23 @@ Example: A callable bond, paying 5 USD semi-annually, maturing in two years, and
 
 ### Contingent Event
 
-Anything else in the `op` column is the string name of an expression.
+Any other string in the `op` column is assumed to be a [phrase](phrase.md).
 
- - If the expression evaluates to true, the holder will receive the payment specified by the **quantity** and the **unit**, and then terminate the contract.
- - If the expression evaluates to false, then instead of that payment, holder will receive whatever else is further down in the timetable in the same track.
+ - If the phrase evaluates to true, the holder will receive the payment specified by the **quantity** and the **unit**, and then terminate the contract.
+ - If the phrase evaluates to false, then instead of that payment, holder will receive whatever else is further down in the timetable in the same track.
+ - If the phrase returns a float array instead of a bool array, the holder will receive a weighted sum of both outcomes.
 
-Example: knock-in or knock-out events in a barrier option.
+Example: knock-in or knock-out events in a barrier option. In the example below `KO` is a phrase that describes the barrier condition. If the condition is met
+the option is knocked out with a rebate of 10. If the barrier is not met, the contract continues further down the track.
+
+```python
+  track  time op  quantity unit
+         0.5  KO     10.0  USD
+         1.0  >       0.0  USD
+         1.0  +   -2800.0  USD
+         1.0  +       1.0  SPX
+```
 
 ### Snapper
 
-If the **unit** column contains a Snapper, i.e. a path dependent calculation to be performed at that time, then the **op** column is ignored.
+If the **unit** is a [Snapper](snapper.md), i.e. a path dependent calculation to be performed at that time, then **op** should be `None` or `"s"`.
