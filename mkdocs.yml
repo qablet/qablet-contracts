@@ -24,14 +24,18 @@ nav:
     - 'specifications/timetable.md'
     - 'specifications/operations.md'
     - 'specifications/units.md'
+    - 'specifications/expressions.md'
+    - 'specifications/phrase.md'
     - 'specifications/snapper.md'
     - 'specifications/batch.md'
-    - 'specifications/expressions.md'
   - 'Examples':
     - Bond:
       - 'examples/bond_zero.md'
+      - 'examples/bond_fixed.md'
+
     - Equity:
       - 'examples/equity_vanilla.md'
       - 'examples/equity_cliquet.md'
+      - 'examples/equity_rainbow.md'
     - Rate:
       - 'examples/rate_swaption.md'

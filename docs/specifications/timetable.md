@@ -1,14 +1,7 @@
 # Timetable
 
-A contract is described by a list of events. An event has five properties:
-
-- track
-- time
-- op
-- quantity
-- unit
-
-Here is an example of an equity call option contract on SPX, with strike 2800 and one year expiration.
+A contract is described by a list of events. An event has five properties -
+ track, time, op, quantity, and unit. Here is an example of an equity call option contract on SPX, with strike 2800 and one year expiration.
 It is described using three events.
 
 ```python
@@ -21,7 +14,7 @@ It is described using three events.
 
 ### Track
 
-A string identifier for the contract, a leg of the contract, or a state of the contract.
+A string identifier for the contract, a leg of the contract, or a state of the contract. For simple contracts this might be just blank.
 
 ### Time
 
@@ -44,10 +37,10 @@ a stock like `SPX`, `AAPL`, etc. See the [Units](units.md) section for all possi
 ## How to create a timetable
 The timetable is a dictionary with two components.
 
-- events, the sequence of events stored as a pyarrow recordbatch
-- expresions, a dictionary defining any snappers, batches, or expressions used in the timetable
+- events: the sequence of events stored as a pyarrow recordbatch
+- [expresions](expressions.md): a dictionary defining any [phrases](phrase.md), [snappers](snapper.md), or [batches](batch.md) used in the timetable
 
-A simple timetable can be created using this method, from a list of dicts.
+A simple timetable (without any expressions) can be created using this method, from a list of dicts.
 
 
 ::: qablet_contracts.timetable
