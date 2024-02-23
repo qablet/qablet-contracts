@@ -8,16 +8,14 @@ import numpy as np
 from math import ceil
 
 
-def cashflow_timetable(
-    ccy: str, times: list, amounts: list, track: str = ""
-) -> dict:
+def cashflow_timetable(ccy: str, times, amounts, track: str = "") -> dict:
     """Create timetable from cashflows in a single currency. This example also shows how to create a timetable from arrays
     instead of a list of dictionaries, which is more efficient.
 
     Args:
         ccy: the currency of cashflows.
-        times: a list of times for cashflows.
-        amounts: a list of amounts for cashflows.
+        times: a list or ndarray of cashflows times.
+        amounts: a list ndarray of cashflows amounts.
         track: an optional identifier for the contract.
 
     Examples:
