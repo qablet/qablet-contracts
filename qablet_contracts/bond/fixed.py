@@ -68,12 +68,15 @@ def fixed_bond_timetable(
         1         0.6  +     0.025  USD
         2         1.1  +     0.025  USD
         3         1.6  +     0.025  USD
-        4         2.1  +     0.025  USD
+        4         2.1  +     1.025  USD
     """
-    n = ceil(maturity * freq)
-    stub = maturity * freq - n + 1
+    n = ceil(maturity * freq)  # How many payments left ?
+    stub = (
+        maturity * freq - n + 1
+    )  # The first payment may be a stub/short coupon
     times = (np.arange(n) + stub) / freq
     amounts = np.full(n, coupon / freq)
+    amounts[-1] += 1  # The last payment includes the principal
     return cashflow_timetable(ccy, times, amounts, track)
 
 
