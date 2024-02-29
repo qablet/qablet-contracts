@@ -19,7 +19,7 @@ def rainbow_timetable(
 
     Args:
         ccy: the currency of the option.
-        asset_nams: the name of the underlying assets.
+        asset_names: the name of the underlying assets.
         strikes: the option strikes.
         notional: the notional of the option.
         maturity: the maturity of the option in years.

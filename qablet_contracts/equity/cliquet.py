@@ -5,12 +5,13 @@ This module contains examples of creating timetables for equity cliquet contract
 import numpy as np
 import pyarrow as pa
 from qablet_contracts.timetable import EVENT_SCHEMA
+from typing import List
 
 
 def clique_timetable(
     ccy: str,
     asset_name: str,
-    fixings: list[float],
+    fixings: List[float],
     global_floor: float,
     local_floor: float,
     local_cap: float,

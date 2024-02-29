@@ -4,6 +4,7 @@ This module contains examples of creating timetables for rate contracts such as 
 
 import numpy as np
 from qablet_contracts.timetable import timetable_from_dicts
+from typing import List, Dict
 
 
 def simple_swap_period(
@@ -37,8 +38,8 @@ def simple_swap_period(
 
 
 def swaption_timetable(
-    ccy: str, times: list[float], strike_rate: float, track: str = ""
-) -> dict:
+    ccy: str, times: List[float], strike_rate: float, track: str = ""
+) -> Dict:
     """Create timetable for a **Vanilla Swaption**.
 
     Args:
@@ -78,8 +79,8 @@ def swaption_timetable(
 
 
 def bermuda_swaption_timetable(
-    ccy: str, times: list[float], strike_rate: float, track: str = ""
-) -> dict:
+    ccy: str, times: List[float], strike_rate: float, track: str = ""
+) -> Dict:
     """Create timetable for a **Co-terminal Bermuda Swaption**.
 
     Args:

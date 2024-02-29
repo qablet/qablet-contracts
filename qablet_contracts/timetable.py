@@ -1,6 +1,7 @@
 # Define the timetable struct
 
 import pyarrow as pa
+from typing import List, Dict
 
 DICT_TYPE = pa.dictionary(pa.int64(), pa.string())
 EVENT_SCHEMA = pa.schema(
@@ -14,7 +15,7 @@ EVENT_SCHEMA = pa.schema(
 )
 
 
-def timetable_from_dicts(events: list[dict]) -> dict:
+def timetable_from_dicts(events: List[Dict]) -> Dict:
     """Create timetable from a list of dicts.
 
     Args:
