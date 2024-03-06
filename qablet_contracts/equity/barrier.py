@@ -5,33 +5,7 @@ Utils for creating barrier options timetable
 from qablet_contracts.timetable import EVENT_SCHEMA
 import numpy as np
 import pyarrow as pa
-
-
-def option_events(ccy, asset_name, strike, maturity, is_call, track):
-    events = [
-        {
-            "track": track,
-            "time": maturity,
-            "op": ">",
-            "quantity": 0,
-            "unit": ccy,
-        },
-        {
-            "track": track,
-            "time": maturity,
-            "op": "+",
-            "quantity": -strike if is_call else strike,
-            "unit": ccy,
-        },
-        {
-            "track": track,
-            "time": maturity,
-            "op": "+",
-            "quantity": 1 if is_call else -1,
-            "unit": asset_name,
-        },
-    ]
-    return events
+from vanilla import _option_events
 
 
 def ko_option_timetable(
@@ -87,7 +61,7 @@ def ko_option_timetable(
             }
         )
 
-    vanilla_events = option_events(
+    vanilla_events = _option_events(
         ccy, asset_name, strike, maturity, is_call, track
     )
 

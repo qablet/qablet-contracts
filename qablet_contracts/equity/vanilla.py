@@ -5,6 +5,33 @@ This module contains examples of creating timetables for equity vanilla options.
 from qablet_contracts.timetable import timetable_from_dicts
 
 
+def _option_events(ccy, asset_name, strike, maturity, is_call, track):
+    events = [
+        {
+            "track": track,
+            "time": maturity,
+            "op": ">",
+            "quantity": 0,
+            "unit": ccy,
+        },
+        {
+            "track": track,
+            "time": maturity,
+            "op": "+",
+            "quantity": -strike if is_call else strike,
+            "unit": ccy,
+        },
+        {
+            "track": track,
+            "time": maturity,
+            "op": "+",
+            "quantity": 1 if is_call else -1,
+            "unit": asset_name,
+        },
+    ]
+    return events
+
+
 def option_timetable(
     ccy: str,
     asset_name: str,
@@ -39,29 +66,8 @@ def option_timetable(
         2         1.0  +      -1.0  AAPL
     """
 
-    events = [
-        {
-            "track": track,
-            "time": maturity,
-            "op": ">",
-            "quantity": 0,
-            "unit": ccy,
-        },
-        {
-            "track": track,
-            "time": maturity,
-            "op": "+",
-            "quantity": -strike if is_call else strike,
-            "unit": ccy,
-        },
-        {
-            "track": track,
-            "time": maturity,
-            "op": "+",
-            "quantity": 1 if is_call else -1,
-            "unit": asset_name,
-        },
-    ]
+    events = _option_events(ccy, asset_name, strike, maturity, is_call, track)
+
     return timetable_from_dicts(events)
 
 
