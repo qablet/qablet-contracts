@@ -25,16 +25,15 @@ install:          ## Install the project in dev mode.
 	$(ENV_PREFIX)pip install -e .[test]
 
 .PHONY: fmt
-fmt:              ## Format code using black & isort.
+fmt:              ## Format code using ruff & isort.
 	$(ENV_PREFIX)isort qablet_contracts/
-	$(ENV_PREFIX)black -l 79 qablet_contracts/
-	$(ENV_PREFIX)black -l 79 tests/
+	$(ENV_PREFIX)ruff format qablet_contracts/
+	$(ENV_PREFIX)ruff format tests/
 
 .PHONY: lint
-lint:             ## Run pep8, black, mypy linters.
+lint:             ## Run pep8, ruff, mypy linters.
 	$(ENV_PREFIX)ruff check qablet_contracts/
-	$(ENV_PREFIX)black -l 79 --check qablet_contracts/
-	$(ENV_PREFIX)black -l 79 --check tests/
+	$(ENV_PREFIX)ruff check tests/
 	$(ENV_PREFIX)mypy --ignore-missing-imports qablet_contracts/
 
 .PHONY: test
