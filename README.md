@@ -7,7 +7,7 @@
 
 A Qablet timetable defines a financial product using a sequence of payments, choices and conditions. A valuation model implemented with a Qablet parser can value any contract, as long as the contract can be described using a Qablet Timetable. 
 
-This repositary contains code to create qablet timetables.
+This repository contains code to create qablet timetables.
 It does not contain models that price qablet timetables. Such models will be available in other independent projects.  
 
 
