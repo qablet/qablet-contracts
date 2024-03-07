@@ -5,7 +5,7 @@ Utils for creating barrier options timetable
 from qablet_contracts.timetable import EVENT_SCHEMA
 import numpy as np
 import pyarrow as pa
-from vanilla import _option_events
+from qablet_contracts.equity.vanilla import _option_events
 
 
 def ko_option_timetable(
@@ -15,7 +15,7 @@ def ko_option_timetable(
     maturity: float,
     is_call: bool,
     barrier: float,
-    barrier_type: str,  # For now ignore and assume Down-and-Out only
+    barrier_type: str,
     barrier_pts: int,
     rebate: float = 0,
     track: str = "",
@@ -29,7 +29,7 @@ def ko_option_timetable(
         maturity: the maturity of the option in years.
         is_call: true if the option is a call.
         barrier: the barrier level.
-        barrier_type: the type of barrier option, e.g "Down-and-Out" or "Up-and-Out".
+        barrier_type: the type of barrier option, e.g "Dn/Out" or "Up/Out".
         barrier_pts: the number of barrier observation points.
         rebate: the rebate amount.
         track: an optional identifier for the contract.

@@ -28,14 +28,16 @@ nav:
     - 'specifications/phrase.md'
     - 'specifications/snapper.md'
     - 'specifications/batch.md'
-  - 'Examples':
+  - 'Contracts':
     - Bond:
       - 'examples/bond_zero.md'
       - 'examples/bond_fixed.md'
-
     - Equity:
       - 'examples/equity_vanilla.md'
+      - 'examples/equity_barrier.md'
+      - 'examples/equity_fwdoption.md'
       - 'examples/equity_cliquet.md'
       - 'examples/equity_rainbow.md'
+      - 'examples/equity_autocall.md'
     - Rate:
       - 'examples/rate_swaption.md'

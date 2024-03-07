@@ -10,7 +10,7 @@ Valuation models are available in other independent projects.
 The **SPECIFICATIONS** section describes the various elements of the language.
 Start with the [timetable](specifications/timetable.md).
 
-The **EXAMPLES** section has code samples to create many common financial contracts such as
+The **CONTRACTS** section has methods to create many common financial contracts such as
 bonds, options, swaps, and swaptions.
 Start with the [Bonds](examples/bond_zero.md).
 
