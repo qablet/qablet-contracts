@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../equity_cliquet/">
+        <link rel="prev" href="../equity_vanilla/">
       
       
-        <link rel="next" href="../equity_autocall/">
+        <link rel="next" href="../equity_fwdoption/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Eq Rainbow Option - qablet_contracts</title>
+        <title>Eq Barrier Option - qablet_contracts</title>
       
     
     
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#eq-rainbow-option" class="md-skip">
+        <a href="#eq-barrier-option" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Eq Rainbow Option
+              Eq Barrier Option
             
           </span>
         </div>
@@ -581,10 +581,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../equity_barrier/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Eq Barrier Option
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -593,6 +613,35 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#qablet_contracts.equity.barrier.ko_option_timetable" class="md-nav__link">
+    <span class="md-ellipsis">
+      ko_option_timetable
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -644,30 +693,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Eq Rainbow Option
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../equity_rainbow/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -676,35 +705,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#qablet_contracts.equity.rainbow.rainbow_timetable" class="md-nav__link">
-    <span class="md-ellipsis">
-      rainbow_timetable
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -837,9 +837,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#qablet_contracts.equity.rainbow.rainbow_timetable" class="md-nav__link">
+  <a href="#qablet_contracts.equity.barrier.ko_option_timetable" class="md-nav__link">
     <span class="md-ellipsis">
-      rainbow_timetable
+      ko_option_timetable
     </span>
   </a>
   
@@ -860,7 +860,7 @@
                   
 
 
-<h1 id="eq-rainbow-option">Eq Rainbow Option</h1>
+<h1 id="eq-barrier-option">Eq Barrier Option</h1>
 
 
 <div class="doc doc-object doc-module">
@@ -870,7 +870,7 @@
 
   <div class="doc doc-contents first">
   
-      <p>This module contains examples of creating timetables for equity rainbow options.</p>
+      <p>Utils for creating barrier options timetable</p>
 
   
 
@@ -889,15 +889,15 @@
 
 
 
-<h2 id="qablet_contracts.equity.rainbow.rainbow_timetable" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">rainbow_timetable</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">asset_names</span><span class="p">,</span> <span class="n">strikes</span><span class="p">,</span> <span class="n">notional</span><span class="p">,</span> <span class="n">maturity</span><span class="p">,</span> <span class="n">is_call</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+<h2 id="qablet_contracts.equity.barrier.ko_option_timetable" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">ko_option_timetable</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">asset_name</span><span class="p">,</span> <span class="n">strike</span><span class="p">,</span> <span class="n">maturity</span><span class="p">,</span> <span class="n">is_call</span><span class="p">,</span> <span class="n">barrier</span><span class="p">,</span> <span class="n">barrier_type</span><span class="p">,</span> <span class="n">barrier_pts</span><span class="p">,</span> <span class="n">rebate</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
 
 </h2>
 
 
   <div class="doc doc-contents ">
   
-      <p>Create timetable for an <strong>Equity Rainbow Option</strong>.</p>
+      <p>Create timetable for a <strong>Knock Out Option</strong>.</p>
 
 
 
@@ -927,13 +927,13 @@
           </td>
         </tr>
         <tr>
-          <td><code>asset_names</code></td>
+          <td><code>asset_name</code></td>
           <td>
-                <code><span title="typing.List">List</span>[str]</code>
+                <code>str</code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>the name of the underlying assets.</p>
+              <p>the name of the underlying asset.</p>
             </div>
           </td>
           <td>
@@ -941,27 +941,13 @@
           </td>
         </tr>
         <tr>
-          <td><code>strikes</code></td>
-          <td>
-                <code><span title="typing.List">List</span>[float]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>the option strikes.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>notional</code></td>
+          <td><code>strike</code></td>
           <td>
                 <code>float</code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>the notional of the option.</p>
+              <p>the option strike.</p>
             </div>
           </td>
           <td>
@@ -997,6 +983,62 @@
           </td>
         </tr>
         <tr>
+          <td><code>barrier</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the barrier level.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>barrier_type</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the type of barrier option, e.g "Dn/Out" or "Up/Out".</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>barrier_pts</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the number of barrier observation points.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>rebate</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the rebate amount.</p>
+            </div>
+          </td>
+          <td>
+                <code>0</code>
+          </td>
+        </tr>
+        <tr>
           <td><code>track</code></td>
           <td>
                 <code>str</code>
@@ -1016,44 +1058,23 @@
 
 
 <p><strong>Examples:</strong></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">rainbow_timetable</span><span class="p">(</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="s2">&quot;USD&quot;</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="p">[</span><span class="s2">&quot;SPX&quot;</span><span class="p">,</span> <span class="s2">&quot;FTSE&quot;</span><span class="p">,</span> <span class="s2">&quot;N225&quot;</span><span class="p">],</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="p">[</span><span class="mi">5087</span><span class="p">,</span> <span class="mi">7684</span><span class="p">,</span> <span class="mi">39100</span><span class="p">],</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="mi">100_000</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="mf">0.5</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="kc">True</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>  <span class="c1"># Call</span>
-<span class="go">  track  time op       quantity  unit</span>
-<span class="go">0         0.5  + -100000.000000   USD</span>
-<span class="go">1         0.5  &gt;      19.657952   SPX</span>
-<span class="go">2         0.5  &gt;      13.014055  FTSE</span>
-<span class="go">3         0.5  &gt;       2.557545  N225</span>
-<span class="go">4         0.5  +  100000.000000   USD</span>
-</code></pre></div>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">rainbow_timetable</span><span class="p">(</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="s2">&quot;USD&quot;</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="p">[</span><span class="s2">&quot;SPX&quot;</span><span class="p">,</span> <span class="s2">&quot;FTSE&quot;</span><span class="p">,</span> <span class="s2">&quot;N225&quot;</span><span class="p">],</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="p">[</span><span class="mi">5087</span><span class="p">,</span> <span class="mi">7684</span><span class="p">,</span> <span class="mi">39100</span><span class="p">],</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="mi">100_000</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="mf">0.5</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="kc">False</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>  <span class="c1"># Put</span>
-<span class="go">  track  time op       quantity  unit</span>
-<span class="go">0         0.5  +  100000.000000   USD</span>
-<span class="go">1         0.5  &gt;     -19.657952   SPX</span>
-<span class="go">2         0.5  &gt;     -13.014055  FTSE</span>
-<span class="go">3         0.5  &gt;      -2.557545  N225</span>
-<span class="go">4         0.5  + -100000.000000   USD</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">ko_option_timetable</span><span class="p">(</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="s2">&quot;EQ&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;Dn/Out&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+<span class="go">  track  time  op  quantity unit</span>
+<span class="go">0        0.00  KO       0.0  USD</span>
+<span class="go">1        0.04  KO       0.0  USD</span>
+<span class="go">2        0.08  KO       0.0  USD</span>
+<span class="go">3        0.12  KO       0.0  USD</span>
+<span class="go">4        0.16  KO       0.0  USD</span>
+<span class="go">5        0.20  KO       0.0  USD</span>
+<span class="go">6        0.20   &gt;       0.0  USD</span>
+<span class="go">7        0.20   +    -100.0  USD</span>
+<span class="go">8        0.20   +       1.0   EQ</span>
 </code></pre></div>
 
           <details class="quote">
-            <summary>Source code in <code>qablet_contracts\equity\rainbow.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
+            <summary>Source code in <code>qablet_contracts\equity\barrier.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
@@ -1133,101 +1154,87 @@
 <span class="normal">88</span>
 <span class="normal">89</span>
 <span class="normal">90</span>
-<span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span>
-<span class="normal">94</span>
-<span class="normal">95</span>
-<span class="normal">96</span>
-<span class="normal">97</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">rainbow_timetable</span><span class="p">(</span>
+<span class="normal">91</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">ko_option_timetable</span><span class="p">(</span>
     <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">asset_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-    <span class="n">strikes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
-    <span class="n">notional</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">asset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">strike</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">maturity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">is_call</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">barrier</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">barrier_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">barrier_pts</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">rebate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create timetable for an **Equity Rainbow Option**.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create timetable for a **Knock Out Option**.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        ccy: the currency of the option.</span>
-<span class="sd">        asset_names: the name of the underlying assets.</span>
-<span class="sd">        strikes: the option strikes.</span>
-<span class="sd">        notional: the notional of the option.</span>
+<span class="sd">        asset_name: the name of the underlying asset.</span>
+<span class="sd">        strike: the option strike.</span>
 <span class="sd">        maturity: the maturity of the option in years.</span>
 <span class="sd">        is_call: true if the option is a call.</span>
+<span class="sd">        barrier: the barrier level.</span>
+<span class="sd">        barrier_type: the type of barrier option, e.g &quot;Dn/Out&quot; or &quot;Up/Out&quot;.</span>
+<span class="sd">        barrier_pts: the number of barrier observation points.</span>
+<span class="sd">        rebate: the rebate amount.</span>
 <span class="sd">        track: an optional identifier for the contract.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; tt = rainbow_timetable(</span>
-<span class="sd">        &gt;&gt;&gt;     &quot;USD&quot;,</span>
-<span class="sd">        &gt;&gt;&gt;     [&quot;SPX&quot;, &quot;FTSE&quot;, &quot;N225&quot;],</span>
-<span class="sd">        &gt;&gt;&gt;     [5087, 7684, 39100],</span>
-<span class="sd">        &gt;&gt;&gt;     100_000,</span>
-<span class="sd">        &gt;&gt;&gt;     0.5,</span>
-<span class="sd">        &gt;&gt;&gt;     True</span>
-<span class="sd">        &gt;&gt;&gt; )</span>
-<span class="sd">        &gt;&gt;&gt; tt[&quot;events&quot;].to_pandas()  # Call</span>
-<span class="sd">          track  time op       quantity  unit</span>
-<span class="sd">        0         0.5  + -100000.000000   USD</span>
-<span class="sd">        1         0.5  &gt;      19.657952   SPX</span>
-<span class="sd">        2         0.5  &gt;      13.014055  FTSE</span>
-<span class="sd">        3         0.5  &gt;       2.557545  N225</span>
-<span class="sd">        4         0.5  +  100000.000000   USD</span>
-
-<span class="sd">        &gt;&gt;&gt; tt = rainbow_timetable(</span>
-<span class="sd">        &gt;&gt;&gt;     &quot;USD&quot;,</span>
-<span class="sd">        &gt;&gt;&gt;     [&quot;SPX&quot;, &quot;FTSE&quot;, &quot;N225&quot;],</span>
-<span class="sd">        &gt;&gt;&gt;     [5087, 7684, 39100],</span>
-<span class="sd">        &gt;&gt;&gt;     100_000,</span>
-<span class="sd">        &gt;&gt;&gt;     0.5,</span>
-<span class="sd">        &gt;&gt;&gt;     False</span>
-<span class="sd">        &gt;&gt;&gt; )</span>
-<span class="sd">        &gt;&gt;&gt; tt[&quot;events&quot;].to_pandas()  # Put</span>
-<span class="sd">          track  time op       quantity  unit</span>
-<span class="sd">        0         0.5  +  100000.000000   USD</span>
-<span class="sd">        1         0.5  &gt;     -19.657952   SPX</span>
-<span class="sd">        2         0.5  &gt;     -13.014055  FTSE</span>
-<span class="sd">        3         0.5  &gt;      -2.557545  N225</span>
-<span class="sd">        4         0.5  + -100000.000000   USD</span>
+<span class="sd">        &gt;&gt;&gt; tt = ko_option_timetable(&quot;USD&quot;, &quot;EQ&quot;, 100, 0.2, True, 100, &quot;Dn/Out&quot;, 5)</span>
+<span class="sd">        &gt;&gt;&gt; tt[&quot;events&quot;].to_pandas()</span>
+<span class="sd">          track  time  op  quantity unit</span>
+<span class="sd">        0        0.00  KO       0.0  USD</span>
+<span class="sd">        1        0.04  KO       0.0  USD</span>
+<span class="sd">        2        0.08  KO       0.0  USD</span>
+<span class="sd">        3        0.12  KO       0.0  USD</span>
+<span class="sd">        4        0.16  KO       0.0  USD</span>
+<span class="sd">        5        0.20  KO       0.0  USD</span>
+<span class="sd">        6        0.20   &gt;       0.0  USD</span>
+<span class="sd">        7        0.20   +    -100.0  USD</span>
+<span class="sd">        8        0.20   +       1.0   EQ</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">sign</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">is_call</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
-    <span class="c1"># Pay the initial strike</span>
-    <span class="n">events</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">maturity</span><span class="p">,</span>
-            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="o">-</span><span class="n">notional</span> <span class="o">*</span> <span class="n">sign</span><span class="p">,</span>
-            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">ccy</span><span class="p">,</span>
-        <span class="p">},</span>
-    <span class="p">]</span>
-
-    <span class="c1"># Options to receive any of the assets</span>
-    <span class="k">for</span> <span class="n">asset</span><span class="p">,</span> <span class="n">strike</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">asset_names</span><span class="p">,</span> <span class="n">strikes</span><span class="p">):</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">barrier_time</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">maturity</span><span class="p">,</span> <span class="n">barrier_pts</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
         <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="p">{</span>
-                <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">maturity</span><span class="p">,</span>
-                <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="n">notional</span> <span class="o">/</span> <span class="n">strike</span> <span class="o">*</span> <span class="n">sign</span><span class="p">,</span>
-                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">asset</span><span class="p">,</span>
+                <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
+                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">barrier_time</span><span class="p">,</span>
+                <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;KO&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="n">rebate</span><span class="p">,</span>
+                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">ccy</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
 
-    <span class="c1"># Otherwise receive the notional back</span>
-    <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">maturity</span><span class="p">,</span>
-            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="n">notional</span> <span class="o">*</span> <span class="n">sign</span><span class="p">,</span>
-            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">ccy</span><span class="p">,</span>
-        <span class="p">}</span>
+    <span class="n">vanilla_events</span> <span class="o">=</span> <span class="n">_option_events</span><span class="p">(</span>
+        <span class="n">ccy</span><span class="p">,</span> <span class="n">asset_name</span><span class="p">,</span> <span class="n">strike</span><span class="p">,</span> <span class="n">maturity</span><span class="p">,</span> <span class="n">is_call</span><span class="p">,</span> <span class="n">track</span>
     <span class="p">)</span>
-    <span class="k">return</span> <span class="n">timetable_from_dicts</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+
+    <span class="n">events</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">vanilla_events</span><span class="p">)</span>
+
+    <span class="c1"># Define the knockout expression (KO)</span>
+    <span class="k">if</span> <span class="n">barrier_type</span> <span class="o">==</span> <span class="s2">&quot;Dn/Out&quot;</span><span class="p">:</span>
+
+        <span class="k">def</span> <span class="nf">ko_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+            <span class="p">[</span><span class="n">S</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">S</span> <span class="o">&lt;</span> <span class="n">barrier</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">barrier_type</span> <span class="o">==</span> <span class="s2">&quot;Up/Out&quot;</span><span class="p">:</span>
+
+        <span class="k">def</span> <span class="nf">ko_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+            <span class="p">[</span><span class="n">S</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">S</span> <span class="o">&gt;</span> <span class="n">barrier</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown barrier type: </span><span class="si">{</span><span class="n">barrier_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">ko</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;phrase&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;inp&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">asset_name</span><span class="p">],</span>
+        <span class="s2">&quot;fn&quot;</span><span class="p">:</span> <span class="n">ko_fn</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">events_table</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">RecordBatch</span><span class="o">.</span><span class="n">from_pylist</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">EVENT_SCHEMA</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;events&quot;</span><span class="p">:</span> <span class="n">events_table</span><span class="p">,</span> <span class="s2">&quot;expressions&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;KO&quot;</span><span class="p">:</span> <span class="n">ko</span><span class="p">}}</span>
 </code></pre></div></td></tr></table></div>
           </details>
   </div>

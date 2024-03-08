@@ -12,19 +12,19 @@
         <link rel="prev" href="../bond_fixed/">
       
       
-        <link rel="next" href="../equity_cliquet/">
+        <link rel="next" href="../equity_barrier/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.4">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
     
     
       
-        <title>Equity Vanilla - qablet_contracts</title>
+        <title>Eq Vanilla Option - qablet_contracts</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
       
       
 
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#equity-vanilla" class="md-skip">
+        <a href="#eq-vanilla-option" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Equity Vanilla
+              Eq Vanilla Option
             
           </span>
         </div>
@@ -218,10 +218,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
@@ -411,10 +409,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
@@ -424,7 +420,7 @@
             
   
   <span class="md-ellipsis">
-    Examples
+    Contracts
   </span>
   
 
@@ -434,7 +430,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            Examples
+            Contracts
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -448,10 +444,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
@@ -537,10 +531,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
@@ -584,7 +576,7 @@
           
   
   <span class="md-ellipsis">
-    Equity Vanilla
+    Eq Vanilla Option
   </span>
   
 
@@ -595,7 +587,7 @@
         
   
   <span class="md-ellipsis">
-    Equity Vanilla
+    Eq Vanilla Option
   </span>
   
 
@@ -641,11 +633,53 @@
   
   
     <li class="md-nav__item">
+      <a href="../equity_barrier/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Eq Barrier Option
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../equity_fwdoption/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Eq Forward Option
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../equity_cliquet/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Equity Cliquet
+    Eq Cliquet
   </span>
   
 
@@ -666,7 +700,28 @@
         
   
   <span class="md-ellipsis">
-    Equity Rainbow
+    Eq Rainbow Option
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../equity_autocall/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Eq AutoCallable Note
   </span>
   
 
@@ -694,10 +749,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
@@ -807,7 +860,7 @@
                   
 
 
-<h1 id="equity-vanilla">Equity Vanilla</h1>
+<h1 id="eq-vanilla-option">Eq Vanilla Option</h1>
 
 
 <div class="doc doc-object doc-module">
@@ -966,34 +1019,7 @@
 
           <details class="quote">
             <summary>Source code in <code>qablet_contracts\equity\vanilla.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">35</span>
 <span class="normal">36</span>
 <span class="normal">37</span>
 <span class="normal">38</span>
@@ -1023,7 +1049,13 @@
 <span class="normal">62</span>
 <span class="normal">63</span>
 <span class="normal">64</span>
-<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">option_timetable</span><span class="p">(</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">option_timetable</span><span class="p">(</span>
     <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">asset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">strike</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -1057,29 +1089,8 @@
 <span class="sd">        2         1.0  +      -1.0  AAPL</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">events</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
-            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">maturity</span><span class="p">,</span>
-            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">ccy</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
-            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">maturity</span><span class="p">,</span>
-            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="o">-</span><span class="n">strike</span> <span class="k">if</span> <span class="n">is_call</span> <span class="k">else</span> <span class="n">strike</span><span class="p">,</span>
-            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">ccy</span><span class="p">,</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
-            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">maturity</span><span class="p">,</span>
-            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">is_call</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">asset_name</span><span class="p">,</span>
-        <span class="p">},</span>
-    <span class="p">]</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="n">_option_events</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">asset_name</span><span class="p">,</span> <span class="n">strike</span><span class="p">,</span> <span class="n">maturity</span><span class="p">,</span> <span class="n">is_call</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">timetable_from_dicts</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
           </details>
@@ -1140,10 +1151,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.c011b7c0.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.7389ff0e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
       
     
   </body>
