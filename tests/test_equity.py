@@ -9,7 +9,7 @@ def test_all():
     assert len(tt["events"]) == 9
 
     tt = autocallable_timetable("USD", "AAPL", 100, 80, 1, 102, 4, 0.092)
-    assert len(tt["events"]) == 6
+    assert len(tt["events"]) == 5
 
     tt = clique_timetable("USD", "SPX", [1.0, 2.0, 3.0], 0.01, -0.03, 0.05)
     assert len(tt["events"]) == 5

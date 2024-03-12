@@ -1,13 +1,13 @@
 # Operations
 
-The **op** column contains a string which can be `+`, `>`, `<`, or a condition
+The **op** column contains a string which can be `+`, `>`, `<`, or a condition.
 
 ### Payment (+)
 
 `+` in the ops column indicates that the contract holder will receive
 the payment specified by the **quantity** and the **unit**,
 and then continue to receive whatever else is further down in the timetable
-in the same track.
+in the **same track**.
 
 Example: A bond paying 5 USD semi-annually and maturing in two years. 
 
@@ -37,7 +37,12 @@ Example: An European Call Option with strike 2800, expiring in 1 year.
 ```
 
 
-### Choice of contract's counterparty (<)
+!!! note
+    A **choice** is different from a **condition**. In a choice, the holder of the contract (or counterparty)
+    makes a decision. This decision takes future expectations into account, i.e. what is coming further down in the timetable.
+    For the holder's choice, a reasonable model would choose the option with a greater expected value of future events.
+
+### Choice of counterparty (<)
 
 `<` in the ops column indicates that the **counterparty can choose** from the following two options
 
@@ -56,7 +61,7 @@ Example: A callable bond, paying 5 USD semi-annually, maturing in two years, and
 ```
 
 
-### Contingent Event
+### Condition
 
 Any other string in the `op` column is assumed to be a [phrase](phrase.md).
 
@@ -75,6 +80,5 @@ the option is knocked out with a rebate of 10. If the barrier is not met, the co
          1.0  +       1.0  SPX
 ```
 
-### Snapper
-
-If the **unit** is a [Snapper](snapper.md), i.e. a path dependent calculation to be performed at that time, then **op** should be `None` or `"s"`.
+!!! note
+    If the **unit** is a [Snapper](snapper.md), i.e. a path dependent calculation to be performed at that time, then **op** should be `None` or `"s"`.

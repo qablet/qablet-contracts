@@ -4,6 +4,9 @@ theme:
   icon:
     logo: material/triangle
 
+markdown_extensions:
+  - admonition
+
 plugins:
   - search
   - mkdocstrings:
@@ -24,6 +27,7 @@ nav:
     - 'specifications/timetable.md'
     - 'specifications/operations.md'
     - 'specifications/units.md'
+    - 'specifications/tracks.md'
     - 'specifications/expressions.md'
     - 'specifications/phrase.md'
     - 'specifications/snapper.md'
