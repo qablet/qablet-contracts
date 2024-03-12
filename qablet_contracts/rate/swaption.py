@@ -71,6 +71,7 @@ def swaption_timetable(
     ccy: str, times: List[float], strike_rate: float, track: str = ""
 ) -> Dict:
     """Create timetable for a **Vanilla Swaption**.
+    In a Vanilla swaption the holder gets the opportunity to enter into the swap at the beginning of the first period.
 
     Args:
         ccy: the currency of the swap.
@@ -112,6 +113,10 @@ def bermuda_swaption_timetable(
     ccy: str, times: List[float], strike_rate: float, track: str = ""
 ) -> Dict:
     """Create timetable for a **Co-terminal Bermuda Swaption**.
+    In a Co-terminal Bermuda swaption, the holder can exercise his option at the beginning of each swap period.
+    If exercised, the holder pays and receives all remaining payments of the swap. If not exercised, there are
+    no payments in the next swap period. Irrespective of the time of exercise, the swap terminates at the same date.
+
 
     Args:
         ccy: the currency of the swap.

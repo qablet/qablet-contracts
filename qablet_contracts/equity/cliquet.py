@@ -5,7 +5,7 @@ This module contains examples of creating timetables for equity cliquet contract
 import numpy as np
 import pyarrow as pa
 from qablet_contracts.timetable import EVENT_SCHEMA
-from typing import List
+from typing import List, Optional
 
 
 def clique_timetable(
@@ -15,6 +15,8 @@ def clique_timetable(
     global_floor: float,
     local_floor: float,
     local_cap: float,
+    last_fix: Optional[float] = None,
+    last_acc: float = 0.0,
     track: str = "",
 ) -> dict:
     """Create timetable for an **Accumulator Cliquet**.
@@ -26,17 +28,23 @@ def clique_timetable(
         global_floor: the global floor of the cliquet.
         local_floor: the local floor of the cliquet.
         local_cap: the local cap of the cliquet.
+        last_fix: the last fixing, None if no fixing has happened yet.
+        last_acc: the accumulated return so far.
         track: an optional identifier for the contract.
 
     Examples:
         >>> tt = clique_timetable("USD", "SPX", [1.0, 2.0, 3.0], 0.01, -0.03, 0.05)
         >>> tt["events"].to_pandas()
-          track  time op  quantity     unit
-        0   NaN   1.0  s      0.00    _INIT
-        1   NaN   2.0  s      0.00  _UPDATE
-        2   NaN   3.0  s      0.00  _UPDATE
-        3         3.0  >      0.01      USD
-        4         3.0  +      1.00       _A
+          track  time   op  quantity     unit
+        0   NaN   0.0  NaN       0.0    _INIT
+        1   NaN   0.5  NaN       0.0  _UPDATE
+        2   NaN   1.0  NaN       0.0  _UPDATE
+        3   NaN   1.5  NaN       0.0  _UPDATE
+        4   NaN   2.0  NaN       0.0  _UPDATE
+        5   NaN   2.5  NaN       0.0  _UPDATE
+        6   NaN   3.0  NaN       0.0  _UPDATE
+        7         3.0    >       0.0      USD
+        8         3.0    +       1.0       _A
     """
 
     maturity = fixings[-1]
@@ -46,7 +54,7 @@ def clique_timetable(
         {
             "track": None,
             "time": fixings[0],
-            "op": "s",
+            "op": None,
             "quantity": 0,
             "unit": "_INIT",  # initialize accumulator
         }
@@ -56,7 +64,7 @@ def clique_timetable(
             {
                 "track": None,
                 "time": fixing_time,
-                "op": "s",
+                "op": None,
                 "quantity": 0,
                 "unit": "_UPDATE",  # update accumulator
             }
@@ -81,9 +89,16 @@ def clique_timetable(
     )
 
     # define accumulator functions
-    def accumulator_init_fn(inputs):
-        [s] = inputs
-        return [0, s]  # [A, S_last]
+    if last_fix is None:
+
+        def accumulator_init_fn(inputs):
+            [s] = inputs
+            return [last_acc, s]  # [A, S_last]
+    else:
+
+        def accumulator_init_fn(inputs):
+            [s] = inputs
+            return [last_acc, last_fix]
 
     def accumulator_update_fn(inputs):
         [s, s_last, a] = inputs

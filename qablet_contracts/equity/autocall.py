@@ -39,8 +39,7 @@ def autocallable_timetable(
         1        0.50  CALL  104.707441      USD
         2        0.75  CALL  107.143621      USD
         3        1.00  CALL  109.636482      USD
-        4   NaN  1.00   NaN    1.000000  CALCPAY
-        5        1.00     +    1.000000      PAY
+        4        1.00     +    1.000000   PAYOFF
     """
 
     events_list = []
@@ -57,24 +56,14 @@ def autocallable_timetable(
                 }
             )
 
-    # Determine the payoff at maturity
-    events_list.append(
-        {
-            "track": None,
-            "time": maturity,
-            "op": None,
-            "quantity": 1,
-            "unit": "CALCPAY",
-        }
-    )
-    # pay the payoff
+    # payoff at maturity
     events_list.append(
         {
             "track": "",
             "time": maturity,
             "op": "+",
             "quantity": 1.0,
-            "unit": "PAY",
+            "unit": "PAYOFF",
         }
     )
 
@@ -89,25 +78,24 @@ def autocallable_timetable(
         "fn": ko_fn,
     }
 
-    # Define the payoff calculation
+    # Define the final payoff
     fixed_pay = 100 * np.exp(maturity * cpn_rate)
 
-    def calc_fn(inputs):
+    def payoff_fn(inputs):
         [s] = inputs
         eq_pay = s * (100 / initial_spot)
         return [np.where(eq_pay < strike, eq_pay, fixed_pay)]
 
     calcpay = {
-        "type": "snapper",
+        "type": "phrase",
         "inp": [asset_name],
-        "out": ["PAY"],
-        "fn": calc_fn,
+        "fn": payoff_fn,
     }
 
     events_table = pa.RecordBatch.from_pylist(events_list, schema=EVENT_SCHEMA)
     return {
         "events": events_table,
-        "expressions": {"CALCPAY": calcpay, "CALL": call},
+        "expressions": {"PAYOFF": calcpay, "CALL": call},
     }
 
 

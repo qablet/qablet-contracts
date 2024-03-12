@@ -14,7 +14,7 @@ It is described using three events.
 
 ### Track
 
-A string identifier for the contract, a leg of the contract, or a state of the contract. For simple contracts this might be just blank.
+A string identifier for the contract, a leg of the contract, or a state of the contract. For simple contracts this might be just blank. See more in [Tracks](tracks.md).
 
 ### Time
 
@@ -22,7 +22,7 @@ The time of an event in years (float) from the valuation date.
 
 ### Op
 
-A string which can be `+`, `>`, `<`, or a condition. See more in the [Operations](operations.md) section.
+A string which can be `+`, `>`, `<`, or a condition. See more in [Operations](operations.md).
 
 ### Quantity
 
@@ -38,19 +38,15 @@ a stock like `SPX`, `AAPL`, etc. See the [Units](units.md) section for all possi
 The timetable is a dictionary with two components.
 
 - events: the sequence of events stored as a pyarrow recordbatch
-- [expresions](expressions.md): a dictionary defining any [phrases](phrase.md), [snappers](snapper.md), or [batches](batch.md) used in the timetable
-
-A simple timetable (without any expressions) can be created using this method, from a list of dicts.
+- [expressions](expressions.md): a dictionary defining any [phrases](phrase.md), [snappers](snapper.md), or [batches](batch.md) used in the timetable
 
 
-::: qablet_contracts.timetable
-
-## Example
-
-Define a contract that pays 100 USD after 1 year.
+A timetable can be created as follows, from a list of dicts.
+In this example we define a contract that pays 100 USD after 1 year.
 
 ```python
-from api import timetable_from_dicts
+import pyarrow as pa
+from qablet_contracts.timetable import EVENT_SCHEMA
 
 events = [
     {
@@ -61,12 +57,19 @@ events = [
         "unit": "USD"
     },
 ]
-timetable = timetable_from_dicts(events)
-print(timetable["events"].to_pandas())
+timetable = {
+    "events": pa.RecordBatch.from_pylist(events, schema=EVENT_SCHEMA),
+    "expressions": {}
+}
 ```
 
-Output:
+## Create a Simple Timetable
+Alternatively, a simple timetable (without any expressions) can also be created using this method, from a list of dicts.
+
 ```python
-  track  time op  quantity unit
-0         1.0  +     100.0  USD
+from api import timetable_from_dicts
+timetable = timetable_from_dicts(events)
 ```
+
+### ::: qablet_contracts.timetable
+
