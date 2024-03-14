@@ -311,6 +311,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../specifications/tracks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tracks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../specifications/expressions/" class="md-nav__link">
         
   
@@ -1275,7 +1296,8 @@
 
   <div class="doc doc-contents ">
   
-      <p>Create timetable for a <strong>Vanilla Swaption</strong>.</p>
+      <p>Create timetable for a <strong>Vanilla Swaption</strong>.
+In a Vanilla swaption the holder gets the opportunity to enter into the swap at the beginning of the first period.</p>
 
 
 
@@ -1402,10 +1424,12 @@
 <span class="normal">105</span>
 <span class="normal">106</span>
 <span class="normal">107</span>
-<span class="normal">108</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">swaption_timetable</span><span class="p">(</span>
+<span class="normal">108</span>
+<span class="normal">109</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">swaption_timetable</span><span class="p">(</span>
     <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">times</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">strike_rate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create timetable for a **Vanilla Swaption**.</span>
+<span class="sd">    In a Vanilla swaption the holder gets the opportunity to enter into the swap at the beginning of the first period.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        ccy: the currency of the swap.</span>
@@ -1460,7 +1484,10 @@
 
   <div class="doc doc-contents ">
   
-      <p>Create timetable for a <strong>Co-terminal Bermuda Swaption</strong>.</p>
+      <p>Create timetable for a <strong>Co-terminal Bermuda Swaption</strong>.
+In a Co-terminal Bermuda swaption, the holder can exercise his option at the beginning of each swap period.
+If exercised, the holder pays and receives all remaining payments of the swap. If not exercised, there are
+no payments in the next swap period. Irrespective of the time of exercise, the swap terminates at the same date.</p>
 
 
 
@@ -1550,8 +1577,7 @@
 
           <details class="quote">
             <summary>Source code in <code>qablet_contracts\rate\swaption.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">111</span>
-<span class="normal">112</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">112</span>
 <span class="normal">113</span>
 <span class="normal">114</span>
 <span class="normal">115</span>
@@ -1590,10 +1616,19 @@
 <span class="normal">148</span>
 <span class="normal">149</span>
 <span class="normal">150</span>
-<span class="normal">151</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">bermuda_swaption_timetable</span><span class="p">(</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">bermuda_swaption_timetable</span><span class="p">(</span>
     <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">times</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">strike_rate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create timetable for a **Co-terminal Bermuda Swaption**.</span>
+<span class="sd">    In a Co-terminal Bermuda swaption, the holder can exercise his option at the beginning of each swap period.</span>
+<span class="sd">    If exercised, the holder pays and receives all remaining payments of the swap. If not exercised, there are</span>
+<span class="sd">    no payments in the next swap period. Irrespective of the time of exercise, the swap terminates at the same date.</span>
+
 
 <span class="sd">    Args:</span>
 <span class="sd">        ccy: the currency of the swap.</span>

@@ -337,27 +337,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#choice-of-contracts-counterparty" class="md-nav__link">
+  <a href="#choice-of-counterparty" class="md-nav__link">
     <span class="md-ellipsis">
-      Choice of contract's counterparty (&lt;)
+      Choice of counterparty (&lt;)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#contingent-event" class="md-nav__link">
+  <a href="#condition" class="md-nav__link">
     <span class="md-ellipsis">
-      Contingent Event
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#snapper" class="md-nav__link">
-    <span class="md-ellipsis">
-      Snapper
+      Condition
     </span>
   </a>
   
@@ -384,6 +375,27 @@
   
   <span class="md-ellipsis">
     Unit
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tracks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tracks
   </span>
   
 
@@ -889,27 +901,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#choice-of-contracts-counterparty" class="md-nav__link">
+  <a href="#choice-of-counterparty" class="md-nav__link">
     <span class="md-ellipsis">
-      Choice of contract's counterparty (&lt;)
+      Choice of counterparty (&lt;)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#contingent-event" class="md-nav__link">
+  <a href="#condition" class="md-nav__link">
     <span class="md-ellipsis">
-      Contingent Event
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#snapper" class="md-nav__link">
-    <span class="md-ellipsis">
-      Snapper
+      Condition
     </span>
   </a>
   
@@ -931,12 +934,12 @@
 
 
 <h1 id="operations">Operations</h1>
-<p>The <strong>op</strong> column contains a string which can be <code>+</code>, <code>&gt;</code>, <code>&lt;</code>, or a condition</p>
+<p>The <strong>op</strong> column contains a string which can be <code>+</code>, <code>&gt;</code>, <code>&lt;</code>, or a condition.</p>
 <h3 id="payment">Payment (+)</h3>
 <p><code>+</code> in the ops column indicates that the contract holder will receive
 the payment specified by the <strong>quantity</strong> and the <strong>unit</strong>,
 and then continue to receive whatever else is further down in the timetable
-in the same track.</p>
+in the <strong>same track</strong>.</p>
 <p>Example: A bond paying 5 USD semi-annually and maturing in two years. </p>
 <pre><code class="language-python">  track  time op  quantity unit
          0.5  +         5  USD
@@ -956,7 +959,13 @@ in the same track.</p>
          1.0  +   -2800.0  USD
          1.0  +       1.0  SPX
 </code></pre>
-<h3 id="choice-of-contracts-counterparty">Choice of contract's counterparty (&lt;)</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A <strong>choice</strong> is different from a <strong>condition</strong>. In a choice, the holder of the contract (or counterparty)
+makes a decision. This decision takes future expectations into account, i.e. what is coming further down in the timetable.
+For the holder's choice, a reasonable model would choose the option with a greater expected value of future events.</p>
+</div>
+<h3 id="choice-of-counterparty">Choice of counterparty (&lt;)</h3>
 <p><code>&lt;</code> in the ops column indicates that the <strong>counterparty can choose</strong> from the following two options</p>
 <ul>
 <li>pay the holder the payment specified by the <strong>quantity</strong> and the <strong>unit</strong>, and then terminate the contract.</li>
@@ -970,7 +979,7 @@ in the same track.</p>
          1.5  +         5  USD
          2.0  +       105  USD
 </code></pre>
-<h3 id="contingent-event">Contingent Event</h3>
+<h3 id="condition">Condition</h3>
 <p>Any other string in the <code>op</code> column is assumed to be a <a href="../phrase/">phrase</a>.</p>
 <ul>
 <li>If the phrase evaluates to true, the holder will receive the payment specified by the <strong>quantity</strong> and the <strong>unit</strong>, and then terminate the contract.</li>
@@ -985,8 +994,10 @@ the option is knocked out with a rebate of 10. If the barrier is not met, the co
          1.0  +   -2800.0  USD
          1.0  +       1.0  SPX
 </code></pre>
-<h3 id="snapper">Snapper</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>If the <strong>unit</strong> is a <a href="../snapper/">Snapper</a>, i.e. a path dependent calculation to be performed at that time, then <strong>op</strong> should be <code>None</code> or <code>"s"</code>.</p>
+</div>
 
 
 
