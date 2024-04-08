@@ -2,10 +2,12 @@
 This module contains examples of creating timetables for equity cliquet contracts.
 """
 
+from typing import List, Optional
+
 import numpy as np
 import pyarrow as pa
+
 from qablet_contracts.timetable import EVENT_SCHEMA
-from typing import List, Optional
 
 
 def clique_timetable(

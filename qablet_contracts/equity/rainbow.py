@@ -2,8 +2,9 @@
 This module contains examples of creating timetables for equity rainbow options.
 """
 
-from qablet_contracts.timetable import timetable_from_dicts
 from typing import List
+
+from qablet_contracts.timetable import timetable_from_dicts
 
 
 def rainbow_timetable(

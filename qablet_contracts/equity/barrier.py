@@ -2,10 +2,11 @@
 Utils for creating barrier options timetable
 """
 
-from qablet_contracts.timetable import EVENT_SCHEMA
 import numpy as np
 import pyarrow as pa
+
 from qablet_contracts.equity.vanilla import _option_events
+from qablet_contracts.timetable import EVENT_SCHEMA
 
 
 def ko_option_timetable(

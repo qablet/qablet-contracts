@@ -1,10 +1,10 @@
-from qablet_contracts.equity.barrier import ko_option_timetable
 from qablet_contracts.equity.autocall import autocallable_timetable
+from qablet_contracts.equity.barrier import ko_option_timetable
 from qablet_contracts.equity.cliquet import clique_timetable
 from qablet_contracts.equity.forward_start import forward_option_timetable
 
 
-def test_all():
+def test_methods():
     tt = ko_option_timetable("USD", "EQ", 100, 0.2, True, 100, "Dn/Out", 5)
     assert len(tt["events"]) == 9
 

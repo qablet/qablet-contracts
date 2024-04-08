@@ -2,10 +2,12 @@
 This module contains examples of creating timetables for Fixed Rate Bonds.
 """
 
-from qablet_contracts.timetable import EVENT_SCHEMA
-import pyarrow as pa
-import numpy as np
 from math import ceil
+
+import numpy as np
+import pyarrow as pa
+
+from qablet_contracts.timetable import EVENT_SCHEMA
 
 
 def cashflow_timetable(ccy: str, times, amounts, track: str = "") -> dict:
