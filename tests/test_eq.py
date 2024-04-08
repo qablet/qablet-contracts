@@ -27,7 +27,7 @@ def test_classes():
         start, maturity, freq="ME", inclusive="right"
     )
     tt = OptionKO(
-        "USD", "EQ", 100, 0.2, True, 102, "Up/Out", barrier_dates
+        "USD", "EQ", 100, maturity, True, 102, "Up/Out", barrier_dates
     ).timetable()
     assert len(tt["events"]) == 9
 

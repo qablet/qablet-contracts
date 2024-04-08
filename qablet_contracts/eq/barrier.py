@@ -109,6 +109,6 @@ if __name__ == "__main__":
     maturity = datetime(2024, 9, 30)
     barrier_dates = pd.date_range(start, maturity, freq="ME")
     timetable = OptionKO(
-        "USD", "EQ", 100, 0.2, True, 102, "Up/Out", barrier_dates
+        "USD", "EQ", 100, maturity, True, 102, "Up/Out", barrier_dates
     ).timetable()
     print(timetable["events"].to_pandas())
