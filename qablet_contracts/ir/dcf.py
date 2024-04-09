@@ -2,7 +2,7 @@
 This module contains examples of day count fraction calculations.
 """
 
-from datetime import timedelta, datetime
+from datetime import datetime, timedelta
 
 
 def _is_eom(dt):
