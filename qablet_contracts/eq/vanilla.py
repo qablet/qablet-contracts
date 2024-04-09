@@ -21,16 +21,16 @@ class Option(EventsMixin):
         track: an optional identifier for the contract.
 
     Examples:
-        >>> c = Option("USD", "SPX", 2900, datetime(2024, 3, 31), True, "<SPX2900>")
-        >>> c.timetable()["events"].to_pandas()
+        >>> call = Option("USD", "SPX", 2900, datetime(2024, 3, 31), True, "<SPX2900>")
+        >>> call.timetable()["events"].to_pandas()
           track  time op  quantity  unit
                track                      time op  quantity unit
         0  <SPX2900> 2024-03-31 00:00:00+00:00  >       0.0  USD
         1  <SPX2900> 2024-03-31 00:00:00+00:00  +   -2900.0  USD
         2  <SPX2900> 2024-03-31 00:00:00+00:00  +       1.0  SPX
 
-        >>> c = Option("USD", "SPX", 2900, datetime(2024, 3, 31), False, "<SPX2900>")
-        >>> c.timetable()["events"].to_pandas()
+        >>> put = Option("USD", "SPX", 2900, datetime(2024, 3, 31), False, "<SPX2900>")
+        >>> put.timetable()["events"].to_pandas()
           track  time op  quantity  unit
                track                      time op  quantity unit
         0  <SPX2900> 2024-03-31 00:00:00+00:00  >       0.0  USD
