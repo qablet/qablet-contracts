@@ -1,3 +1,3 @@
 # Eq Vanilla Option
 
-::: qablet_contracts.equity.vanilla
+::: qablet_contracts.eq.vanilla

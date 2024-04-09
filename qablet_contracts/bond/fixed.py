@@ -17,7 +17,7 @@ def cashflow_timetable(ccy: str, times, amounts, track: str = "") -> dict:
     Args:
         ccy: the currency of cashflows.
         times: a list or ndarray of cashflows times.
-        amounts: a list ndarray of cashflows amounts.
+        amounts: a list or ndarray of cashflows amounts.
         track: an optional identifier for the contract.
 
     Examples:

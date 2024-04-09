@@ -1,3 +1,3 @@
 # Zero Bond
 
-::: qablet_contracts.bond.zero
+::: qablet_contracts.bnd.zero

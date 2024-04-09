@@ -10,13 +10,6 @@ from qablet_contracts.timetable import EventsMixin
 
 @dataclass
 class Option(EventsMixin):
-    ccy: str
-    asset_name: str
-    strike: float
-    maturity: datetime
-    is_call: bool
-    track: str = ""
-
     """An **Equity Vanilla Option**.
 
     Args:
@@ -36,13 +29,21 @@ class Option(EventsMixin):
         1  <SPX2900> 2024-03-31 00:00:00+00:00  +   -2900.0  USD
         2  <SPX2900> 2024-03-31 00:00:00+00:00  +       1.0  SPX
 
-        >>> tt = option_timetable("USD", "AAPL", 190, 1.0, False)  # Put
-        >>> tt["events"].to_pandas()
+        >>> c = Option("USD", "SPX", 2900, datetime(2024, 3, 31), False, "<SPX2900>")
+        >>> c.timetable()["events"].to_pandas()
           track  time op  quantity  unit
-        0         1.0  >       0.0   USD
-        1         1.0  +     190.0   USD
-        2         1.0  +      -1.0  AAPL
+               track                      time op  quantity unit
+        0  <SPX2900> 2024-03-31 00:00:00+00:00  >       0.0  USD
+        1  <SPX2900> 2024-03-31 00:00:00+00:00  +    2900.0  USD
+        2  <SPX2900> 2024-03-31 00:00:00+00:00  +      -1.0  SPX
     """
+
+    ccy: str
+    asset_name: str
+    strike: float
+    maturity: datetime
+    is_call: bool
+    track: str = ""
 
     def events(self):
         sign = 1 if self.is_call else -1

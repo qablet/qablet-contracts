@@ -14,16 +14,6 @@ from qablet_contracts.timetable import EventsMixin
 
 @dataclass
 class Accumulator(EventsMixin):
-    ccy: str
-    asset_name: str
-    fix_dates: List[datetime]
-    global_floor: float
-    local_floor: float
-    local_cap: float
-    # last_fix: Optional[float] = None
-    # last_acc: float = 0.0
-    track: str = ""
-
     """An **Accumulator Cliquet**.
 
     Args:
@@ -33,24 +23,31 @@ class Accumulator(EventsMixin):
         global_floor: the global floor of the cliquet.
         local_floor: the local floor of the cliquet.
         local_cap: the local cap of the cliquet.
-        last_fix: the last fixing, None if no fixing has happened yet.
-        last_acc: the accumulated return so far.
         track: an optional identifier for the contract.
 
     Examples:
-        >>> tt = clique_timetable("USD", "SPX", [1.0, 2.0, 3.0], 0.01, -0.03, 0.05)
-        >>> tt["events"].to_pandas()
-          track  time   op  quantity     unit
-        0   NaN   0.0  NaN       0.0    _INIT
-        1   NaN   0.5  NaN       0.0  _UPDATE
-        2   NaN   1.0  NaN       0.0  _UPDATE
-        3   NaN   1.5  NaN       0.0  _UPDATE
-        4   NaN   2.0  NaN       0.0  _UPDATE
-        5   NaN   2.5  NaN       0.0  _UPDATE
-        6   NaN   3.0  NaN       0.0  _UPDATE
-        7         3.0    >       0.0      USD
-        8         3.0    +       1.0       _A
+        >>> fix_dates = pd.bdate_range(datetime(2021, 12, 31), datetime(2024, 12, 31), freq="2BQE")
+        >>> tt = Accumulator("USD", "SPX", fix_dates, 0.0, -0.03, 0.05).timetable()
+        >>> print(tt["events"].to_pandas())
+          track                      time   op  quantity     unit
+        0   NaN 2021-12-31 00:00:00+00:00  NaN       0.0    _INIT
+        1   NaN 2022-06-30 00:00:00+00:00  NaN       0.0  _UPDATE
+        2   NaN 2022-12-30 00:00:00+00:00  NaN       0.0  _UPDATE
+        3   NaN 2023-06-30 00:00:00+00:00  NaN       0.0  _UPDATE
+        4   NaN 2023-12-29 00:00:00+00:00  NaN       0.0  _UPDATE
+        5   NaN 2024-06-28 00:00:00+00:00  NaN       0.0  _UPDATE
+        6   NaN 2024-12-31 00:00:00+00:00  NaN       0.0  _UPDATE
+        7       2024-12-31 00:00:00+00:00    >       0.0      USD
+        8       2024-12-31 00:00:00+00:00    +       1.0       _A
     """
+
+    ccy: str
+    asset_name: str
+    fix_dates: List[datetime]
+    global_floor: float
+    local_floor: float
+    local_cap: float
+    track: str = ""
 
     def events(self):
         maturity = self.fix_dates[-1]
@@ -128,7 +125,6 @@ class Accumulator(EventsMixin):
 
 if __name__ == "__main__":
     # Create the cliquet
-
     fix_dates = pd.bdate_range(
         datetime(2021, 12, 31), datetime(2024, 12, 31), freq="2BQE"
     )

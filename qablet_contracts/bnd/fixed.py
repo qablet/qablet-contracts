@@ -24,10 +24,6 @@ def _const_dict_array(n, val):
 
 @dataclass
 class FixedCashFlows:
-    ccy: str
-    dates: List[datetime]
-    amounts: List[float]
-    track: str = ""
     """Create timetable from cashflows in a single currency. This example also shows how to create a timetable from arrays
     instead of a list of dictionaries, which is more efficient.
 
@@ -38,13 +34,26 @@ class FixedCashFlows:
         track: an optional identifier for the contract.
 
     Examples:
-        >>> tt = cashflow_timetable("USD", [0.5, 1, 1.5], [0.05, 0.05, 1.05])
-        >>> tt["events"].to_pandas()
-          track  time op  quantity unit
-        0         0.5  +      0.05  USD
-        1         1.0  +      0.05  USD
-        2         1.5  +      1.05  USD
+        >>> tt = FixedCashFlows(
+            "USD",
+            [
+                datetime(2023, 12, 31),
+                datetime(2024, 6, 30),
+                datetime(2024, 12, 31),
+            ],
+            [0.05, 0.05, 1.05],
+        ).timetable()
+        >>> print(tt["events"].to_pandas())
+          track                      time op  quantity unit
+        0       2023-12-31 00:00:00+00:00  +      0.05  USD
+        1       2024-06-30 00:00:00+00:00  +      0.05  USD
+        2       2024-12-31 00:00:00+00:00  +      1.05  USD
     """
+
+    ccy: str
+    dates: List[datetime]
+    amounts: List[float]
+    track: str = ""
 
     def timetable(self):
         n = len(self.dates)
@@ -65,13 +74,6 @@ class FixedCashFlows:
 
 @dataclass
 class FixedBond:
-    ccy: str
-    coupon: float
-    accrual_start: datetime
-    maturity: datetime
-    freq: str = "2BQE"
-    track: str = ""
-
     """Create timetable for a fixed rate bond.
 
     Args:
@@ -82,15 +84,23 @@ class FixedBond:
         track: an optional identifier for the contract.
 
     Examples:
-        >>> tt = fixed_bond_timetable("USD", 0.05, 2.1)
-        >>> tt["events"].to_pandas()
-          track  time op  quantity unit
-        0         0.1  +     0.025  USD
-        1         0.6  +     0.025  USD
-        2         1.1  +     0.025  USD
-        3         1.6  +     0.025  USD
-        4         2.1  +     1.025  USD
+        >>> tt = FixedBond(
+            "USD", 0.05, datetime(2023, 12, 31), datetime(2025, 12, 31), "2QE"
+        ).timetable()
+        >>> print(tt["events"].to_pandas())
+          track                      time op  quantity unit
+        0       2024-06-30 00:00:00+00:00  +     0.025  USD
+        1       2024-12-31 00:00:00+00:00  +     0.050  USD
+        2       2025-06-30 00:00:00+00:00  +     0.075  USD
+        3       2025-12-31 00:00:00+00:00  +     1.100  USD
     """
+
+    ccy: str
+    coupon: float
+    accrual_start: datetime
+    maturity: datetime
+    freq: str = "2BQE"
+    track: str = ""
 
     def timetable(self):
         cpn_dates = pd.bdate_range(

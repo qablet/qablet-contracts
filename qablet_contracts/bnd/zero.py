@@ -10,10 +10,6 @@ from qablet_contracts.timetable import EventsMixin
 
 @dataclass
 class Bond(EventsMixin):
-    ccy: str
-    maturity: datetime
-    track: str = ""
-
     """A zero coupon bond.
 
     Args:
@@ -22,11 +18,15 @@ class Bond(EventsMixin):
         track: an optional identifier for the contract.
 
     Examples:
-        >>> tt = zcb_timetable("USD", 1)
-        >>> tt["events"].to_pandas()
-          track  time op  quantity unit
-        0         1.0  +       1.0  USD
+        >>> tt = Bond("USD", datetime(2025, 3, 31)).timetable()
+        >>> print(tt["events"].to_pandas())
+          track                      time op  quantity unit
+        0       2025-03-31 00:00:00+00:00  +       1.0  USD
     """
+
+    ccy: str
+    maturity: datetime
+    track: str = ""
 
     def events(self):
         return [
@@ -36,20 +36,12 @@ class Bond(EventsMixin):
                 "op": "+",
                 "quantity": 1,
                 "unit": self.ccy,
-            }  # get bond notional at bond expiration
+            }
         ]
-
-    # def timetable(self):
-    #     return {"events": self.events(), "expressions": {}}
 
 
 @dataclass
 class BondPut(EventsMixin):
-    ccy: str
-    opt_maturity: datetime
-    bond_maturity: datetime
-    strike: float
-    track: str = ""
     """Create timetable for a **zero coupon bond put**.
 
     Args:
@@ -60,13 +52,21 @@ class BondPut(EventsMixin):
         track: an optional identifier for the contract.
 
     Examples:
-        >>> tt = zbp_timetable("USD", 0.5, 1.0, 0.95)
-        >>> tt["events"].to_pandas()
-          track  time op  quantity unit
-        0         0.5  >      0.00  USD
-        1         0.5  +      0.95  USD
-        2         1.0  +     -1.00  USD
+        >>> tt = BondPut(
+            "USD", datetime(2024, 9, 30), datetime(2025, 3, 31), 0.95
+        ).timetable()
+        >>> print(tt["events"].to_pandas())
+          track                      time op  quantity unit
+        0       2024-09-30 00:00:00+00:00  >      0.00  USD
+        1       2024-09-30 00:00:00+00:00  +      0.95  USD
+        2       2025-03-31 00:00:00+00:00  +     -1.00  USD
     """
+
+    ccy: str
+    opt_maturity: datetime
+    bond_maturity: datetime
+    strike: float
+    track: str = ""
 
     def events(self):
         return [

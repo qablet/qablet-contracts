@@ -1,3 +1,3 @@
 # Eq AutoCallable Note
 
-::: qablet_contracts.equity.autocall
+::: qablet_contracts.eq.autocall

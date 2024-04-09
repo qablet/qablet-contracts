@@ -14,17 +14,6 @@ from qablet_contracts.timetable import EventsMixin
 
 @dataclass
 class OptionKO(EventsMixin):
-    ccy: str
-    asset_name: str
-    strike: float
-    maturity: datetime
-    is_call: bool
-    barrier: float
-    barrier_type: str
-    barrier_dates: List[datetime]
-    rebate: float = 0
-    track: str = ""
-
     """Create timetable for a **Knock Out Option**.
 
     Args:
@@ -35,24 +24,38 @@ class OptionKO(EventsMixin):
         is_call: true if the option is a call.
         barrier: the barrier level.
         barrier_type: the type of barrier option, e.g "Dn/Out" or "Up/Out".
-        barrier_date: the barrier observation points.
+        barrier_dates: the barrier observation points.
         rebate: the rebate amount.
         track: an optional identifier for the contract.
 
     Examples:
-        >>> tt = ko_option_timetable("USD", "EQ", 100, 0.2, True, 100, "Dn/Out", 5)
-        >>> tt["events"].to_pandas()
-          track  time  op  quantity unit
-        0        0.00  KO       0.0  USD
-        1        0.04  KO       0.0  USD
-        2        0.08  KO       0.0  USD
-        3        0.12  KO       0.0  USD
-        4        0.16  KO       0.0  USD
-        5        0.20  KO       0.0  USD
-        6        0.20   >       0.0  USD
-        7        0.20   +    -100.0  USD
-        8        0.20   +       1.0   EQ
+        >>> start = datetime(2024, 3, 31)
+        >>> maturity = datetime(2024, 9, 30)
+        >>> barrier_dates = pd.date_range(start, maturity, freq="2ME")
+        >>> tt = OptionKO(
+            "USD", "EQ", 100, maturity, True, 102, "Up/Out", barrier_dates
+        ).timetable()
+        >>> print(tt["events"].to_pandas())
+          track                      time  op  quantity unit
+        0       2024-03-31 00:00:00+00:00  KO       0.0  USD
+        1       2024-05-31 00:00:00+00:00  KO       0.0  USD
+        2       2024-07-31 00:00:00+00:00  KO       0.0  USD
+        3       2024-09-30 00:00:00+00:00  KO       0.0  USD
+        4       2024-09-30 00:00:00+00:00   >       0.0  USD
+        5       2024-09-30 00:00:00+00:00   +    -100.0  USD
+        6       2024-09-30 00:00:00+00:00   +       1.0   EQ
     """
+
+    ccy: str
+    asset_name: str
+    strike: float
+    maturity: datetime
+    is_call: bool
+    barrier: float
+    barrier_type: str
+    barrier_dates: List[datetime]
+    rebate: float = 0
+    track: str = ""
 
     def events(self):
         events = []
@@ -107,7 +110,7 @@ if __name__ == "__main__":
     # Create the KO option
     start = datetime(2024, 3, 31)
     maturity = datetime(2024, 9, 30)
-    barrier_dates = pd.date_range(start, maturity, freq="ME")
+    barrier_dates = pd.date_range(start, maturity, freq="2ME")
     timetable = OptionKO(
         "USD", "EQ", 100, maturity, True, 102, "Up/Out", barrier_dates
     ).timetable()
