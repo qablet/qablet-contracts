@@ -1,3 +1,5 @@
 # Swaptions
 
-::: qablet_contracts.rate.swaption
+::: qablet_contracts.ir.swap
+
+::: qablet_contracts.ir.swaption

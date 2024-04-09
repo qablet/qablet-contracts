@@ -2,8 +2,9 @@
 Utils for creating forward starting options timetable
 """
 
-from qablet_contracts.timetable import EVENT_SCHEMA
 import pyarrow as pa
+
+from qablet_contracts.timetable import EVENT_SCHEMA
 
 
 def forward_option_timetable(

@@ -2,9 +2,10 @@
 Create an autocallable note timetable
 """
 
-from qablet_contracts.timetable import EVENT_SCHEMA
 import numpy as np
 import pyarrow as pa
+
+from qablet_contracts.timetable import EVENT_SCHEMA
 
 
 def autocallable_timetable(

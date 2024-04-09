@@ -2,9 +2,11 @@
 This module contains examples of creating timetables for rate contracts such as swaps and swaptions.
 """
 
+from typing import Dict, List
+
 import numpy as np
+
 from qablet_contracts.timetable import timetable_from_dicts
-from typing import List, Dict
 
 
 def simple_swap_period(
