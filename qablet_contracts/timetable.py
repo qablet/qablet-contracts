@@ -99,5 +99,5 @@ def convert_time_to_ts(timetable, base_ts):
                 events["quantity"],
                 events["unit"],
             ],
-            schema=EVENT_SCHEMA,
+            schema=TS_EVENT_SCHEMA,
         )
