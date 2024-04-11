@@ -1,5 +1,7 @@
 """
 This module contains examples of fixed rate bonds.
+These methods creates a timetable with floating point for time, which is now being deprecated.
+See qablet_contracts/bnd/fixed to create timetables with timestamps.
 """
 
 from math import ceil

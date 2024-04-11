@@ -1,5 +1,7 @@
 """
 This module contains examples of interest rate swaps.
+These methods creates a timetable with floating point for time, which is now being deprecated.
+See qablet_contracts/ir/swap to create timetables with timestamps.
 """
 
 from typing import Dict, List

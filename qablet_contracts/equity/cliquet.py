@@ -1,5 +1,7 @@
 """
 This module contains examples of creating timetables for equity cliquet contracts.
+These methods creates a timetable with floating point for time, which is now being deprecated.
+See qablet_contracts/eq/cliquet to create timetables with timestamps.
 """
 
 from typing import List, Optional

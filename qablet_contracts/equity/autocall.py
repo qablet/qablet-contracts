@@ -1,5 +1,7 @@
 """
-Create an autocallable note timetable
+Create an autocallable note timetable.
+These methods creates a timetable with floating point for time, which is now being deprecated.
+See qablet_contracts/eq/autocall to create timetables with timestamps.
 """
 
 import numpy as np

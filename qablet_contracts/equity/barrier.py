@@ -1,5 +1,7 @@
 """
-Utils for creating barrier options timetable
+Utils for creating barrier options timetable.
+These methods creates a timetable with floating point for time, which is now being deprecated.
+See qablet_contracts/eq/barrier to create timetables with timestamps.
 """
 
 import numpy as np

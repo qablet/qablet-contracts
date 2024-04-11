@@ -1,5 +1,7 @@
 """
-Utils for creating forward starting options timetable
+Utils for creating forward starting options timetable.
+These methods creates a timetable with floating point for time, which is now being deprecated.
+See qablet_contracts/eq/forward to create timetables with timestamps.
 """
 
 import pyarrow as pa

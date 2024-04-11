@@ -1,5 +1,7 @@
 """
 This module contains examples of creating timetables for equity vanilla options.
+These methods creates a timetable with floating point for time, which is now being deprecated.
+See qablet_contracts/eq/vanilla to create timetables with timestamps.
 """
 
 from qablet_contracts.timetable import timetable_from_dicts
