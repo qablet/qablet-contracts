@@ -352,19 +352,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create-a-simple-timetable" class="md-nav__link">
+  <a href="#create-a-timetable-using-eventsmixin" class="md-nav__link">
     <span class="md-ellipsis">
-      Create a Simple Timetable
+      Create a Timetable using EventsMixin
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Create a Simple Timetable">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qablet_contractstimetable" class="md-nav__link">
+    <span class="md-ellipsis">
+      qablet_contracts.timetable
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="qablet_contracts.timetable">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#qablet_contracts.timetable.EventsMixin" class="md-nav__link">
+    <span class="md-ellipsis">
+      EventsMixin
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#qablet_contracts.timetable.timetable_from_dicts" class="md-nav__link">
     <span class="md-ellipsis">
       timetable_from_dicts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qablet_contracts.timetable.py_to_ts" class="md-nav__link">
+    <span class="md-ellipsis">
+      py_to_ts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qablet_contracts.timetable.convert_time_to_ts" class="md-nav__link">
+    <span class="md-ellipsis">
+      convert_time_to_ts
     </span>
   </a>
   
@@ -704,7 +740,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Vanilla Option
+    Vanilla Option
   </span>
   
 
@@ -725,7 +761,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Barrier Option
+    Barrier Option
   </span>
   
 
@@ -746,7 +782,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Forward Option
+    Forward Option
   </span>
   
 
@@ -767,7 +803,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Cliquet
+    Cliquet
   </span>
   
 
@@ -788,7 +824,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Rainbow Option
+    Rainbow Option
   </span>
   
 
@@ -809,7 +845,7 @@
         
   
   <span class="md-ellipsis">
-    Eq AutoCallable Note
+    AutoCallable Note
   </span>
   
 
@@ -861,6 +897,27 @@
             Rate
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/rate_swap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Swaps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -979,19 +1036,55 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create-a-simple-timetable" class="md-nav__link">
+  <a href="#create-a-timetable-using-eventsmixin" class="md-nav__link">
     <span class="md-ellipsis">
-      Create a Simple Timetable
+      Create a Timetable using EventsMixin
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Create a Simple Timetable">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qablet_contractstimetable" class="md-nav__link">
+    <span class="md-ellipsis">
+      qablet_contracts.timetable
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="qablet_contracts.timetable">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#qablet_contracts.timetable.EventsMixin" class="md-nav__link">
+    <span class="md-ellipsis">
+      EventsMixin
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#qablet_contracts.timetable.timetable_from_dicts" class="md-nav__link">
     <span class="md-ellipsis">
       timetable_from_dicts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qablet_contracts.timetable.py_to_ts" class="md-nav__link">
+    <span class="md-ellipsis">
+      py_to_ts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qablet_contracts.timetable.convert_time_to_ts" class="md-nav__link">
+    <span class="md-ellipsis">
+      convert_time_to_ts
     </span>
   </a>
   
@@ -1021,15 +1114,15 @@
 <p>A contract is described by a list of events. An event has five properties -
  track, time, op, quantity, and unit. Here is an example of an equity call option contract on SPX, with strike 2800 and one year expiration.
 It is described using three events.</p>
-<pre><code class="language-python"> track  time op  quantity unit
-         1.0  &gt;       0.0  USD
-         1.0  +   -2800.0  USD
-         1.0  +       1.0  SPX
+<pre><code class="language-python">       track                      time op  quantity unit
+0  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  &gt;       0.0  USD
+1  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  +    2900.0  USD
+2  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  +      -1.0  SPX
 </code></pre>
 <h3 id="track">Track</h3>
 <p>A string identifier for the contract, a leg of the contract, or a state of the contract. For simple contracts this might be just blank. See more in <a href="../tracks/">Tracks</a>.</p>
 <h3 id="time">Time</h3>
-<p>The time of an event in years (float) from the valuation date.</p>
+<p>The UNIX timestamp (milliseconds) of an event.</p>
 <h3 id="op">Op</h3>
 <p>A string which can be <code>+</code>, <code>&gt;</code>, <code>&lt;</code>, or a condition. See more in <a href="../operations/">Operations</a>.</p>
 <h3 id="quantity">Quantity</h3>
@@ -1044,29 +1137,51 @@ a stock like <code>SPX</code>, <code>AAPL</code>, etc. See the <a href="../units
 <li><a href="../expressions/">expressions</a>: a dictionary defining any <a href="../phrase/">phrases</a>, <a href="../snapper/">snappers</a>, or <a href="../batch/">batches</a> used in the timetable</li>
 </ul>
 <p>A timetable can be created as follows, from a list of dicts.
-In this example we define a contract that pays 100 USD after 1 year.</p>
+In this example we define a contract that pays 100 USD on 2024-12-31.</p>
 <pre><code class="language-python">import pyarrow as pa
-from qablet_contracts.timetable import EVENT_SCHEMA
+import datetime
+from qablet_contracts.timetable import TS_EVENT_SCHEMA
 
 events = [
     {
         &quot;track&quot;: &quot;&quot;,
-        &quot;time&quot;: 1.0,
+        &quot;time&quot;: datetime(2024, 12, 31),
         &quot;op&quot;: &quot;+&quot;,
         &quot;quantity&quot;: 100.0,
-        &quot;unit&quot;: &quot;USD&quot;
+        &quot;unit&quot;: &quot;USD&quot;,
     },
 ]
 timetable = {
-    &quot;events&quot;: pa.RecordBatch.from_pylist(events, schema=EVENT_SCHEMA),
-    &quot;expressions&quot;: {}
+    &quot;events&quot;: pa.RecordBatch.from_pylist(events, schema=TS_EVENT_SCHEMA),
+    &quot;expressions&quot;: {},
 }
 </code></pre>
-<h2 id="create-a-simple-timetable">Create a Simple Timetable</h2>
-<p>Alternatively, a simple timetable (without any expressions) can also be created using this method, from a list of dicts.</p>
-<pre><code class="language-python">from api import timetable_from_dicts
-timetable = timetable_from_dicts(events)
+<h2 id="create-a-timetable-using-eventsmixin">Create a Timetable using <code>EventsMixin</code></h2>
+<p>Alternatively, the same timetable as above can also be created using the <code>EventsMixin</code> class as shown below.</p>
+<pre><code class="language-python">from qablet_contracts.timetable import EventsMixin
+
+@dataclass
+class Bond(EventsMixin):
+    ccy: str
+    maturity: datetime
+    track: str = &quot;&quot;
+
+    def events(self):
+        return [
+            {
+                &quot;track&quot;: self.track,
+                &quot;time&quot;: self.maturity,
+                &quot;op&quot;: &quot;+&quot;,
+                &quot;quantity&quot;: 1,
+                &quot;unit&quot;: self.ccy,
+            }
+        ]
+
+timetable = Bond(&quot;USD&quot;, datetime(2024, 12, 31)).timetable()
+print(&quot;zcb:\n&quot;, timetable[&quot;events&quot;].to_pandas())
 </code></pre>
+<h2 id="qablet_contractstimetable"><code>qablet_contracts.timetable</code></h2>
+<p>This module has several utilities to help create timetables.</p>
 
 
 <div class="doc doc-object doc-module">
@@ -1087,6 +1202,87 @@ timetable = timetable_from_dicts(events)
 
 
 
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="qablet_contracts.timetable.EventsMixin" class="doc doc-heading">
+          <code>EventsMixin</code>
+
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="abc.ABC">ABC</span></code></p>
+
+  
+      <p>A mixin class for contracts that generates a timetable from events list.
+A derived class needs to implement the events method that returns a list of dicts,
+and the expressions method (optional) that returns a dictionary of expressions, batches, and snappers.</p>
+
+            <details class="quote">
+              <summary>Source code in <code>qablet_contracts\timetable.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">EventsMixin</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A mixin class for contracts that generates a timetable from events list.</span>
+<span class="sd">    A derived class needs to implement the events method that returns a list of dicts,</span>
+<span class="sd">    and the expressions method (optional) that returns a dictionary of expressions, batches, and snappers.&quot;&quot;&quot;</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">events</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span> <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">expressions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">timetable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;events&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">RecordBatch</span><span class="o">.</span><span class="n">from_pylist</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">(),</span> <span class="n">schema</span><span class="o">=</span><span class="n">TS_EVENT_SCHEMA</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;expressions&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">expressions</span><span class="p">(),</span>
+        <span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
 
 
 <div class="doc doc-object doc-function">
@@ -1101,7 +1297,8 @@ timetable = timetable_from_dicts(events)
 
   <div class="doc doc-contents ">
   
-      <p>Create timetable from a list of dicts.</p>
+      <p>Create timetable from a list of dicts. This method creates a timetable
+with floating point for time, which is now being deprecated.</p>
 
 
 
@@ -1170,30 +1367,32 @@ timetable = timetable_from_dicts(events)
 
           <details class="quote">
             <summary>Source code in <code>qablet_contracts\timetable.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">35</span>
 <span class="normal">36</span>
 <span class="normal">37</span>
 <span class="normal">38</span>
 <span class="normal">39</span>
-<span class="normal">40</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">timetable_from_dicts</span><span class="p">(</span><span class="n">events</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create timetable from a list of dicts.</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">timetable_from_dicts</span><span class="p">(</span><span class="n">events</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create timetable from a list of dicts. This method creates a timetable</span>
+<span class="sd">    with floating point for time, which is now being deprecated.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        events: a list of dicts with the following fields:</span>
@@ -1215,6 +1414,100 @@ timetable = timetable_from_dicts(events)
         <span class="s2">&quot;events&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">RecordBatch</span><span class="o">.</span><span class="n">from_pylist</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">EVENT_SCHEMA</span><span class="p">),</span>
         <span class="s2">&quot;expressions&quot;</span><span class="p">:</span> <span class="p">{},</span>
     <span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="qablet_contracts.timetable.py_to_ts" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">py_to_ts</span><span class="p">(</span><span class="n">py_dt</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Convert a python datetime to a pyarrow timestamp (milliseconds).</p>
+
+          <details class="quote">
+            <summary>Source code in <code>qablet_contracts\timetable.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">py_to_ts</span><span class="p">(</span><span class="n">py_dt</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a python datetime to a pyarrow timestamp (milliseconds).&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">pa</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="n">py_dt</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">TS_TYPE</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="qablet_contracts.timetable.convert_time_to_ts" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">convert_time_to_ts</span><span class="p">(</span><span class="n">timetable</span><span class="p">,</span> <span class="n">base_ts</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Convert events of timetable in place, changing time column into timestamp column.
+This function is used convert timetables created by legacy methods that use floating point
+for time into timetables with timestamp for time.</p>
+
+          <details class="quote">
+            <summary>Source code in <code>qablet_contracts\timetable.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">convert_time_to_ts</span><span class="p">(</span><span class="n">timetable</span><span class="p">,</span> <span class="n">base_ts</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert events of timetable in place, changing time column into timestamp column.</span>
+<span class="sd">    This function is used convert timetables created by legacy methods that use floating point</span>
+<span class="sd">    for time into timetables with timestamp for time.&quot;&quot;&quot;</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="n">timetable</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">events</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">pa</span><span class="o">.</span><span class="n">float64</span><span class="p">():</span>
+        <span class="n">ts_list</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">base_ts</span> <span class="o">+</span> <span class="n">t</span><span class="o">.</span><span class="n">as_py</span><span class="p">()</span> <span class="o">*</span> <span class="mi">31_536_000_000</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">events</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span>
+        <span class="p">]</span>
+
+        <span class="n">timetable</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">RecordBatch</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">events</span><span class="p">[</span><span class="s2">&quot;track&quot;</span><span class="p">],</span>
+                <span class="n">ts_list</span><span class="p">,</span>
+                <span class="n">events</span><span class="p">[</span><span class="s2">&quot;op&quot;</span><span class="p">],</span>
+                <span class="n">events</span><span class="p">[</span><span class="s2">&quot;quantity&quot;</span><span class="p">],</span>
+                <span class="n">events</span><span class="p">[</span><span class="s2">&quot;unit&quot;</span><span class="p">],</span>
+            <span class="p">],</span>
+            <span class="n">schema</span><span class="o">=</span><span class="n">TS_EVENT_SCHEMA</span><span class="p">,</span>
+        <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
           </details>
   </div>
@@ -1278,6 +1571,12 @@ timetable = timetable_from_dicts(events)
     
     
       <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

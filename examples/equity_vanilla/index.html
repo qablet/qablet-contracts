@@ -20,7 +20,7 @@
     
     
       
-        <title>Eq Vanilla Option - qablet_contracts</title>
+        <title>Vanilla Option - qablet_contracts</title>
       
     
     
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#eq-vanilla-option" class="md-skip">
+        <a href="#vanilla-option" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Eq Vanilla Option
+              Vanilla Option
             
           </span>
         </div>
@@ -597,7 +597,7 @@
           
   
   <span class="md-ellipsis">
-    Eq Vanilla Option
+    Vanilla Option
   </span>
   
 
@@ -608,7 +608,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Vanilla Option
+    Vanilla Option
   </span>
   
 
@@ -630,9 +630,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#qablet_contracts.equity.vanilla.option_timetable" class="md-nav__link">
+  <a href="#qablet_contracts.eq.vanilla.Option" class="md-nav__link">
     <span class="md-ellipsis">
-      option_timetable
+      Option
     </span>
   </a>
   
@@ -658,7 +658,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Barrier Option
+    Barrier Option
   </span>
   
 
@@ -679,7 +679,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Forward Option
+    Forward Option
   </span>
   
 
@@ -700,7 +700,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Cliquet
+    Cliquet
   </span>
   
 
@@ -721,7 +721,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Rainbow Option
+    Rainbow Option
   </span>
   
 
@@ -742,7 +742,7 @@
         
   
   <span class="md-ellipsis">
-    Eq AutoCallable Note
+    AutoCallable Note
   </span>
   
 
@@ -794,6 +794,27 @@
             Rate
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rate_swap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Swaps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -858,9 +879,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#qablet_contracts.equity.vanilla.option_timetable" class="md-nav__link">
+  <a href="#qablet_contracts.eq.vanilla.Option" class="md-nav__link">
     <span class="md-ellipsis">
-      option_timetable
+      Option
     </span>
   </a>
   
@@ -881,7 +902,7 @@
                   
 
 
-<h1 id="eq-vanilla-option">Eq Vanilla Option</h1>
+<h1 id="vanilla-option">Vanilla Option</h1>
 
 
 <div class="doc doc-object doc-module">
@@ -891,7 +912,7 @@
 
   <div class="doc doc-contents first">
   
-      <p>This module contains examples of creating timetables for equity vanilla options.</p>
+      <p>This module contains examples of equity vanilla options.</p>
 
   
 
@@ -904,21 +925,30 @@
 
 
 
-
-
-<div class="doc doc-object doc-function">
+<div class="doc doc-object doc-class">
 
 
 
-<h2 id="qablet_contracts.equity.vanilla.option_timetable" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">option_timetable</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">asset_name</span><span class="p">,</span> <span class="n">strike</span><span class="p">,</span> <span class="n">maturity</span><span class="p">,</span> <span class="n">is_call</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+<h2 id="qablet_contracts.eq.vanilla.Option" class="doc doc-heading">
+          <code>Option</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
 
 </h2>
 
 
   <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="qablet_contracts.timetable.EventsMixin" href="../../specifications/timetable/#qablet_contracts.timetable.EventsMixin">EventsMixin</a></code></p>
+
   
-      <p>Create timetable for an <strong>Equity Vanilla Option</strong>.</p>
+      <p>An <strong>European Call Option</strong> offers the holder the option to buy a stock for
+a fixed strike price, on the option maturity date.
+Similarly, a <strong>Put Option</strong> offers the holder the option to sell a stock for
+a fixed strike price.</p>
 
 
 
@@ -978,11 +1008,11 @@
         <tr>
           <td><code>maturity</code></td>
           <td>
-                <code>float</code>
+                <code><span title="datetime.datetime">datetime</span></code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>the maturity of the option in years.</p>
+              <p>the maturity of the option.</p>
             </div>
           </td>
           <td>
@@ -1023,24 +1053,50 @@
 
 
 <p><strong>Examples:</strong></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">option_timetable</span><span class="p">(</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># Call</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">call</span> <span class="o">=</span> <span class="n">Option</span><span class="p">(</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="s2">&quot;SPX&quot;</span><span class="p">,</span> <span class="mi">2900</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;&lt;SPX2900&gt;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">call</span><span class="o">.</span><span class="n">timetable</span><span class="p">()[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
 <span class="go">  track  time op  quantity  unit</span>
-<span class="go">0         1.0  &gt;       0.0   USD</span>
-<span class="go">1         1.0  +    -190.0   USD</span>
-<span class="go">2         1.0  +       1.0  AAPL</span>
+<span class="go">       track                      time op  quantity unit</span>
+<span class="go">0  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  &gt;       0.0  USD</span>
+<span class="go">1  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  +   -2900.0  USD</span>
+<span class="go">2  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  +       1.0  SPX</span>
 </code></pre></div>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">option_timetable</span><span class="p">(</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>  <span class="c1"># Put</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">put</span> <span class="o">=</span> <span class="n">Option</span><span class="p">(</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="s2">&quot;SPX&quot;</span><span class="p">,</span> <span class="mi">2900</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;&lt;SPX2900&gt;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">put</span><span class="o">.</span><span class="n">timetable</span><span class="p">()[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
 <span class="go">  track  time op  quantity  unit</span>
-<span class="go">0         1.0  &gt;       0.0   USD</span>
-<span class="go">1         1.0  +     190.0   USD</span>
-<span class="go">2         1.0  +      -1.0  AAPL</span>
+<span class="go">       track                      time op  quantity unit</span>
+<span class="go">0  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  &gt;       0.0  USD</span>
+<span class="go">1  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  +    2900.0  USD</span>
+<span class="go">2  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  +      -1.0  SPX</span>
 </code></pre></div>
 
-          <details class="quote">
-            <summary>Source code in <code>qablet_contracts\equity\vanilla.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">35</span>
+            <details class="quote">
+              <summary>Source code in <code>qablet_contracts\eq\vanilla.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
 <span class="normal">36</span>
 <span class="normal">37</span>
 <span class="normal">38</span>
@@ -1076,48 +1132,99 @@
 <span class="normal">68</span>
 <span class="normal">69</span>
 <span class="normal">70</span>
-<span class="normal">71</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">option_timetable</span><span class="p">(</span>
-    <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">asset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">strike</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">maturity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">is_call</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-    <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create timetable for an **Equity Vanilla Option**.</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Option</span><span class="p">(</span><span class="n">EventsMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An **European Call Option** offers the holder the option to buy a stock for</span>
+<span class="sd">    a fixed strike price, on the option maturity date.</span>
+<span class="sd">    Similarly, a **Put Option** offers the holder the option to sell a stock for</span>
+<span class="sd">    a fixed strike price.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        ccy: the currency of the option.</span>
 <span class="sd">        asset_name: the name of the underlying asset.</span>
 <span class="sd">        strike: the option strike.</span>
-<span class="sd">        maturity: the maturity of the option in years.</span>
+<span class="sd">        maturity: the maturity of the option.</span>
 <span class="sd">        is_call: true if the option is a call.</span>
 <span class="sd">        track: an optional identifier for the contract.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; tt = option_timetable(&quot;USD&quot;, &quot;AAPL&quot;, 190, 1.0, True)  # Call</span>
-<span class="sd">        &gt;&gt;&gt; tt[&quot;events&quot;].to_pandas()</span>
+<span class="sd">        &gt;&gt;&gt; call = Option(&quot;USD&quot;, &quot;SPX&quot;, 2900, datetime(2024, 3, 31), True, &quot;&lt;SPX2900&gt;&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; call.timetable()[&quot;events&quot;].to_pandas()</span>
 <span class="sd">          track  time op  quantity  unit</span>
-<span class="sd">        0         1.0  &gt;       0.0   USD</span>
-<span class="sd">        1         1.0  +    -190.0   USD</span>
-<span class="sd">        2         1.0  +       1.0  AAPL</span>
+<span class="sd">               track                      time op  quantity unit</span>
+<span class="sd">        0  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  &gt;       0.0  USD</span>
+<span class="sd">        1  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  +   -2900.0  USD</span>
+<span class="sd">        2  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  +       1.0  SPX</span>
 
-<span class="sd">        &gt;&gt;&gt; tt = option_timetable(&quot;USD&quot;, &quot;AAPL&quot;, 190, 1.0, False)  # Put</span>
-<span class="sd">        &gt;&gt;&gt; tt[&quot;events&quot;].to_pandas()</span>
+<span class="sd">        &gt;&gt;&gt; put = Option(&quot;USD&quot;, &quot;SPX&quot;, 2900, datetime(2024, 3, 31), False, &quot;&lt;SPX2900&gt;&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; put.timetable()[&quot;events&quot;].to_pandas()</span>
 <span class="sd">          track  time op  quantity  unit</span>
-<span class="sd">        0         1.0  &gt;       0.0   USD</span>
-<span class="sd">        1         1.0  +     190.0   USD</span>
-<span class="sd">        2         1.0  +      -1.0  AAPL</span>
+<span class="sd">               track                      time op  quantity unit</span>
+<span class="sd">        0  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  &gt;       0.0  USD</span>
+<span class="sd">        1  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  +    2900.0  USD</span>
+<span class="sd">        2  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  +      -1.0  SPX</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">events</span> <span class="o">=</span> <span class="n">_option_events</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">asset_name</span><span class="p">,</span> <span class="n">strike</span><span class="p">,</span> <span class="n">maturity</span><span class="p">,</span> <span class="n">is_call</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span>
+    <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">asset_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">strike</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">maturity</span><span class="p">:</span> <span class="n">datetime</span>
+    <span class="n">is_call</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-    <span class="k">return</span> <span class="n">timetable_from_dicts</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sign</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_call</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="p">,</span>
+                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">maturity</span><span class="p">,</span>
+                <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccy</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="p">,</span>
+                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">maturity</span><span class="p">,</span>
+                <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">strike</span> <span class="o">*</span> <span class="n">sign</span><span class="p">,</span>
+                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccy</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="p">,</span>
+                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">maturity</span><span class="p">,</span>
+                <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="n">sign</span><span class="p">,</span>
+                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">asset_name</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">]</span>
 </code></pre></div></td></tr></table></div>
-          </details>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
   </div>
 
+  </div>
+
+
 </div>
+
 
 
 
@@ -1176,6 +1283,12 @@
     
     
       <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

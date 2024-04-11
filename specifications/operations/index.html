@@ -354,6 +354,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#snapper" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snapper
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -662,7 +671,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Vanilla Option
+    Vanilla Option
   </span>
   
 
@@ -683,7 +692,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Barrier Option
+    Barrier Option
   </span>
   
 
@@ -704,7 +713,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Forward Option
+    Forward Option
   </span>
   
 
@@ -725,7 +734,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Cliquet
+    Cliquet
   </span>
   
 
@@ -746,7 +755,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Rainbow Option
+    Rainbow Option
   </span>
   
 
@@ -767,7 +776,7 @@
         
   
   <span class="md-ellipsis">
-    Eq AutoCallable Note
+    AutoCallable Note
   </span>
   
 
@@ -819,6 +828,27 @@
             Rate
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/rate_swap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Swaps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -918,6 +948,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#snapper" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snapper
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -940,12 +979,12 @@
 the payment specified by the <strong>quantity</strong> and the <strong>unit</strong>,
 and then continue to receive whatever else is further down in the timetable
 in the <strong>same track</strong>.</p>
-<p>Example: A bond paying 5 USD semi-annually and maturing in two years. </p>
-<pre><code class="language-python">  track  time op  quantity unit
-         0.5  +         5  USD
-         1.0  +         5  USD
-         1.5  +         5  USD
-         2.0  +       105  USD
+<p>Example: A bond paying 5% semi-annually and maturing in two years. </p>
+<pre><code class="language-python">   track                      time op  quantity unit
+0       2024-06-30 00:00:00+00:00  +     0.025  USD
+1       2024-12-31 00:00:00+00:00  +     0.025  USD
+2       2025-06-30 00:00:00+00:00  +     0.025  USD
+3       2025-12-31 00:00:00+00:00  +     1.025  USD
 </code></pre>
 <h3 id="choice-of-contract-holder">Choice of contract holder (&gt;)</h3>
 <p><code>&gt;</code> in the ops column indicates that the <strong>contract holder can choose</strong> from the following two options</p>
@@ -953,11 +992,11 @@ in the <strong>same track</strong>.</p>
 <li>receive the payment specified by the <strong>quantity</strong> and the <strong>unit</strong>, and then terminate the contract.</li>
 <li>or, instead of that payment, receive whatever else is further down in the timetable in the same track.</li>
 </ul>
-<p>Example: An European Call Option with strike 2800, expiring in 1 year.</p>
-<pre><code class="language-python">  track  time op  quantity unit
-         1.0  &gt;       0.0  USD
-         1.0  +   -2800.0  USD
-         1.0  +       1.0  SPX
+<p>Example: An European Call Option with strike 2900, expiring in 2024-03-31.</p>
+<pre><code class="language-python">       track                      time op  quantity unit
+0  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  &gt;       0.0  USD
+1  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  +   -2900.0  USD
+2  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  +       1.0  SPX
 </code></pre>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -971,13 +1010,13 @@ For the holder's choice, a reasonable model would choose the option with a great
 <li>pay the holder the payment specified by the <strong>quantity</strong> and the <strong>unit</strong>, and then terminate the contract.</li>
 <li>or, instead of that payment, pay the holder whatever else is further down in the timetable in the same track.</li>
 </ul>
-<p>Example: A callable bond, paying 5 USD semi-annually, maturing in two years, and callable at the end of the first year.</p>
-<pre><code class="language-python">  track  time op  quantity unit
-         0.5  +         5  USD
-         1.0  +         5  USD
-         1.0  &lt;       100  USD
-         1.5  +         5  USD
-         2.0  +       105  USD
+<p>Example: A callable bond, paying 5% USD semi-annually, maturing in two years, and callable at the end of the first year.</p>
+<pre><code class="language-python">   track                      time op  quantity unit
+0       2024-06-30 00:00:00+00:00  +     0.025  USD
+1       2024-12-31 00:00:00+00:00  +     0.025  USD
+1       2024-12-31 00:00:00+00:00  &lt;     1.000  USD
+2       2025-06-30 00:00:00+00:00  +     0.025  USD
+3       2025-12-31 00:00:00+00:00  +     1.025  USD
 </code></pre>
 <h3 id="condition">Condition</h3>
 <p>Any other string in the <code>op</code> column is assumed to be a <a href="../phrase/">phrase</a>.</p>
@@ -987,17 +1026,19 @@ For the holder's choice, a reasonable model would choose the option with a great
 <li>If the phrase returns a float array instead of a bool array, the holder will receive a weighted sum of both outcomes.</li>
 </ul>
 <p>Example: knock-in or knock-out events in a barrier option. In the example below <code>KO</code> is a phrase that describes the barrier condition. If the condition is met
-the option is knocked out with a rebate of 10. If the barrier is not met, the contract continues further down the track.</p>
-<pre><code class="language-python">  track  time op  quantity unit
-         0.5  KO     10.0  USD
-         1.0  &gt;       0.0  USD
-         1.0  +   -2800.0  USD
-         1.0  +       1.0  SPX
+the option is knocked out with a rebate of 1.0. If the barrier is not met, the contract continues further down the track.</p>
+<pre><code class="language-python">  track                      time  op  quantity unit
+0       2024-03-31 00:00:00+00:00  KO       1.0  USD
+1       2024-05-31 00:00:00+00:00  KO       1.0  USD
+2       2024-07-31 00:00:00+00:00  KO       1.0  USD
+3       2024-09-30 00:00:00+00:00  KO       1.0  USD
+4       2024-09-30 00:00:00+00:00   &gt;       0.0  USD
+5       2024-09-30 00:00:00+00:00   +    -100.0  USD
+6       2024-09-30 00:00:00+00:00   +       1.0   EQ
 </code></pre>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<p>See a complete example in <a href="../../examples/equity_barrier/">Barrier Options</a>.</p>
+<h3 id="snapper">Snapper</h3>
 <p>If the <strong>unit</strong> is a <a href="../snapper/">Snapper</a>, i.e. a path dependent calculation to be performed at that time, then <strong>op</strong> should be <code>None</code> or <code>"s"</code>.</p>
-</div>
 
 
 
@@ -1048,6 +1089,12 @@ the option is knocked out with a rebate of 10. If the barrier is not met, the co
     
     
       <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

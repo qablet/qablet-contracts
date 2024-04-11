@@ -566,18 +566,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#qablet_contracts.bond.fixed.cashflow_timetable" class="md-nav__link">
+  <a href="#qablet_contracts.bnd.fixed.FixedCashFlows" class="md-nav__link">
     <span class="md-ellipsis">
-      cashflow_timetable
+      FixedCashFlows
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#qablet_contracts.bond.fixed.fixed_bond_timetable" class="md-nav__link">
+  <a href="#qablet_contracts.bnd.fixed.FixedBond" class="md-nav__link">
     <span class="md-ellipsis">
-      fixed_bond_timetable
+      FixedBond
     </span>
   </a>
   
@@ -646,7 +646,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Vanilla Option
+    Vanilla Option
   </span>
   
 
@@ -667,7 +667,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Barrier Option
+    Barrier Option
   </span>
   
 
@@ -688,7 +688,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Forward Option
+    Forward Option
   </span>
   
 
@@ -709,7 +709,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Cliquet
+    Cliquet
   </span>
   
 
@@ -730,7 +730,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Rainbow Option
+    Rainbow Option
   </span>
   
 
@@ -751,7 +751,7 @@
         
   
   <span class="md-ellipsis">
-    Eq AutoCallable Note
+    AutoCallable Note
   </span>
   
 
@@ -803,6 +803,27 @@
             Rate
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rate_swap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Swaps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -867,18 +888,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#qablet_contracts.bond.fixed.cashflow_timetable" class="md-nav__link">
+  <a href="#qablet_contracts.bnd.fixed.FixedCashFlows" class="md-nav__link">
     <span class="md-ellipsis">
-      cashflow_timetable
+      FixedCashFlows
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#qablet_contracts.bond.fixed.fixed_bond_timetable" class="md-nav__link">
+  <a href="#qablet_contracts.bnd.fixed.FixedBond" class="md-nav__link">
     <span class="md-ellipsis">
-      fixed_bond_timetable
+      FixedBond
     </span>
   </a>
   
@@ -909,7 +930,7 @@
 
   <div class="doc doc-contents first">
   
-      <p>This module contains examples of creating timetables for Fixed Rate Bonds.</p>
+      <p>This module contains examples of fixed rate bonds.</p>
 
   
 
@@ -922,21 +943,25 @@
 
 
 
-
-
-<div class="doc doc-object doc-function">
+<div class="doc doc-object doc-class">
 
 
 
-<h2 id="qablet_contracts.bond.fixed.cashflow_timetable" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">cashflow_timetable</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">amounts</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+<h2 id="qablet_contracts.bnd.fixed.FixedCashFlows" class="doc doc-heading">
+          <code>FixedCashFlows</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
 
 </h2>
 
 
   <div class="doc doc-contents ">
+
   
-      <p>Create timetable from cashflows in a single currency. This example also shows how to create a timetable from arrays
+      <p>A set of <strong>Fixed Cashflows</strong> in a single currency. This example also shows how to create a timetable from arrays
 instead of a list of dictionaries, which is more efficient.</p>
 
 
@@ -982,6 +1007,7 @@ instead of a list of dictionaries, which is more efficient.</p>
         <tr>
           <td><code>amounts</code></td>
           <td>
+                <code><span title="typing.List">List</span>[float]</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1012,31 +1038,25 @@ instead of a list of dictionaries, which is more efficient.</p>
 
 
 <p><strong>Examples:</strong></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">cashflow_timetable</span><span class="p">(</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
-<span class="go">  track  time op  quantity unit</span>
-<span class="go">0         0.5  +      0.05  USD</span>
-<span class="go">1         1.0  +      0.05  USD</span>
-<span class="go">2         1.5  +      1.05  USD</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">FixedCashFlows</span><span class="p">(</span>
+<span class="go">    &quot;USD&quot;,</span>
+<span class="go">    [</span>
+<span class="go">        datetime(2023, 12, 31),</span>
+<span class="go">        datetime(2024, 6, 30),</span>
+<span class="go">        datetime(2024, 12, 31),</span>
+<span class="go">    ],</span>
+<span class="go">    [0.05, 0.05, 1.05],</span>
+<span class="go">).timetable()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">())</span>
+<span class="go">  track                      time op  quantity unit</span>
+<span class="go">0       2023-12-31 00:00:00+00:00  +      0.05  USD</span>
+<span class="go">1       2024-06-30 00:00:00+00:00  +      0.05  USD</span>
+<span class="go">2       2024-12-31 00:00:00+00:00  +      1.05  USD</span>
 </code></pre></div>
 
-          <details class="quote">
-            <summary>Source code in <code>qablet_contracts\bond\fixed.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
+            <details class="quote">
+              <summary>Source code in <code>qablet_contracts\bnd\fixed.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
 <span class="normal">26</span>
 <span class="normal">27</span>
 <span class="normal">28</span>
@@ -1059,8 +1079,33 @@ instead of a list of dictionaries, which is more efficient.</p>
 <span class="normal">45</span>
 <span class="normal">46</span>
 <span class="normal">47</span>
-<span class="normal">48</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">cashflow_timetable</span><span class="p">(</span><span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">amounts</span><span class="p">,</span> <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create timetable from cashflows in a single currency. This example also shows how to create a timetable from arrays</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">FixedCashFlows</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A set of **Fixed Cashflows** in a single currency. This example also shows how to create a timetable from arrays</span>
 <span class="sd">    instead of a list of dictionaries, which is more efficient.</span>
 
 <span class="sd">    Args:</span>
@@ -1070,53 +1115,85 @@ instead of a list of dictionaries, which is more efficient.</p>
 <span class="sd">        track: an optional identifier for the contract.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; tt = cashflow_timetable(&quot;USD&quot;, [0.5, 1, 1.5], [0.05, 0.05, 1.05])</span>
-<span class="sd">        &gt;&gt;&gt; tt[&quot;events&quot;].to_pandas()</span>
-<span class="sd">          track  time op  quantity unit</span>
-<span class="sd">        0         0.5  +      0.05  USD</span>
-<span class="sd">        1         1.0  +      0.05  USD</span>
-<span class="sd">        2         1.5  +      1.05  USD</span>
+<span class="sd">        &gt;&gt;&gt; tt = FixedCashFlows(</span>
+<span class="sd">            &quot;USD&quot;,</span>
+<span class="sd">            [</span>
+<span class="sd">                datetime(2023, 12, 31),</span>
+<span class="sd">                datetime(2024, 6, 30),</span>
+<span class="sd">                datetime(2024, 12, 31),</span>
+<span class="sd">            ],</span>
+<span class="sd">            [0.05, 0.05, 1.05],</span>
+<span class="sd">        ).timetable()</span>
+<span class="sd">        &gt;&gt;&gt; print(tt[&quot;events&quot;].to_pandas())</span>
+<span class="sd">          track                      time op  quantity unit</span>
+<span class="sd">        0       2023-12-31 00:00:00+00:00  +      0.05  USD</span>
+<span class="sd">        1       2024-06-30 00:00:00+00:00  +      0.05  USD</span>
+<span class="sd">        2       2024-12-31 00:00:00+00:00  +      1.05  USD</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;events&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">RecordBatch</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span>
-            <span class="p">[</span>
-                <span class="n">pa</span><span class="o">.</span><span class="n">DictionaryArray</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span>
-                    <span class="n">indices</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">),</span> <span class="n">dictionary</span><span class="o">=</span><span class="p">[</span><span class="n">track</span><span class="p">]</span>
-                <span class="p">),</span>  <span class="c1"># tracks</span>
-                <span class="n">pa</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">times</span><span class="p">),</span>
-                <span class="n">pa</span><span class="o">.</span><span class="n">DictionaryArray</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span>
-                    <span class="n">indices</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">),</span> <span class="n">dictionary</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;+&quot;</span><span class="p">]</span>
-                <span class="p">),</span>  <span class="c1"># ops</span>
-                <span class="n">pa</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">amounts</span><span class="p">),</span>
-                <span class="n">pa</span><span class="o">.</span><span class="n">DictionaryArray</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span>
-                    <span class="n">indices</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">),</span> <span class="n">dictionary</span><span class="o">=</span><span class="p">[</span><span class="n">ccy</span><span class="p">]</span>
-                <span class="p">),</span>  <span class="c1"># units</span>
-            <span class="p">],</span>
-            <span class="n">schema</span><span class="o">=</span><span class="n">EVENT_SCHEMA</span><span class="p">,</span>
-        <span class="p">),</span>
-        <span class="s2">&quot;expressions&quot;</span><span class="p">:</span> <span class="p">{},</span>
-    <span class="p">}</span>
+
+    <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">dates</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span>
+    <span class="n">amounts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
+    <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">timetable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dates</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;events&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">RecordBatch</span><span class="o">.</span><span class="n">from_arrays</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="n">_const_dict_array</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="p">),</span>  <span class="c1"># tracks</span>
+                    <span class="n">pa</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dates</span><span class="p">),</span>
+                    <span class="n">_const_dict_array</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">),</span>  <span class="c1"># ops</span>
+                    <span class="n">pa</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">amounts</span><span class="p">),</span>
+                    <span class="n">_const_dict_array</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccy</span><span class="p">),</span>  <span class="c1"># units</span>
+                <span class="p">],</span>
+                <span class="n">schema</span><span class="o">=</span><span class="n">TS_EVENT_SCHEMA</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;expressions&quot;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-          </details>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
   </div>
+
+  </div>
+
 
 </div>
 
-
-<div class="doc doc-object doc-function">
-
+<div class="doc doc-object doc-class">
 
 
-<h2 id="qablet_contracts.bond.fixed.fixed_bond_timetable" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">fixed_bond_timetable</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">coupon</span><span class="p">,</span> <span class="n">maturity</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+
+<h2 id="qablet_contracts.bnd.fixed.FixedBond" class="doc doc-heading">
+          <code>FixedBond</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
 
 </h2>
 
 
   <div class="doc doc-contents ">
+
   
-      <p>Create timetable for a fixed rate bond.</p>
+      <p>A <strong>Fixed Rate Bond</strong> pays a fixed rate at regular intervals, and the principal at maturity.</p>
 
 
 
@@ -1162,7 +1239,7 @@ instead of a list of dictionaries, which is more efficient.</p>
         <tr>
           <td><code>maturity</code></td>
           <td>
-                <code>float</code>
+                <code><span title="datetime.datetime">datetime</span></code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1176,7 +1253,7 @@ instead of a list of dictionaries, which is more efficient.</p>
         <tr>
           <td><code>freq</code></td>
           <td>
-                <code>int</code>
+                <code>str</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1184,7 +1261,7 @@ instead of a list of dictionaries, which is more efficient.</p>
             </div>
           </td>
           <td>
-                <code>2</code>
+                <code>&#39;2BQE&#39;</code>
           </td>
         </tr>
         <tr>
@@ -1207,51 +1284,69 @@ instead of a list of dictionaries, which is more efficient.</p>
 
 
 <p><strong>Examples:</strong></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">fixed_bond_timetable</span><span class="p">(</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
-<span class="go">  track  time op  quantity unit</span>
-<span class="go">0         0.1  +     0.025  USD</span>
-<span class="go">1         0.6  +     0.025  USD</span>
-<span class="go">2         1.1  +     0.025  USD</span>
-<span class="go">3         1.6  +     0.025  USD</span>
-<span class="go">4         2.1  +     1.025  USD</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">FixedBond</span><span class="p">(</span>
+<span class="go">    &quot;USD&quot;, 0.05, datetime(2023, 12, 31), datetime(2025, 12, 31), &quot;2QE&quot;</span>
+<span class="go">).timetable()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">())</span>
+<span class="go">  track                      time op  quantity unit</span>
+<span class="go">0       2024-06-30 00:00:00+00:00  +     0.025  USD</span>
+<span class="go">1       2024-12-31 00:00:00+00:00  +     0.025  USD</span>
+<span class="go">2       2025-06-30 00:00:00+00:00  +     0.025  USD</span>
+<span class="go">3       2025-12-31 00:00:00+00:00  +     1.025  USD</span>
 </code></pre></div>
 
-          <details class="quote">
-            <summary>Source code in <code>qablet_contracts\bond\fixed.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">fixed_bond_timetable</span><span class="p">(</span>
-    <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">coupon</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">maturity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">freq</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create timetable for a fixed rate bond.</span>
+            <details class="quote">
+              <summary>Source code in <code>qablet_contracts\bnd\fixed.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">FixedBond</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A **Fixed Rate Bond** pays a fixed rate at regular intervals, and the principal at maturity.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        ccy: the currency of cashflows.</span>
@@ -1261,28 +1356,66 @@ instead of a list of dictionaries, which is more efficient.</p>
 <span class="sd">        track: an optional identifier for the contract.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; tt = fixed_bond_timetable(&quot;USD&quot;, 0.05, 2.1)</span>
-<span class="sd">        &gt;&gt;&gt; tt[&quot;events&quot;].to_pandas()</span>
-<span class="sd">          track  time op  quantity unit</span>
-<span class="sd">        0         0.1  +     0.025  USD</span>
-<span class="sd">        1         0.6  +     0.025  USD</span>
-<span class="sd">        2         1.1  +     0.025  USD</span>
-<span class="sd">        3         1.6  +     0.025  USD</span>
-<span class="sd">        4         2.1  +     1.025  USD</span>
+<span class="sd">        &gt;&gt;&gt; tt = FixedBond(</span>
+<span class="sd">            &quot;USD&quot;, 0.05, datetime(2023, 12, 31), datetime(2025, 12, 31), &quot;2QE&quot;</span>
+<span class="sd">        ).timetable()</span>
+<span class="sd">        &gt;&gt;&gt; print(tt[&quot;events&quot;].to_pandas())</span>
+<span class="sd">          track                      time op  quantity unit</span>
+<span class="sd">        0       2024-06-30 00:00:00+00:00  +     0.025  USD</span>
+<span class="sd">        1       2024-12-31 00:00:00+00:00  +     0.025  USD</span>
+<span class="sd">        2       2025-06-30 00:00:00+00:00  +     0.025  USD</span>
+<span class="sd">        3       2025-12-31 00:00:00+00:00  +     1.025  USD</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">ceil</span><span class="p">(</span><span class="n">maturity</span> <span class="o">*</span> <span class="n">freq</span><span class="p">)</span>  <span class="c1"># How many payments left ?</span>
-    <span class="n">stub</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">maturity</span> <span class="o">*</span> <span class="n">freq</span> <span class="o">-</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="p">)</span>  <span class="c1"># The first payment may be a stub/short coupon</span>
-    <span class="n">times</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="n">stub</span><span class="p">)</span> <span class="o">/</span> <span class="n">freq</span>
-    <span class="n">amounts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">coupon</span> <span class="o">/</span> <span class="n">freq</span><span class="p">)</span>
-    <span class="n">amounts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># The last payment includes the principal</span>
-    <span class="k">return</span> <span class="n">cashflow_timetable</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">amounts</span><span class="p">,</span> <span class="n">track</span><span class="p">)</span>
+
+    <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">coupon</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">accrual_start</span><span class="p">:</span> <span class="n">datetime</span>
+    <span class="n">maturity</span><span class="p">:</span> <span class="n">datetime</span>
+    <span class="n">freq</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;2BQE&quot;</span>
+    <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">timetable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Coupon period dates including the start of first period, and end of last period.</span>
+        <span class="n">cpn_dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">bdate_range</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">accrual_start</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">maturity</span><span class="p">,</span>
+            <span class="n">freq</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">freq</span><span class="p">,</span>
+            <span class="n">inclusive</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">amounts</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">dcf</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">coupon</span>
+            <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cpn_dates</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">cpn_dates</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="p">]</span>
+
+        <span class="n">amounts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># The last payment includes the principal</span>
+        <span class="k">return</span> <span class="n">FixedCashFlows</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ccy</span><span class="p">,</span> <span class="n">cpn_dates</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">amounts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">track</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">timetable</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
-          </details>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
   </div>
 
+  </div>
+
+
 </div>
+
 
 
 
@@ -1341,6 +1474,12 @@ instead of a list of dictionaries, which is more efficient.</p>
     
     
       <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

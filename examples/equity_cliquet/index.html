@@ -20,7 +20,7 @@
     
     
       
-        <title>Eq Cliquet - qablet_contracts</title>
+        <title>Cliquet - qablet_contracts</title>
       
     
     
@@ -66,7 +66,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#eq-cliquet" class="md-skip">
+        <a href="#cliquet" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Eq Cliquet
+              Cliquet
             
           </span>
         </div>
@@ -588,7 +588,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Vanilla Option
+    Vanilla Option
   </span>
   
 
@@ -609,7 +609,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Barrier Option
+    Barrier Option
   </span>
   
 
@@ -630,7 +630,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Forward Option
+    Forward Option
   </span>
   
 
@@ -660,7 +660,7 @@
           
   
   <span class="md-ellipsis">
-    Eq Cliquet
+    Cliquet
   </span>
   
 
@@ -671,7 +671,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Cliquet
+    Cliquet
   </span>
   
 
@@ -693,9 +693,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#qablet_contracts.equity.cliquet.clique_timetable" class="md-nav__link">
+  <a href="#qablet_contracts.eq.cliquet.Accumulator" class="md-nav__link">
     <span class="md-ellipsis">
-      clique_timetable
+      Accumulator
     </span>
   </a>
   
@@ -721,7 +721,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Rainbow Option
+    Rainbow Option
   </span>
   
 
@@ -742,7 +742,7 @@
         
   
   <span class="md-ellipsis">
-    Eq AutoCallable Note
+    AutoCallable Note
   </span>
   
 
@@ -794,6 +794,27 @@
             Rate
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rate_swap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Swaps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -858,9 +879,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#qablet_contracts.equity.cliquet.clique_timetable" class="md-nav__link">
+  <a href="#qablet_contracts.eq.cliquet.Accumulator" class="md-nav__link">
     <span class="md-ellipsis">
-      clique_timetable
+      Accumulator
     </span>
   </a>
   
@@ -881,7 +902,7 @@
                   
 
 
-<h1 id="eq-cliquet">Eq Cliquet</h1>
+<h1 id="cliquet">Cliquet</h1>
 
 
 <div class="doc doc-object doc-module">
@@ -891,7 +912,7 @@
 
   <div class="doc doc-contents first">
   
-      <p>This module contains examples of creating timetables for equity cliquet contracts.</p>
+      <p>This module contains examples of equity cliquet contracts.</p>
 
   
 
@@ -904,21 +925,32 @@
 
 
 
-
-
-<div class="doc doc-object doc-function">
+<div class="doc doc-object doc-class">
 
 
 
-<h2 id="qablet_contracts.equity.cliquet.clique_timetable" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">clique_timetable</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">asset_name</span><span class="p">,</span> <span class="n">fixings</span><span class="p">,</span> <span class="n">global_floor</span><span class="p">,</span> <span class="n">local_floor</span><span class="p">,</span> <span class="n">local_cap</span><span class="p">,</span> <span class="n">last_fix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">last_acc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+<h2 id="qablet_contracts.eq.cliquet.Accumulator" class="doc doc-heading">
+          <code>Accumulator</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
 
 </h2>
 
 
   <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="qablet_contracts.timetable.EventsMixin" href="../../specifications/timetable/#qablet_contracts.timetable.EventsMixin">EventsMixin</a></code></p>
+
   
-      <p>Create timetable for an <strong>Accumulator Cliquet</strong>.</p>
+      <p>In an <strong>Accumulator</strong> the returns over consecutive periods are</p>
+<ul>
+<li>subject to a local floor and cap</li>
+<li>accumulated by adding</li>
+<li>the accumulated payoff is subject to a global floor</li>
+</ul>
 
 
 
@@ -962,9 +994,9 @@
           </td>
         </tr>
         <tr>
-          <td><code>fixings</code></td>
+          <td><code>fix_dates</code></td>
           <td>
-                <code><span title="typing.List">List</span>[float]</code>
+                <code><span title="typing.List">List</span>[<span title="datetime.datetime">datetime</span>]</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1018,34 +1050,6 @@
           </td>
         </tr>
         <tr>
-          <td><code>last_fix</code></td>
-          <td>
-                <code><span title="typing.Optional">Optional</span>[float]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>the last fixing, None if no fixing has happened yet.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>last_acc</code></td>
-          <td>
-                <code>float</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>the accumulated return so far.</p>
-            </div>
-          </td>
-          <td>
-                <code>0.0</code>
-          </td>
-        </tr>
-        <tr>
           <td><code>track</code></td>
           <td>
                 <code>str</code>
@@ -1065,27 +1069,24 @@
 
 
 <p><strong>Examples:</strong></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">clique_timetable</span><span class="p">(</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="s2">&quot;SPX&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="mf">0.01</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
-<span class="go">  track  time   op  quantity     unit</span>
-<span class="go">0   NaN   0.0  NaN       0.0    _INIT</span>
-<span class="go">1   NaN   0.5  NaN       0.0  _UPDATE</span>
-<span class="go">2   NaN   1.0  NaN       0.0  _UPDATE</span>
-<span class="go">3   NaN   1.5  NaN       0.0  _UPDATE</span>
-<span class="go">4   NaN   2.0  NaN       0.0  _UPDATE</span>
-<span class="go">5   NaN   2.5  NaN       0.0  _UPDATE</span>
-<span class="go">6   NaN   3.0  NaN       0.0  _UPDATE</span>
-<span class="go">7         3.0    &gt;       0.0      USD</span>
-<span class="go">8         3.0    +       1.0       _A</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">fix_dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">bdate_range</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2021</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;2BQE&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">Accumulator</span><span class="p">(</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="s2">&quot;SPX&quot;</span><span class="p">,</span> <span class="n">fix_dates</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span><span class="o">.</span><span class="n">timetable</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">())</span>
+<span class="go">  track                      time   op  quantity     unit</span>
+<span class="go">0   NaN 2021-12-31 00:00:00+00:00  NaN       0.0     INIT</span>
+<span class="go">1   NaN 2022-06-30 00:00:00+00:00  NaN       0.0  CALCFIX</span>
+<span class="go">2   NaN 2022-12-30 00:00:00+00:00  NaN       0.0  CALCFIX</span>
+<span class="go">3   NaN 2023-06-30 00:00:00+00:00  NaN       0.0  CALCFIX</span>
+<span class="go">4   NaN 2023-12-29 00:00:00+00:00  NaN       0.0  CALCFIX</span>
+<span class="go">5   NaN 2024-06-28 00:00:00+00:00  NaN       0.0  CALCFIX</span>
+<span class="go">6   NaN 2024-12-31 00:00:00+00:00  NaN       0.0  CALCFIX</span>
+<span class="go">7       2024-12-31 00:00:00+00:00    &gt;       0.0      USD</span>
+<span class="go">8       2024-12-31 00:00:00+00:00    +       1.0      ACC</span>
 </code></pre></div>
 
-          <details class="quote">
-            <summary>Source code in <code>qablet_contracts\equity\cliquet.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 11</span>
-<span class="normal"> 12</span>
-<span class="normal"> 13</span>
-<span class="normal"> 14</span>
-<span class="normal"> 15</span>
+            <details class="quote">
+              <summary>Source code in <code>qablet_contracts\eq\cliquet.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 15</span>
 <span class="normal"> 16</span>
 <span class="normal"> 17</span>
 <span class="normal"> 18</span>
@@ -1198,137 +1199,175 @@
 <span class="normal">125</span>
 <span class="normal">126</span>
 <span class="normal">127</span>
-<span class="normal">128</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">clique_timetable</span><span class="p">(</span>
-    <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">asset_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">fixings</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
-    <span class="n">global_floor</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">local_floor</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">local_cap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">last_fix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">last_acc</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
-    <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create timetable for an **Accumulator Cliquet**.</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Accumulator</span><span class="p">(</span><span class="n">EventsMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;In an **Accumulator** the returns over consecutive periods are</span>
+
+<span class="sd">    - subject to a local floor and cap</span>
+<span class="sd">    - accumulated by adding</span>
+<span class="sd">    - the accumulated payoff is subject to a global floor</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        ccy: the currency of the bond.</span>
 <span class="sd">        asset_name: the name of the underlying asset.</span>
-<span class="sd">        fixings: the fixing times of the cliquet.</span>
+<span class="sd">        fix_dates: the fixing times of the cliquet.</span>
 <span class="sd">        global_floor: the global floor of the cliquet.</span>
 <span class="sd">        local_floor: the local floor of the cliquet.</span>
 <span class="sd">        local_cap: the local cap of the cliquet.</span>
-<span class="sd">        last_fix: the last fixing, None if no fixing has happened yet.</span>
-<span class="sd">        last_acc: the accumulated return so far.</span>
 <span class="sd">        track: an optional identifier for the contract.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; tt = clique_timetable(&quot;USD&quot;, &quot;SPX&quot;, [1.0, 2.0, 3.0], 0.01, -0.03, 0.05)</span>
-<span class="sd">        &gt;&gt;&gt; tt[&quot;events&quot;].to_pandas()</span>
-<span class="sd">          track  time   op  quantity     unit</span>
-<span class="sd">        0   NaN   0.0  NaN       0.0    _INIT</span>
-<span class="sd">        1   NaN   0.5  NaN       0.0  _UPDATE</span>
-<span class="sd">        2   NaN   1.0  NaN       0.0  _UPDATE</span>
-<span class="sd">        3   NaN   1.5  NaN       0.0  _UPDATE</span>
-<span class="sd">        4   NaN   2.0  NaN       0.0  _UPDATE</span>
-<span class="sd">        5   NaN   2.5  NaN       0.0  _UPDATE</span>
-<span class="sd">        6   NaN   3.0  NaN       0.0  _UPDATE</span>
-<span class="sd">        7         3.0    &gt;       0.0      USD</span>
-<span class="sd">        8         3.0    +       1.0       _A</span>
+<span class="sd">        &gt;&gt;&gt; fix_dates = pd.bdate_range(datetime(2021, 12, 31), datetime(2024, 12, 31), freq=&quot;2BQE&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; tt = Accumulator(&quot;USD&quot;, &quot;SPX&quot;, fix_dates, 0.0, -0.03, 0.05).timetable()</span>
+<span class="sd">        &gt;&gt;&gt; print(tt[&quot;events&quot;].to_pandas())</span>
+<span class="sd">          track                      time   op  quantity     unit</span>
+<span class="sd">        0   NaN 2021-12-31 00:00:00+00:00  NaN       0.0     INIT</span>
+<span class="sd">        1   NaN 2022-06-30 00:00:00+00:00  NaN       0.0  CALCFIX</span>
+<span class="sd">        2   NaN 2022-12-30 00:00:00+00:00  NaN       0.0  CALCFIX</span>
+<span class="sd">        3   NaN 2023-06-30 00:00:00+00:00  NaN       0.0  CALCFIX</span>
+<span class="sd">        4   NaN 2023-12-29 00:00:00+00:00  NaN       0.0  CALCFIX</span>
+<span class="sd">        5   NaN 2024-06-28 00:00:00+00:00  NaN       0.0  CALCFIX</span>
+<span class="sd">        6   NaN 2024-12-31 00:00:00+00:00  NaN       0.0  CALCFIX</span>
+<span class="sd">        7       2024-12-31 00:00:00+00:00    &gt;       0.0      USD</span>
+<span class="sd">        8       2024-12-31 00:00:00+00:00    +       1.0      ACC</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">maturity</span> <span class="o">=</span> <span class="n">fixings</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">asset_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">fix_dates</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span>
+    <span class="n">global_floor</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">local_floor</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">local_cap</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
 
-    <span class="c1"># define timetable</span>
-    <span class="n">events</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">fixings</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;_INIT&quot;</span><span class="p">,</span>  <span class="c1"># initialize accumulator</span>
-        <span class="p">}</span>
-    <span class="p">]</span>
-    <span class="k">for</span> <span class="n">fixing_time</span> <span class="ow">in</span> <span class="n">fixings</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-        <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">maturity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fix_dates</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">events</span> <span class="o">=</span> <span class="p">[</span>
             <span class="p">{</span>
                 <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">fixing_time</span><span class="p">,</span>
+                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">fix_dates</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                 <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;_UPDATE&quot;</span><span class="p">,</span>  <span class="c1"># update accumulator</span>
+                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;INIT&quot;</span><span class="p">,</span>  <span class="c1"># initialize accumulator</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">fixing_time</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fix_dates</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">fixing_time</span><span class="p">,</span>
+                    <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;CALCFIX&quot;</span><span class="p">,</span>  <span class="c1"># update accumulator</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+        <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="p">,</span>
+                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">maturity</span><span class="p">,</span>
+                <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>  <span class="c1"># global floor</span>
+                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_floor</span><span class="p">,</span>
+                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccy</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
-    <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
-            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">maturity</span><span class="p">,</span>
-            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>  <span class="c1"># global floor</span>
-            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="n">global_floor</span><span class="p">,</span>
-            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">ccy</span><span class="p">,</span>
-        <span class="p">}</span>
-    <span class="p">)</span>
-    <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
-            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">maturity</span><span class="p">,</span>
-            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>  <span class="c1"># pay the accumulated amount</span>
-            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;_A&quot;</span><span class="p">,</span>
-        <span class="p">}</span>
-    <span class="p">)</span>
+        <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="p">,</span>
+                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">maturity</span><span class="p">,</span>
+                <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>  <span class="c1"># pay the accumulated amount</span>
+                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;ACC&quot;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">events</span>
 
-    <span class="c1"># define accumulator functions</span>
-    <span class="k">if</span> <span class="n">last_fix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">expressions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">last_acc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ACC&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">accumulator_init_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
-            <span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">last_acc</span><span class="p">,</span> <span class="n">s</span><span class="p">]</span>  <span class="c1"># [A, S_last]</span>
-    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;S_PREV&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">:</span>
 
-        <span class="k">def</span> <span class="nf">accumulator_init_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
-            <span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">last_acc</span><span class="p">,</span> <span class="n">last_fix</span><span class="p">]</span>
+            <span class="k">def</span> <span class="nf">accumulator_init_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+                <span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">last_acc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;S_PREV&quot;</span><span class="p">]]</span>  <span class="c1"># [ACC, S_PREV]</span>
+        <span class="k">else</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="nf">accumulator_update_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
-        <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">s_last</span><span class="p">,</span> <span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span>
+            <span class="k">def</span> <span class="nf">accumulator_init_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+                <span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span>
+                <span class="k">return</span> <span class="p">[</span><span class="n">last_acc</span><span class="p">,</span> <span class="n">s</span><span class="p">]</span>  <span class="c1"># [ACC, S_PREV]</span>
 
-        <span class="n">ret</span> <span class="o">=</span> <span class="n">s</span> <span class="o">/</span> <span class="n">s_last</span> <span class="o">-</span> <span class="mf">1.0</span>  <span class="c1"># ret = S / S_last - 1</span>
-        <span class="n">ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">local_floor</span><span class="p">,</span> <span class="n">ret</span><span class="p">)</span>
-        <span class="n">ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">local_cap</span><span class="p">,</span> <span class="n">ret</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">accumulator_update_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+            <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">s_prev</span><span class="p">,</span> <span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span>
 
-        <span class="k">return</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="n">ret</span><span class="p">,</span> <span class="n">s</span><span class="p">]</span>  <span class="c1"># [A, S_last]</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="n">s</span> <span class="o">/</span> <span class="n">s_prev</span> <span class="o">-</span> <span class="mf">1.0</span>  <span class="c1"># ret = S / S_PREV - 1</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">local_floor</span><span class="p">,</span> <span class="n">ret</span><span class="p">)</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">local_cap</span><span class="p">,</span> <span class="n">ret</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;events&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">RecordBatch</span><span class="o">.</span><span class="n">from_pylist</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">EVENT_SCHEMA</span><span class="p">),</span>
-        <span class="s2">&quot;expressions&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;_INIT&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="n">ret</span><span class="p">,</span> <span class="n">s</span><span class="p">]</span>  <span class="c1"># [ACC, S_PREV]</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;INIT&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;snapper&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;inp&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">asset_name</span><span class="p">],</span>
+                <span class="s2">&quot;inp&quot;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">asset_name</span><span class="p">],</span>
                 <span class="s2">&quot;fn&quot;</span><span class="p">:</span> <span class="n">accumulator_init_fn</span><span class="p">,</span>
-                <span class="s2">&quot;out&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;_A&quot;</span><span class="p">,</span> <span class="s2">&quot;_S_last&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;out&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ACC&quot;</span><span class="p">,</span> <span class="s2">&quot;S_PREV&quot;</span><span class="p">],</span>
             <span class="p">},</span>
-            <span class="s2">&quot;_UPDATE&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;CALCFIX&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;snapper&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;inp&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">asset_name</span><span class="p">,</span> <span class="s2">&quot;_S_last&quot;</span><span class="p">,</span> <span class="s2">&quot;_A&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;inp&quot;</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">asset_name</span><span class="p">,</span> <span class="s2">&quot;S_PREV&quot;</span><span class="p">,</span> <span class="s2">&quot;ACC&quot;</span><span class="p">],</span>
                 <span class="s2">&quot;fn&quot;</span><span class="p">:</span> <span class="n">accumulator_update_fn</span><span class="p">,</span>
-                <span class="s2">&quot;out&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;_A&quot;</span><span class="p">,</span> <span class="s2">&quot;_S_last&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;out&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ACC&quot;</span><span class="p">,</span> <span class="s2">&quot;S_PREV&quot;</span><span class="p">],</span>
             <span class="p">},</span>
-        <span class="p">},</span>
-    <span class="p">}</span>
+        <span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-          </details>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
   </div>
+
+  </div>
+
 
 </div>
 
 
 
-  </div>
 
   </div>
 
-</div>
+  </div>
+
+</div><p>In an <strong>Accumulator</strong> the payoff depends on the asset price on
+several fixing dates <span class="arithmatex">\(T_0 &lt; T_1 &lt; ... T_N\)</span>.</p>
+<p>If the returns are given by</p>
+<div class="arithmatex">\[
+r_i = \frac{S_{T_{i+1}}-S_{T_i}}{S_{T_i}}
+\]</div>
+<p>Then contract has a single payoff at <span class="arithmatex">\(T_N\)</span>, given by</p>
+<div class="arithmatex">\[
+\max \left( floor_G, \Sigma_0^{N-1} \max(\min(r_i, cap_L), floor_L) \right)
+\]</div>
 
 
 
@@ -1379,6 +1418,12 @@
     
     
       <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

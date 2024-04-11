@@ -545,18 +545,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#qablet_contracts.bond.zero.zcb_timetable" class="md-nav__link">
+  <a href="#qablet_contracts.bnd.zero.Bond" class="md-nav__link">
     <span class="md-ellipsis">
-      zcb_timetable
+      Bond
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#qablet_contracts.bond.zero.zbp_timetable" class="md-nav__link">
+  <a href="#qablet_contracts.bnd.zero.BondPut" class="md-nav__link">
     <span class="md-ellipsis">
-      zbp_timetable
+      BondPut
     </span>
   </a>
   
@@ -646,7 +646,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Vanilla Option
+    Vanilla Option
   </span>
   
 
@@ -667,7 +667,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Barrier Option
+    Barrier Option
   </span>
   
 
@@ -688,7 +688,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Forward Option
+    Forward Option
   </span>
   
 
@@ -709,7 +709,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Cliquet
+    Cliquet
   </span>
   
 
@@ -730,7 +730,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Rainbow Option
+    Rainbow Option
   </span>
   
 
@@ -751,7 +751,7 @@
         
   
   <span class="md-ellipsis">
-    Eq AutoCallable Note
+    AutoCallable Note
   </span>
   
 
@@ -803,6 +803,27 @@
             Rate
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rate_swap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Swaps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -867,18 +888,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#qablet_contracts.bond.zero.zcb_timetable" class="md-nav__link">
+  <a href="#qablet_contracts.bnd.zero.Bond" class="md-nav__link">
     <span class="md-ellipsis">
-      zcb_timetable
+      Bond
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#qablet_contracts.bond.zero.zbp_timetable" class="md-nav__link">
+  <a href="#qablet_contracts.bnd.zero.BondPut" class="md-nav__link">
     <span class="md-ellipsis">
-      zbp_timetable
+      BondPut
     </span>
   </a>
   
@@ -909,7 +930,7 @@
 
   <div class="doc doc-contents first">
   
-      <p>This module contains examples of creating timetables for Zero Coupon Bond and related contracts.</p>
+      <p>This module contains examples of zero coupon bond and related contracts.</p>
 
   
 
@@ -922,21 +943,27 @@
 
 
 
-
-
-<div class="doc doc-object doc-function">
+<div class="doc doc-object doc-class">
 
 
 
-<h2 id="qablet_contracts.bond.zero.zcb_timetable" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">zcb_timetable</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">maturity</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+<h2 id="qablet_contracts.bnd.zero.Bond" class="doc doc-heading">
+          <code>Bond</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
 
 </h2>
 
 
   <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="qablet_contracts.timetable.EventsMixin" href="../../specifications/timetable/#qablet_contracts.timetable.EventsMixin">EventsMixin</a></code></p>
+
   
-      <p>Create timetable for a <strong>zero coupon bond</strong>.</p>
+      <p>A <strong>zero coupon bond</strong> pays a single fixed payment at a future time.</p>
 
 
 
@@ -968,11 +995,11 @@
         <tr>
           <td><code>maturity</code></td>
           <td>
-                <code>float</code>
+                <code><span title="datetime.datetime">datetime</span></code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>the maturity of the bond in years.</p>
+              <p>the maturity of the bond.</p>
             </div>
           </td>
           <td>
@@ -999,18 +1026,15 @@
 
 
 <p><strong>Examples:</strong></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">zcb_timetable</span><span class="p">(</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
-<span class="go">  track  time op  quantity unit</span>
-<span class="go">0         1.0  +       1.0  USD</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">Bond</span><span class="p">(</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">31</span><span class="p">))</span><span class="o">.</span><span class="n">timetable</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">())</span>
+<span class="go">  track                      time op  quantity unit</span>
+<span class="go">0       2025-03-31 00:00:00+00:00  +       1.0  USD</span>
 </code></pre></div>
 
-          <details class="quote">
-            <summary>Source code in <code>qablet_contracts\bond\zero.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
+            <details class="quote">
+              <summary>Source code in <code>qablet_contracts\bnd\zero.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">11</span>
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
@@ -1030,50 +1054,91 @@
 <span class="normal">28</span>
 <span class="normal">29</span>
 <span class="normal">30</span>
-<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">zcb_timetable</span><span class="p">(</span><span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">maturity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create timetable for a **zero coupon bond**.</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Bond</span><span class="p">(</span><span class="n">EventsMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A **zero coupon bond** pays a single fixed payment at a future time.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        ccy: the currency of the bond.</span>
-<span class="sd">        maturity: the maturity of the bond in years.</span>
+<span class="sd">        maturity: the maturity of the bond.</span>
 <span class="sd">        track: an optional identifier for the contract.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; tt = zcb_timetable(&quot;USD&quot;, 1)</span>
-<span class="sd">        &gt;&gt;&gt; tt[&quot;events&quot;].to_pandas()</span>
-<span class="sd">          track  time op  quantity unit</span>
-<span class="sd">        0         1.0  +       1.0  USD</span>
+<span class="sd">        &gt;&gt;&gt; tt = Bond(&quot;USD&quot;, datetime(2025, 3, 31)).timetable()</span>
+<span class="sd">        &gt;&gt;&gt; print(tt[&quot;events&quot;].to_pandas())</span>
+<span class="sd">          track                      time op  quantity unit</span>
+<span class="sd">        0       2025-03-31 00:00:00+00:00  +       1.0  USD</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">events</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
-            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">maturity</span><span class="p">,</span>
-            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">ccy</span><span class="p">,</span>
-        <span class="p">}</span>  <span class="c1"># get bond notional at bond expiration</span>
-    <span class="p">]</span>
-    <span class="k">return</span> <span class="n">timetable_from_dicts</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+
+    <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">maturity</span><span class="p">:</span> <span class="n">datetime</span>
+    <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="p">,</span>
+                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">maturity</span><span class="p">,</span>
+                <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccy</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
 </code></pre></div></td></tr></table></div>
-          </details>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
   </div>
+
+  </div>
+
 
 </div>
 
-
-<div class="doc doc-object doc-function">
-
+<div class="doc doc-object doc-class">
 
 
-<h2 id="qablet_contracts.bond.zero.zbp_timetable" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">zbp_timetable</span><span class="p">(</span><span class="n">ccy</span><span class="p">,</span> <span class="n">opt_maturity</span><span class="p">,</span> <span class="n">bond_maturity</span><span class="p">,</span> <span class="n">strike</span><span class="p">,</span> <span class="n">track</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></code>
+
+<h2 id="qablet_contracts.bnd.zero.BondPut" class="doc doc-heading">
+          <code>BondPut</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
 
 </h2>
 
 
   <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="qablet_contracts.timetable.EventsMixin" href="../../specifications/timetable/#qablet_contracts.timetable.EventsMixin">EventsMixin</a></code></p>
+
   
-      <p>Create timetable for a <strong>zero coupon bond put</strong>.</p>
+      <p>A <strong>zero coupon bond put</strong> offers the holder the option to sell a zero coupon bond for
+a fixed strike price, on the option maturity date.</p>
 
 
 
@@ -1105,11 +1170,11 @@
         <tr>
           <td><code>opt_maturity</code></td>
           <td>
-                <code>float</code>
+                <code><span title="datetime.datetime">datetime</span></code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>the maturity of the option in years.</p>
+              <p>the maturity of the option.</p>
             </div>
           </td>
           <td>
@@ -1119,11 +1184,11 @@
         <tr>
           <td><code>bond_maturity</code></td>
           <td>
-                <code>float</code>
+                <code><span title="datetime.datetime">datetime</span></code>
           </td>
           <td>
             <div class="doc-md-description">
-              <p>the maturity of the option in years.</p>
+              <p>the maturity of the bond.</p>
             </div>
           </td>
           <td>
@@ -1164,26 +1229,19 @@
 
 
 <p><strong>Examples:</strong></p>
-    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">zbp_timetable</span><span class="p">(</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
-<span class="go">  track  time op  quantity unit</span>
-<span class="go">0         0.5  &gt;      0.00  USD</span>
-<span class="go">1         0.5  +      0.95  USD</span>
-<span class="go">2         1.0  +     -1.00  USD</span>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">BondPut</span><span class="p">(</span>
+<span class="go">    &quot;USD&quot;, datetime(2024, 9, 30), datetime(2025, 3, 31), 0.95</span>
+<span class="go">).timetable()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">())</span>
+<span class="go">  track                      time op  quantity unit</span>
+<span class="go">0       2024-09-30 00:00:00+00:00  &gt;      0.00  USD</span>
+<span class="go">1       2024-09-30 00:00:00+00:00  +      0.95  USD</span>
+<span class="go">2       2025-03-31 00:00:00+00:00  +     -1.00  USD</span>
 </code></pre></div>
 
-          <details class="quote">
-            <summary>Source code in <code>qablet_contracts\bond\zero.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
+            <details class="quote">
+              <summary>Source code in <code>qablet_contracts\bnd\zero.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
 <span class="normal">46</span>
@@ -1222,60 +1280,96 @@
 <span class="normal">79</span>
 <span class="normal">80</span>
 <span class="normal">81</span>
-<span class="normal">82</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">zbp_timetable</span><span class="p">(</span>
-    <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">opt_maturity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">bond_maturity</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">strike</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create timetable for a **zero coupon bond put**.</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">BondPut</span><span class="p">(</span><span class="n">EventsMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A **zero coupon bond put** offers the holder the option to sell a zero coupon bond for</span>
+<span class="sd">    a fixed strike price, on the option maturity date.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        ccy: the currency of the bond.</span>
-<span class="sd">        opt_maturity: the maturity of the option in years.</span>
-<span class="sd">        bond_maturity: the maturity of the option in years.</span>
+<span class="sd">        opt_maturity: the maturity of the option.</span>
+<span class="sd">        bond_maturity: the maturity of the bond.</span>
 <span class="sd">        strike: the option strike.</span>
 <span class="sd">        track: an optional identifier for the contract.</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; tt = zbp_timetable(&quot;USD&quot;, 0.5, 1.0, 0.95)</span>
-<span class="sd">        &gt;&gt;&gt; tt[&quot;events&quot;].to_pandas()</span>
-<span class="sd">          track  time op  quantity unit</span>
-<span class="sd">        0         0.5  &gt;      0.00  USD</span>
-<span class="sd">        1         0.5  +      0.95  USD</span>
-<span class="sd">        2         1.0  +     -1.00  USD</span>
+<span class="sd">        &gt;&gt;&gt; tt = BondPut(</span>
+<span class="sd">            &quot;USD&quot;, datetime(2024, 9, 30), datetime(2025, 3, 31), 0.95</span>
+<span class="sd">        ).timetable()</span>
+<span class="sd">        &gt;&gt;&gt; print(tt[&quot;events&quot;].to_pandas())</span>
+<span class="sd">          track                      time op  quantity unit</span>
+<span class="sd">        0       2024-09-30 00:00:00+00:00  &gt;      0.00  USD</span>
+<span class="sd">        1       2024-09-30 00:00:00+00:00  +      0.95  USD</span>
+<span class="sd">        2       2025-03-31 00:00:00+00:00  +     -1.00  USD</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">events</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
-            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">opt_maturity</span><span class="p">,</span>
-            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">ccy</span><span class="p">,</span>
-        <span class="p">},</span>  <span class="c1"># Choose greater of nothing (get 0) or exercise (continue to remaining events)</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
-            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">opt_maturity</span><span class="p">,</span>
-            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="n">strike</span><span class="p">,</span>
-            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">ccy</span><span class="p">,</span>
-        <span class="p">},</span>  <span class="c1"># get strike at expiration</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="n">track</span><span class="p">,</span>
-            <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">bond_maturity</span><span class="p">,</span>
-            <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">ccy</span><span class="p">,</span>
-        <span class="p">},</span>  <span class="c1"># pay bond notional at bond expiration</span>
-    <span class="p">]</span>
-    <span class="k">return</span> <span class="n">timetable_from_dicts</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+    <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">opt_maturity</span><span class="p">:</span> <span class="n">datetime</span>
+    <span class="n">bond_maturity</span><span class="p">:</span> <span class="n">datetime</span>
+    <span class="n">strike</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="p">,</span>
+                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">opt_maturity</span><span class="p">,</span>
+                <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccy</span><span class="p">,</span>
+            <span class="p">},</span>  <span class="c1"># Choose greater of nothing (get 0) or exercise (continue to remaining events)</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="p">,</span>
+                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">opt_maturity</span><span class="p">,</span>
+                <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">strike</span><span class="p">,</span>
+                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccy</span><span class="p">,</span>
+            <span class="p">},</span>  <span class="c1"># get strike at expiration</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="p">,</span>
+                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">bond_maturity</span><span class="p">,</span>
+                <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccy</span><span class="p">,</span>
+            <span class="p">},</span>  <span class="c1"># pay bond notional at bond expiration</span>
+        <span class="p">]</span>
 </code></pre></div></td></tr></table></div>
-          </details>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
   </div>
 
+  </div>
+
+
 </div>
+
 
 
 
@@ -1334,6 +1428,12 @@
     
     
       <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

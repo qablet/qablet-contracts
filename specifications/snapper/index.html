@@ -635,7 +635,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Vanilla Option
+    Vanilla Option
   </span>
   
 
@@ -656,7 +656,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Barrier Option
+    Barrier Option
   </span>
   
 
@@ -677,7 +677,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Forward Option
+    Forward Option
   </span>
   
 
@@ -698,7 +698,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Cliquet
+    Cliquet
   </span>
   
 
@@ -719,7 +719,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Rainbow Option
+    Rainbow Option
   </span>
   
 
@@ -740,7 +740,7 @@
         
   
   <span class="md-ellipsis">
-    Eq AutoCallable Note
+    AutoCallable Note
   </span>
   
 
@@ -792,6 +792,27 @@
             Rate
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/rate_swap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Swaps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -882,17 +903,19 @@
 <h1 id="snapper">Snapper</h1>
 <p>A Snapper represents a <strong>path dependent calculation</strong>, e.g. calculating returns in an equity cliquet. In the following timetable</p>
 <ul>
-<li>the first event at time 0.5 represents a <strong>snapper</strong> operation <code>UPDATE</code>. This operation stores its result in a <strong>snap</strong>.</li>
-<li>the second event at time 3.0 represents a payment for the contract, which pays <code>A</code>, the value of the snap.</li>
+<li>the first three events represent a <strong>snapper</strong> operation <code>CALCFIX</code>. These operations store results in a <strong>snap</strong>.</li>
+<li>the last event represents a payment for the contract, which pays <code>ACC</code>, the value of the snap.</li>
 </ul>
-<pre><code class="language-python">  track  time op  quantity     unit
-    NaN   0.5  s      0.00   UPDATE
-          3.0  +      1.00        A
+<pre><code class="language-python"> track                      time   op  quantity     unit
+   NaN 2023-12-29 00:00:00+00:00  NaN       0.0  CALCFIX
+   NaN 2024-06-28 00:00:00+00:00  NaN       0.0  CALCFIX
+   NaN 2024-12-31 00:00:00+00:00  NaN       0.0  CALCFIX
+       2024-12-31 00:00:00+00:00    +       1.0      ACC
 </code></pre>
 <p>A snapper is defined in the dataset, with four parameters. </p>
 <ul>
 <li><strong>type</strong>, which must be "snapper"</li>
-<li><strong>inp</strong>, a list of inputs to the snapper <strong>fn</strong>. These can be assets, such as "SPX", whose value comes from the model. These can also be snaps, such as "A" or "S_last", which has been stored as a result of previous snapper operation. </li>
+<li><strong>inp</strong>, a list of inputs to the snapper <strong>fn</strong>. These can be assets, such as "SPX", whose value comes from the model. These can also be snaps, such as "ACC" or "S_last", which has been stored as a result of previous snapper operation. </li>
 <li><strong>fn</strong>, a python function that takes a list of inputs, and returns a list of outputs. The length of expected inputs list must match the length of <strong>inp</strong>, while the length of the output list must match the length of <strong>out</strong>.</li>
 <li><strong>out</strong>, the list of name of snaps where the outputs are stored.  </li>
 </ul>
@@ -908,11 +931,11 @@ def accumulator_update_fn(inputs):
     return [a + ret, s]  # [A, S_last]
 
 # Define the snapper
-&quot;UPDATE&quot;: {
+&quot;CALCFIX&quot;: {
     &quot;type&quot;: &quot;snapper&quot;,
-    &quot;inp&quot;: [&quot;SPX&quot;, &quot;S_last&quot;, &quot;A&quot;],
+    &quot;inp&quot;: [&quot;SPX&quot;, &quot;S_last&quot;, &quot;ACC&quot;],
     &quot;fn&quot;: accumulator_update_fn,
-    &quot;out&quot;: [&quot;A&quot;, &quot;S_last&quot;],
+    &quot;out&quot;: [&quot;ACC&quot;, &quot;S_last&quot;],
 },
 </code></pre>
 <h2 id="function-signature">Function Signature</h2>
@@ -967,6 +990,12 @@ def accumulator_update_fn(inputs):
     
     
       <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>

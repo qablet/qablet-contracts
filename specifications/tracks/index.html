@@ -596,7 +596,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Vanilla Option
+    Vanilla Option
   </span>
   
 
@@ -617,7 +617,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Barrier Option
+    Barrier Option
   </span>
   
 
@@ -638,7 +638,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Forward Option
+    Forward Option
   </span>
   
 
@@ -659,7 +659,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Cliquet
+    Cliquet
   </span>
   
 
@@ -680,7 +680,7 @@
         
   
   <span class="md-ellipsis">
-    Eq Rainbow Option
+    Rainbow Option
   </span>
   
 
@@ -701,7 +701,7 @@
         
   
   <span class="md-ellipsis">
-    Eq AutoCallable Note
+    AutoCallable Note
   </span>
   
 
@@ -753,6 +753,27 @@
             Rate
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../examples/rate_swap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Swaps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -825,33 +846,37 @@
 
 <h1 id="tracks">Tracks</h1>
 <p>A track identifies the contract, a leg of the contract, or a state of the contract. For simple contracts this might be just blank.</p>
-<pre><code class="language-python">&gt;&gt;&gt; timetable = option_timetable(&quot;USD&quot;, &quot;SPX&quot;, 2900, 0.5, True)
+<pre><code class="language-python">&gt;&gt;&gt; timetable = Option(
+    &quot;USD&quot;, &quot;SPX&quot;, 2900, datetime(2024, 3, 31), True
+).timetable()
 &gt;&gt;&gt; print(timetable[&quot;events&quot;].to_pandas())
 
-  track  time op  quantity unit
-0         0.5  &gt;       0.0  USD
-1         0.5  +   -2900.0  USD
-2         0.5  +       1.0  SPX
+  track                      time op  quantity unit
+0       2024-03-31 00:00:00+00:00  &gt;       0.0  USD
+1       2024-03-31 00:00:00+00:00  +   -2900.0  USD
+2       2024-03-31 00:00:00+00:00  +       1.0  SPX
 </code></pre>
 <p>Or you could assign a name to the track.</p>
-<pre><code class="language-python">&gt;&gt;&gt; timetable = option_timetable(&quot;USD&quot;, &quot;SPX&quot;, 2900, 0.5, True, track=&quot;ID_01&quot;)
+<pre><code class="language-python">&gt;&gt;&gt; timetable = Option(
+    &quot;USD&quot;, &quot;SPX&quot;, 2900, datetime(2024, 3, 31), True, &quot;&lt;SPX2900&gt;&quot;
+).timetable()
 &gt;&gt;&gt; print(timetable[&quot;events&quot;].to_pandas())
 
-   track  time op  quantity unit
-0  ID_01   0.5  &gt;       0.0  USD
-1  ID_01   0.5  +   -2900.0  USD
-2  ID_01   0.5  +       1.0  SPX
+       track                      time op  quantity unit
+0  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  &gt;       0.0  USD
+1  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  +   -2900.0  USD
+2  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  +       1.0  SPX
 </code></pre>
 <p>In this example there are two tracks - <code>.opt</code> and <code>.swp</code>. In the event <code>0</code> and <code>3</code> the holder has an opportunity to switch from the <code>.opt</code>
 track (which has no payments) to the <code>.swp</code> track (which has payments).
 See <a href="../../examples/rate_swaption/#qablet_contracts.rate.swaption.bermuda_swaption_timetable">Bermuda Swaption</a> for more on this example.</p>
-<pre><code class="language-python">  track  time op  quantity  unit
-0  .opt   0.5  &gt;     1.000  .swp
-1  .swp   0.5  +     1.000   USD
-2  .swp   1.0  +    -1.025   USD
-3  .opt   1.0  &gt;     1.000  .swp
-4  .swp   1.0  +     1.000   USD
-5  .swp   1.5  +    -1.025   USD
+<pre><code class="language-python">  track                      time op  quantity  unit
+0  .opt 2023-12-31 00:00:00+00:00  &gt;     1.000  .swp
+1  .swp 2023-12-31 00:00:00+00:00  +     1.000   USD
+2  .swp 2024-06-30 00:00:00+00:00  +    -1.015   USD
+3  .opt 2024-06-30 00:00:00+00:00  &gt;     1.000  .swp
+4  .swp 2024-06-30 00:00:00+00:00  +     1.000   USD
+5  .swp 2024-12-31 00:00:00+00:00  +    -1.015   USD
 </code></pre>
 
 
@@ -903,6 +928,12 @@ See <a href="../../examples/rate_swaption/#qablet_contracts.rate.swaption.bermud
     
     
       <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
     
   </body>
