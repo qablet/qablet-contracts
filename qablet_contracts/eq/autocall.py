@@ -1,5 +1,5 @@
 """
-Create an autocallable note timetable
+This module contains examples of autocallable notes.
 """
 
 from dataclasses import dataclass
@@ -15,7 +15,12 @@ from qablet_contracts.timetable import EventsMixin
 
 @dataclass
 class AutoCallable(EventsMixin):
-    """An **Autocallable Note**.
+    """In an **Autocallable Note** the note is called if the asset price is above the barrier level
+    on any of the barrier observation dates. On being called the note pays the principal and the coupon accreted
+    till the call date. At maturity, if the note is not called by then,
+    
+    - if the asset is above strike, it pays the principal and the coupon at maturity.
+    - if the asset is below strike, it pays the notional scaled down.
 
     Args:
         ccy: the currency of the option.

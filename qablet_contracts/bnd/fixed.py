@@ -1,5 +1,5 @@
 """
-This module contains examples of creating timetables for Fixed Rate Bonds.
+This module contains examples of fixed rate bonds.
 """
 
 from dataclasses import dataclass
@@ -24,7 +24,7 @@ def _const_dict_array(n, val):
 
 @dataclass
 class FixedCashFlows:
-    """Create timetable from cashflows in a single currency. This example also shows how to create a timetable from arrays
+    """A set of **Fixed Cashflows** in a single currency. This example also shows how to create a timetable from arrays
     instead of a list of dictionaries, which is more efficient.
 
     Args:
@@ -74,7 +74,7 @@ class FixedCashFlows:
 
 @dataclass
 class FixedBond:
-    """Create timetable for a fixed rate bond.
+    """A **Fixed Rate Bond** pays a fixed rate at regular intervals, and the principal at maturity.
 
     Args:
         ccy: the currency of cashflows.

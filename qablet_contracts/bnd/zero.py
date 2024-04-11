@@ -1,5 +1,5 @@
 """
-This module contains examples of creating timetables for Zero Coupon Bond and related contracts.
+This module contains examples of zero coupon bond and related contracts.
 """
 
 from dataclasses import dataclass
@@ -10,11 +10,11 @@ from qablet_contracts.timetable import EventsMixin
 
 @dataclass
 class Bond(EventsMixin):
-    """A zero coupon bond.
+    """A **zero coupon bond** pays a single fixed payment at a future time.
 
     Args:
         ccy: the currency of the bond.
-        maturity: the maturity of the bond in years.
+        maturity: the maturity of the bond.
         track: an optional identifier for the contract.
 
     Examples:
@@ -42,12 +42,13 @@ class Bond(EventsMixin):
 
 @dataclass
 class BondPut(EventsMixin):
-    """Create timetable for a **zero coupon bond put**.
+    """A **zero coupon bond put** offers the holder the option to sell a zero coupon bond for
+    a fixed strike price, on the option maturity date.
 
     Args:
         ccy: the currency of the bond.
-        opt_maturity: the maturity of the option in years.
-        bond_maturity: the maturity of the option in years.
+        opt_maturity: the maturity of the option.
+        bond_maturity: the maturity of the bond.
         strike: the option strike.
         track: an optional identifier for the contract.
 

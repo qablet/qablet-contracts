@@ -1,5 +1,5 @@
 """
-This module contains examples of creating timetables for rate contracts such as swaps and swaptions.
+This module contains examples of interest rate swaps.
 """
 
 from typing import Dict, List
@@ -16,8 +16,8 @@ def simple_swap_period(
 
     Args:
         ccy: the currency of the swap.
-        start: the start of the period in years.
-        end: the end of the period in years.
+        start: the start of the period.
+        end: the end of the period.
         fixed_rate: the fixed annual rate of the swap.
         track: an optional identifier for the contract.
     """
@@ -42,7 +42,9 @@ def simple_swap_period(
 def swap_timetable(
     ccy: str, times: List[float], strike_rate: float, track: str = ""
 ) -> Dict:
-    """Create timetable for a **Vanilla Swap**.
+    """In a **Vanilla Swap**, at the end of each period the holder pays a fixed rate and receives a floating rate.
+    In this simple version the floating rate payment is replaced by receiving notional at the beginning of the period
+    and paying the notional at the end of the period.
 
     Args:
         ccy: the currency of the swap.
@@ -72,8 +74,8 @@ def swap_timetable(
 def swaption_timetable(
     ccy: str, times: List[float], strike_rate: float, track: str = ""
 ) -> Dict:
-    """Create timetable for a **Vanilla Swaption**.
-    In a Vanilla swaption the holder gets the opportunity to enter into the swap at the beginning of the first period.
+    """In a **Vanilla swaption** the holder gets the opportunity to enter into the swap
+    at the beginning of the first period.
 
     Args:
         ccy: the currency of the swap.
@@ -114,8 +116,7 @@ def swaption_timetable(
 def bermuda_swaption_timetable(
     ccy: str, times: List[float], strike_rate: float, track: str = ""
 ) -> Dict:
-    """Create timetable for a **Co-terminal Bermuda Swaption**.
-    In a Co-terminal Bermuda swaption, the holder can exercise his option at the beginning of each swap period.
+    """In a **Co-terminal Bermuda Swaption**, the holder can exercise his option at the beginning of each swap period.
     If exercised, the holder pays and receives all remaining payments of the swap. If not exercised, there are
     no payments in the next swap period. Irrespective of the time of exercise, the swap terminates at the same date.
 

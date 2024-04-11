@@ -1,5 +1,5 @@
 """
-This module contains examples of creating timetables for equity cliquet contracts.
+This module contains examples of equity cliquet contracts.
 """
 
 from dataclasses import dataclass, field
@@ -14,8 +14,12 @@ from qablet_contracts.timetable import EventsMixin
 
 @dataclass
 class Accumulator(EventsMixin):
-    """An **Accumulator Cliquet**.
-
+    """In an **Accumulator** the returns over consecutive periods are 
+    
+    - subject to a local floor and cap
+    - accumulated by adding
+    - the accumulated payoff is subject to a global floor
+    
     Args:
         ccy: the currency of the bond.
         asset_name: the name of the underlying asset.

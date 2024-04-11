@@ -1,12 +1,12 @@
 """
-This module contains examples of creating timetables for Zero Coupon Bond and related contracts.
+This module contains examples of zero coupon bond and related contracts.
 """
 
 from qablet_contracts.timetable import timetable_from_dicts
 
 
 def zcb_timetable(ccy: str, maturity: float, track: str = "") -> dict:
-    """Create timetable for a **zero coupon bond**.
+    """A **zero coupon bond** pays a single fixed payment at a future time.
 
     Args:
         ccy: the currency of the bond.
@@ -38,12 +38,13 @@ def zbp_timetable(
     strike: float,
     track: str = "",
 ) -> dict:
-    """Create timetable for a **zero coupon bond put**.
+    """A **zero coupon bond put** offers the holder the option to sell a zero coupon bond for
+    a fixed strike price, on the option maturity date.
 
     Args:
         ccy: the currency of the bond.
         opt_maturity: the maturity of the option in years.
-        bond_maturity: the maturity of the option in years.
+        bond_maturity: the maturity of the bond in years.
         strike: the option strike.
         track: an optional identifier for the contract.
 

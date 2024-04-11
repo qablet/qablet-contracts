@@ -1,5 +1,5 @@
 """
-Utils for creating barrier options timetable
+This module contains examples of barrier options.
 """
 
 from dataclasses import dataclass
@@ -14,7 +14,10 @@ from qablet_contracts.timetable import EventsMixin
 
 @dataclass
 class OptionKO(EventsMixin):
-    """Create timetable for a **Knock Out Option**.
+    """In a **Dn/Out Option** the contract is cancelled if the underlying asset price
+    falls below the barrier level on any of the barrier observation dates.
+    In an **Up/Out Option** the contract is cancelled if the underlying asset price
+    rises above the barrier level on any of the observation dates.
 
     Args:
         ccy: the currency of the option.
@@ -25,7 +28,7 @@ class OptionKO(EventsMixin):
         barrier: the barrier level.
         barrier_type: the type of barrier option, e.g "Dn/Out" or "Up/Out".
         barrier_dates: the barrier observation points.
-        rebate: the rebate amount.
+        rebate: the rebate amount paid at cancellation.
         track: an optional identifier for the contract.
 
     Examples:

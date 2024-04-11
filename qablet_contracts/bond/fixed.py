@@ -1,5 +1,5 @@
 """
-This module contains examples of creating timetables for Fixed Rate Bonds.
+This module contains examples of fixed rate bonds.
 """
 
 from math import ceil

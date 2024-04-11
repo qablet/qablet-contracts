@@ -1,3 +1,3 @@
-# Eq Barrier Option
+# Barrier Option
 
 ::: qablet_contracts.eq.barrier

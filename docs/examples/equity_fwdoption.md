@@ -1,3 +1,3 @@
-# Eq Forward Option
+# Forward Option
 
 ::: qablet_contracts.eq.forward

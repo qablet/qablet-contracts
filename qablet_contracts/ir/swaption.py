@@ -1,5 +1,5 @@
 """
-This module contains examples of creating timetables for rate contracts such as swaps and swaptions.
+This module contains examples of interest rate swaptions.
 """
 
 from dataclasses import dataclass
@@ -64,8 +64,7 @@ class Swaption(EventsMixin):
 
 @dataclass
 class BermudaSwaption(EventsMixin):
-    """A **Co-terminal Bermuda Swaption**.
-    In a Co-terminal Bermuda swaption, the holder can exercise his option at the beginning of each swap period.
+    """In a **Co-terminal Bermuda Swaption**, the holder can exercise his option at the beginning of each swap period.
     If exercised, the holder pays and receives all remaining payments of the swap. If not exercised, there are
     no payments in the next swap period. Irrespective of the time of exercise, the swap terminates at the same date.
 

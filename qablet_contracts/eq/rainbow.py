@@ -1,5 +1,5 @@
 """
-This module contains examples of creating timetables for equity rainbow options.
+This module contains examples of equity rainbow options.
 """
 
 from dataclasses import dataclass
@@ -11,7 +11,10 @@ from qablet_contracts.timetable import EventsMixin
 
 @dataclass
 class Rainbow(EventsMixin):
-    """Create timetable for an **Equity Rainbow Option**.
+    """A **Rainbow Call Option** offers the holder the option to buy the best of
+    a list of stocks (or none) for corresponding fixed strike prices, on the option maturity date.
+    Similarly, a **Rainbow Put Option** offers the holder the option to sell the worst of
+    a list of stocks (or none) for corresponding fixed strike prices.
 
     Args:
         ccy: the currency of the option.

@@ -1,5 +1,5 @@
 """
-This module contains examples of creating timetables for rate contracts such as swaps and swaptions.
+This module contains examples of interest rate swaps.
 """
 
 from dataclasses import dataclass
@@ -48,7 +48,9 @@ def simple_swap_period(
 
 @dataclass
 class Swap(EventsMixin):
-    """A **Vanilla Swap**.
+    """In a **Vanilla Swap**, at the end of each period the holder pays a fixed rate and receives a floating rate.
+    In this simple version the floating rate payment is replaced by receiving notional at the beginning of the period
+    and paying the notional at the end of the period.
 
     Args:
         ccy: the currency of the swap.

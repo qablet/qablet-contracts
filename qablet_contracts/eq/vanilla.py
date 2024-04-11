@@ -1,5 +1,5 @@
 """
-This module contains examples of creating timetables for equity vanilla options.
+This module contains examples of equity vanilla options.
 """
 
 from dataclasses import dataclass
@@ -10,13 +10,16 @@ from qablet_contracts.timetable import EventsMixin
 
 @dataclass
 class Option(EventsMixin):
-    """An **Equity Vanilla Option**.
+    """An **European Call Option** offers the holder the option to buy a stock for
+    a fixed strike price, on the option maturity date.
+    Similarly, a **Put Option** offers the holder the option to sell a stock for
+    a fixed strike price.
 
     Args:
         ccy: the currency of the option.
         asset_name: the name of the underlying asset.
         strike: the option strike.
-        maturity: the maturity of the option in years.
+        maturity: the maturity of the option.
         is_call: true if the option is a call.
         track: an optional identifier for the contract.
 

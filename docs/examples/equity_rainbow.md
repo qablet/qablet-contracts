@@ -1,3 +1,3 @@
-# Eq Rainbow Option
+# Rainbow Option
 
-::: qablet_contracts.equity.rainbow
+::: qablet_contracts.eq.rainbow

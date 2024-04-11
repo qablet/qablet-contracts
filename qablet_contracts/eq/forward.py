@@ -1,5 +1,5 @@
 """
-Utils for creating forward starting options timetable
+This module contains examples of forward starting options.
 """
 
 from dataclasses import dataclass
@@ -10,7 +10,8 @@ from qablet_contracts.timetable import EventsMixin
 
 @dataclass
 class ForwardOption(EventsMixin):
-    """A **Forward Starting Option**.
+    """In a **Forward Starting Option** the strike price is set on a future date as
+    a predetermine percent of the stock price on the strike fixing date.
 
     Args:
         ccy: the currency of the option.
@@ -79,7 +80,7 @@ class ForwardOption(EventsMixin):
             return inputs
 
         return {
-            "FIX": {
+            f"{self.track}.FIX_K": {
                 "type": "snapper",
                 "inp": [self.asset_name],
                 "fn": strike_fn,
