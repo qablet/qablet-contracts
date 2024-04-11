@@ -14,12 +14,12 @@ from qablet_contracts.timetable import EventsMixin
 
 @dataclass
 class Accumulator(EventsMixin):
-    """In an **Accumulator** the returns over consecutive periods are 
-    
+    """In an **Accumulator** the returns over consecutive periods are
+
     - subject to a local floor and cap
     - accumulated by adding
     - the accumulated payoff is subject to a global floor
-    
+
     Args:
         ccy: the currency of the bond.
         asset_name: the name of the underlying asset.

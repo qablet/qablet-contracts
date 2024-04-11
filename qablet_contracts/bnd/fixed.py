@@ -90,9 +90,9 @@ class FixedBond:
         >>> print(tt["events"].to_pandas())
           track                      time op  quantity unit
         0       2024-06-30 00:00:00+00:00  +     0.025  USD
-        1       2024-12-31 00:00:00+00:00  +     0.050  USD
-        2       2025-06-30 00:00:00+00:00  +     0.075  USD
-        3       2025-12-31 00:00:00+00:00  +     1.100  USD
+        1       2024-12-31 00:00:00+00:00  +     0.025  USD
+        2       2025-06-30 00:00:00+00:00  +     0.025  USD
+        3       2025-12-31 00:00:00+00:00  +     1.025  USD
     """
 
     ccy: str
@@ -103,20 +103,22 @@ class FixedBond:
     track: str = ""
 
     def timetable(self):
+        # Coupon period dates including the start of first period, and end of last period.
         cpn_dates = pd.bdate_range(
             self.accrual_start,
             self.maturity,
             freq=self.freq,
-            inclusive="right",
+            inclusive="both",
         )
 
         amounts = [
-            dcf(dt, self.accrual_start) * self.coupon for dt in cpn_dates
+            dcf(end, start) * self.coupon
+            for start, end in zip(cpn_dates[:-1], cpn_dates[1:])
         ]
 
         amounts[-1] += 1  # The last payment includes the principal
         return FixedCashFlows(
-            self.ccy, cpn_dates, amounts, self.track
+            self.ccy, cpn_dates[1:], amounts, self.track
         ).timetable()
 
 

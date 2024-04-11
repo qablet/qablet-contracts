@@ -5,10 +5,10 @@ A contract is described by a list of events. An event has five properties -
 It is described using three events.
 
 ```python
- track  time op  quantity unit
-         1.0  >       0.0  USD
-         1.0  +   -2800.0  USD
-         1.0  +       1.0  SPX
+       track                      time op  quantity unit
+0  <SPX2900> 2024-03-31 00:00:00+00:00  >       0.0  USD
+1  <SPX2900> 2024-03-31 00:00:00+00:00  +    2900.0  USD
+2  <SPX2900> 2024-03-31 00:00:00+00:00  +      -1.0  SPX
 ```
 
 
@@ -18,7 +18,7 @@ A string identifier for the contract, a leg of the contract, or a state of the c
 
 ### Time
 
-The time of an event in years (float) from the valuation date.
+The UNIX timestamp (milliseconds) of an event.
 
 ### Op
 
@@ -42,34 +42,58 @@ The timetable is a dictionary with two components.
 
 
 A timetable can be created as follows, from a list of dicts.
-In this example we define a contract that pays 100 USD after 1 year.
+In this example we define a contract that pays 100 USD on 2024-12-31.
 
 ```python
 import pyarrow as pa
-from qablet_contracts.timetable import EVENT_SCHEMA
+import datetime
+from qablet_contracts.timetable import TS_EVENT_SCHEMA
 
 events = [
     {
         "track": "",
-        "time": 1.0,
+        "time": datetime(2024, 12, 31),
         "op": "+",
         "quantity": 100.0,
-        "unit": "USD"
+        "unit": "USD",
     },
 ]
 timetable = {
-    "events": pa.RecordBatch.from_pylist(events, schema=EVENT_SCHEMA),
-    "expressions": {}
+    "events": pa.RecordBatch.from_pylist(events, schema=TS_EVENT_SCHEMA),
+    "expressions": {},
 }
 ```
 
-## Create a Simple Timetable
-Alternatively, a simple timetable (without any expressions) can also be created using this method, from a list of dicts.
+## Create a Timetable using `EventsMixin`
+Alternatively, the same timetable as above can also be created using the `EventsMixin` class as shown below.
 
 ```python
-from api import timetable_from_dicts
-timetable = timetable_from_dicts(events)
+from qablet_contracts.timetable import EventsMixin
+
+@dataclass
+class Bond(EventsMixin):
+    ccy: str
+    maturity: datetime
+    track: str = ""
+
+    def events(self):
+        return [
+            {
+                "track": self.track,
+                "time": self.maturity,
+                "op": "+",
+                "quantity": 1,
+                "unit": self.ccy,
+            }
+        ]
+
+timetable = Bond("USD", datetime(2024, 12, 31)).timetable()
+print("zcb:\n", timetable["events"].to_pandas())
 ```
+
+## `qablet_contracts.timetable`
+
+This module has several utilities to help create timetables.
 
 ### ::: qablet_contracts.timetable
 

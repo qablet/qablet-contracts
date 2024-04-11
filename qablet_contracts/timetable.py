@@ -33,7 +33,8 @@ TS_EVENT_SCHEMA = pa.schema(
 
 
 def timetable_from_dicts(events: List[Dict]) -> Dict:
-    """Create timetable from a list of dicts.
+    """Create timetable from a list of dicts. This method creates a timetable
+    with floating point for time, which is now being deprecated.
 
     Args:
         events: a list of dicts with the following fields:
@@ -63,7 +64,9 @@ def py_to_ts(py_dt):
 
 
 class EventsMixin(ABC):
-    """A mixin class for contracts that generates a timetable from events list."""
+    """A mixin class for contracts that generates a timetable from events list.
+    A derived class needs to implement the events method that returns a list of dicts,
+    and the expressions method (optional) that returns a dictionary of expressions, batches, and snappers."""
 
     @abstractmethod
     def events(self) -> List[Dict]: ...

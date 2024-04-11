@@ -78,7 +78,11 @@ class Option(EventsMixin):
 if __name__ == "__main__":
     # Create the option timetable
     timetable = Option(
-        "USD", "SPX", 2900, datetime(2024, 3, 31), True, "<SPX2900>"
+        "USD",
+        "SPX",
+        2900,
+        datetime(2024, 3, 31),
+        True,
     ).timetable()
 
     print(timetable["events"].to_pandas())

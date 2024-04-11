@@ -18,7 +18,7 @@ class AutoCallable(EventsMixin):
     """In an **Autocallable Note** the note is called if the asset price is above the barrier level
     on any of the barrier observation dates. On being called the note pays the principal and the coupon accreted
     till the call date. At maturity, if the note is not called by then,
-    
+
     - if the asset is above strike, it pays the principal and the coupon at maturity.
     - if the asset is below strike, it pays the notional scaled down.
 
