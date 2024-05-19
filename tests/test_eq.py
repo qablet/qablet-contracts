@@ -2,23 +2,28 @@ from datetime import datetime
 
 import pandas as pd
 
-from qablet_contracts.eq.autocall import AutoCallable
+from qablet_contracts.eq.autocall import DiscountCert, ReverseCB
 from qablet_contracts.eq.barrier import OptionKO
 from qablet_contracts.eq.cliquet import Accumulator
 from qablet_contracts.eq.forward import ForwardOption
 
 
 def test_classes():
-    # Autocallable
+    # Autocallable Discount Certificate and Reverse Convertible
     start = datetime(2024, 3, 31)
     maturity = datetime(2024, 9, 30)
     barrier_dates = pd.date_range(
         start, maturity, freq="ME", inclusive="right"
     )
-    tt = AutoCallable(
+    tt = DiscountCert(
         "USD", "AAPL", 100, 80, start, maturity, 102, barrier_dates, 0.092
     ).timetable()
     assert len(tt["events"]) == 7
+
+    tt = ReverseCB(
+        "USD", "AAPL", 100, 80, start, maturity, 102, barrier_dates, 0.10
+    ).timetable()
+    assert len(tt["events"]) == 13
 
     # Barrier
     start = datetime(2024, 3, 31)
