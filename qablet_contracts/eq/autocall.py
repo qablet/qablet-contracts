@@ -15,12 +15,11 @@ from qablet_contracts.timetable import EventsMixin
 
 @dataclass
 class AutoCallable(EventsMixin):
-    """In an **Autocallable Note** the note is called if the asset price is above the barrier level
-    on any of the barrier observation dates. On being called the note pays the principal and the coupon accreted
-    till the call date. At maturity, if the note is not called by then,
-
-    - if the asset is above strike, it pays the principal and the coupon at maturity.
-    - if the asset is below strike, it pays the notional scaled down.
+    """In an **Autocallable Discount Note** the note is called if the asset price is above the barrier level
+    on any of the barrier observation dates. If called, the note pays the principal and the coupon accreted
+    till the call date. Otherwise, at maturity, if the asset is above strike, it pays the principal and the
+    coupon at maturity. If the asset is below strike, the principal payment is scaled down proportionately
+    with the asset price.
 
     Args:
         ccy: the currency of the option.
@@ -60,6 +59,7 @@ class AutoCallable(EventsMixin):
     barrier: float
     barrier_dates: List[datetime]
     cpn_rate: float
+    notional: float = 100.0
     track: str = ""
 
     def events(self):
@@ -73,7 +73,7 @@ class AutoCallable(EventsMixin):
                     "track": self.track,
                     "time": barrier_date,
                     "op": "CALL",
-                    "quantity": 100 * np.exp(frac * self.cpn_rate),
+                    "quantity": self.notional * np.exp(frac * self.cpn_rate),
                     "unit": self.ccy,
                 }
             )
@@ -94,7 +94,7 @@ class AutoCallable(EventsMixin):
         # Define the autocall condition
         def ko_fn(inputs):
             [S] = inputs
-            return [S > (self.barrier * self.initial_spot / 100)]
+            return [S > (self.barrier * self.initial_spot / self.notional)]
 
         call = {
             "type": "phrase",
@@ -103,13 +103,13 @@ class AutoCallable(EventsMixin):
         }
 
         # Define the final payoff
-        fixed_pay = 100 * np.exp(
+        fixed_pay = self.notional * np.exp(
             dcf(self.maturity, self.accrual_start) * self.cpn_rate
         )
 
         def payoff_fn(inputs):
             [s] = inputs
-            eq_pay = s * (100 / self.initial_spot)
+            eq_pay = s * (self.notional / self.initial_spot)
             return [np.where(eq_pay < self.strike, eq_pay, fixed_pay)]
 
         payoff = {

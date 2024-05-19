@@ -14,11 +14,9 @@ from qablet_contracts.timetable import EventsMixin
 
 @dataclass
 class Accumulator(EventsMixin):
-    """In an **Accumulator** the returns over consecutive periods are
-
-    - subject to a local floor and cap
-    - accumulated by adding
-    - the accumulated payoff is subject to a global floor
+    """In an **Accumulator** the asset returns are calculated over a series of consecutive periods.
+    Each return is subject to a local floor and cap, then accumulated by adding, and finally the
+    accumulated payoff is subject to a global floor.
 
     Args:
         ccy: the currency of the bond.
@@ -27,6 +25,7 @@ class Accumulator(EventsMixin):
         global_floor: the global floor of the cliquet.
         local_floor: the local floor of the cliquet.
         local_cap: the local cap of the cliquet.
+        notional: the notional of the cliquet.
         track: an optional identifier for the contract.
 
     Examples:
@@ -42,7 +41,7 @@ class Accumulator(EventsMixin):
         5   NaN 2024-06-28 00:00:00+00:00  NaN       0.0  CALCFIX
         6   NaN 2024-12-31 00:00:00+00:00  NaN       0.0  CALCFIX
         7       2024-12-31 00:00:00+00:00    >       0.0      USD
-        8       2024-12-31 00:00:00+00:00    +       1.0      ACC
+        8       2024-12-31 00:00:00+00:00    +     100.0      ACC
     """
 
     ccy: str
@@ -51,6 +50,7 @@ class Accumulator(EventsMixin):
     global_floor: float
     local_floor: float
     local_cap: float
+    notional: float = 100.0
     track: str = ""
     state: dict = field(default_factory=dict)
 
@@ -90,7 +90,7 @@ class Accumulator(EventsMixin):
                 "track": self.track,
                 "time": maturity,
                 "op": "+",  # pay the accumulated amount
-                "quantity": 1,
+                "quantity": self.notional,
                 "unit": "ACC",
             }
         )
