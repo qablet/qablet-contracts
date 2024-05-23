@@ -945,12 +945,9 @@
             Bases: <code><a class="autorefs autorefs-internal" title="qablet_contracts.timetable.EventsMixin" href="../../specifications/timetable/#qablet_contracts.timetable.EventsMixin">EventsMixin</a></code></p>
 
   
-      <p>In an <strong>Accumulator</strong> the returns over consecutive periods are</p>
-<ul>
-<li>subject to a local floor and cap</li>
-<li>accumulated by adding</li>
-<li>the accumulated payoff is subject to a global floor</li>
-</ul>
+      <p>In an <strong>Accumulator</strong> the asset returns are calculated over a series of consecutive periods.
+Each return is subject to a local floor and cap, then accumulated by adding, and finally the
+accumulated payoff is subject to a global floor.</p>
 
 
 
@@ -1050,6 +1047,20 @@
           </td>
         </tr>
         <tr>
+          <td><code>notional</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the notional of the cliquet.</p>
+            </div>
+          </td>
+          <td>
+                <code>100.0</code>
+          </td>
+        </tr>
+        <tr>
           <td><code>track</code></td>
           <td>
                 <code>str</code>
@@ -1081,7 +1092,7 @@
 <span class="go">5   NaN 2024-06-28 00:00:00+00:00  NaN       0.0  CALCFIX</span>
 <span class="go">6   NaN 2024-12-31 00:00:00+00:00  NaN       0.0  CALCFIX</span>
 <span class="go">7       2024-12-31 00:00:00+00:00    &gt;       0.0      USD</span>
-<span class="go">8       2024-12-31 00:00:00+00:00    +       1.0      ACC</span>
+<span class="go">8       2024-12-31 00:00:00+00:00    +     100.0      ACC</span>
 </code></pre></div>
 
             <details class="quote">
@@ -1208,11 +1219,9 @@
 <span class="normal">134</span>
 <span class="normal">135</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">Accumulator</span><span class="p">(</span><span class="n">EventsMixin</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;In an **Accumulator** the returns over consecutive periods are</span>
-
-<span class="sd">    - subject to a local floor and cap</span>
-<span class="sd">    - accumulated by adding</span>
-<span class="sd">    - the accumulated payoff is subject to a global floor</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;In an **Accumulator** the asset returns are calculated over a series of consecutive periods.</span>
+<span class="sd">    Each return is subject to a local floor and cap, then accumulated by adding, and finally the</span>
+<span class="sd">    accumulated payoff is subject to a global floor.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        ccy: the currency of the bond.</span>
@@ -1221,6 +1230,7 @@
 <span class="sd">        global_floor: the global floor of the cliquet.</span>
 <span class="sd">        local_floor: the local floor of the cliquet.</span>
 <span class="sd">        local_cap: the local cap of the cliquet.</span>
+<span class="sd">        notional: the notional of the cliquet.</span>
 <span class="sd">        track: an optional identifier for the contract.</span>
 
 <span class="sd">    Examples:</span>
@@ -1236,7 +1246,7 @@
 <span class="sd">        5   NaN 2024-06-28 00:00:00+00:00  NaN       0.0  CALCFIX</span>
 <span class="sd">        6   NaN 2024-12-31 00:00:00+00:00  NaN       0.0  CALCFIX</span>
 <span class="sd">        7       2024-12-31 00:00:00+00:00    &gt;       0.0      USD</span>
-<span class="sd">        8       2024-12-31 00:00:00+00:00    +       1.0      ACC</span>
+<span class="sd">        8       2024-12-31 00:00:00+00:00    +     100.0      ACC</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">ccy</span><span class="p">:</span> <span class="nb">str</span>
@@ -1245,6 +1255,7 @@
     <span class="n">global_floor</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">local_floor</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">local_cap</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">notional</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">100.0</span>
     <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="n">state</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
 
@@ -1284,7 +1295,7 @@
                 <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="p">,</span>
                 <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">maturity</span><span class="p">,</span>
                 <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>  <span class="c1"># pay the accumulated amount</span>
-                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">notional</span><span class="p">,</span>
                 <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;ACC&quot;</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>

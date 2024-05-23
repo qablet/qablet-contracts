@@ -253,9 +253,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#valuation-models" class="md-nav__link">
+  <a href="#also-see" class="md-nav__link">
     <span class="md-ellipsis">
-      Valuation models
+      Also See
     </span>
   </a>
   
@@ -903,9 +903,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#valuation-models" class="md-nav__link">
+  <a href="#also-see" class="md-nav__link">
     <span class="md-ellipsis">
-      Valuation models
+      Also See
     </span>
   </a>
   
@@ -929,17 +929,29 @@
   <h1>Home</h1>
 
 <h2 id="what-is-qablet">What is Qablet?</h2>
-<p>A Qablet timetable defines a financial product using a sequence of payments, choices and conditions. A valuation model implemented with a Qablet parser can value any contract, as long as the contract can be described using a Qablet Timetable.</p>
-<p><a href="https://github.com/qablet/qablet-contracts">The repository</a> documented here contains code to create qablet timetables. It does not contain models that price qablet timetables. 
-Valuation models are available in other independent projects.</p>
+<p>A Qablet timetable defines a financial product using a sequence of payments, choices and conditions. A valuation model implemented with a Qablet parser can value any contract, as long as the contract can be described using a Qablet Timetable such as this one -</p>
+<pre><code>               track                      time op  quantity unit
+        0  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  &gt;       0.0  USD
+        1  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  +   -2900.0  USD
+        2  &lt;SPX2900&gt; 2024-03-31 00:00:00+00:00  +       1.0  SPX
+</code></pre>
 <h2 id="overview-of-documentation">Overview of Documentation</h2>
 <p>The <strong>SPECIFICATIONS</strong> section describes the various elements of the language.
 Start with the <a href="specifications/timetable/">timetable</a>.</p>
-<p>The <strong>CONTRACTS</strong> section has methods to create many common financial contracts such as
-bonds, options, swaps, and swaptions.
-Start with the <a href="examples/bond_zero/">Bonds</a>.</p>
-<h2 id="valuation-models">Valuation models</h2>
-<p>Valuation models are available in other independent projects, such as qablet-basic. See the <a href="https://qablet-academy.github.io/intro/">Qablet Learning Path</a> for a set of Jupyter notebooks that value contracts using Monte-Carlo and Finite Difference models from the qablet-basic package.</p>
+<p>The <strong>CONTRACTS</strong> section documents <a href="https://github.com/qablet/qablet-contracts">this repository</a> which contains classes to create qablet timetables
+for many common financial contracts such as</p>
+<ul>
+<li><a href="examples/bond_zero/">Bonds</a></li>
+<li><a href="examples/equity_vanilla/">Options</a></li>
+<li><a href="examples/rate_swap/">Swaps</a> and <a href="examples/rate_swaption/">Swaptions</a></li>
+</ul>
+<h2 id="also-see">Also See</h2>
+<p>The repo documented here does not contain models that price qablet timetables. Valuation and backtesting models are available in other independent projects, such as qablet-basic.</p>
+<ul>
+<li><a href="https://qablet-academy.github.io/intro/">Qablet Models</a> documents the Monte-Carlo and Finite Difference models in qablet-basic.</li>
+<li><a href="https://github.com/qablet-academy/intro">Qablet Learning Path</a> is a set of Jupyter notebooks that value contracts using the qablet-basic package.</li>
+<li><a href="https://apps-dash.onrender.com/">Qablet Demo</a> is an interactive experience.</li>
+</ul>
 
 
 

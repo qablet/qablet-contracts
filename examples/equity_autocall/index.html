@@ -735,9 +735,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#qablet_contracts.eq.autocall.AutoCallable" class="md-nav__link">
+  <a href="#qablet_contracts.eq.autocall.DiscountCert" class="md-nav__link">
     <span class="md-ellipsis">
-      AutoCallable
+      DiscountCert
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qablet_contracts.eq.autocall.ReverseCB" class="md-nav__link">
+    <span class="md-ellipsis">
+      ReverseCB
     </span>
   </a>
   
@@ -879,9 +888,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#qablet_contracts.eq.autocall.AutoCallable" class="md-nav__link">
+  <a href="#qablet_contracts.eq.autocall.DiscountCert" class="md-nav__link">
     <span class="md-ellipsis">
-      AutoCallable
+      DiscountCert
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qablet_contracts.eq.autocall.ReverseCB" class="md-nav__link">
+    <span class="md-ellipsis">
+      ReverseCB
     </span>
   </a>
   
@@ -929,8 +947,8 @@
 
 
 
-<h2 id="qablet_contracts.eq.autocall.AutoCallable" class="doc doc-heading">
-          <code>AutoCallable</code>
+<h2 id="qablet_contracts.eq.autocall.DiscountCert" class="doc doc-heading">
+          <code>DiscountCert</code>
 
   
   <span class="doc doc-labels">
@@ -945,13 +963,11 @@
             Bases: <code><a class="autorefs autorefs-internal" title="qablet_contracts.timetable.EventsMixin" href="../../specifications/timetable/#qablet_contracts.timetable.EventsMixin">EventsMixin</a></code></p>
 
   
-      <p>In an <strong>Autocallable Note</strong> the note is called if the asset price is above the barrier level
-on any of the barrier observation dates. On being called the note pays the principal and the coupon accreted
-till the call date. At maturity, if the note is not called by then,</p>
-<ul>
-<li>if the asset is above strike, it pays the principal and the coupon at maturity.</li>
-<li>if the asset is below strike, it pays the notional scaled down.</li>
-</ul>
+      <p>An <strong>Autocallable Discount Certificate</strong> is called if the asset price is above the barrier level
+on any of the barrier observation dates. If called, the note pays the principal and the coupon accreted
+till the call date. Otherwise, at maturity, if the asset is above strike, it pays the principal and the
+coupon at maturity. If the asset is below strike, the principal payment is scaled down proportionately
+with the asset price.</p>
 
 
 
@@ -1079,6 +1095,20 @@ till the call date. At maturity, if the note is not called by then,</p>
           </td>
         </tr>
         <tr>
+          <td><code>notional</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the notional amount.</p>
+            </div>
+          </td>
+          <td>
+                <code>100.0</code>
+          </td>
+        </tr>
+        <tr>
           <td><code>track</code></td>
           <td>
                 <code>str</code>
@@ -1101,7 +1131,7 @@ till the call date. At maturity, if the note is not called by then,</p>
     <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">maturity</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">barrier_dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">maturity</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;ME&quot;</span><span class="p">,</span> <span class="n">inclusive</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">AutoCallable</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">DiscountCert</span><span class="p">(</span>
 <span class="go">    &quot;USD&quot;, &quot;AAPL&quot;, 100, 80, start, maturity, 102, barrier_dates, 0.092</span>
 <span class="go">).timetable()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">())</span>
@@ -1222,14 +1252,17 @@ till the call date. At maturity, if the note is not called by then,</p>
 <span class="normal">118</span>
 <span class="normal">119</span>
 <span class="normal">120</span>
-<span class="normal">121</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">AutoCallable</span><span class="p">(</span><span class="n">EventsMixin</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;In an **Autocallable Note** the note is called if the asset price is above the barrier level</span>
-<span class="sd">    on any of the barrier observation dates. On being called the note pays the principal and the coupon accreted</span>
-<span class="sd">    till the call date. At maturity, if the note is not called by then,</span>
-
-<span class="sd">    - if the asset is above strike, it pays the principal and the coupon at maturity.</span>
-<span class="sd">    - if the asset is below strike, it pays the notional scaled down.</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">DiscountCert</span><span class="p">(</span><span class="n">EventsMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An **Autocallable Discount Certificate** is called if the asset price is above the barrier level</span>
+<span class="sd">    on any of the barrier observation dates. If called, the note pays the principal and the coupon accreted</span>
+<span class="sd">    till the call date. Otherwise, at maturity, if the asset is above strike, it pays the principal and the</span>
+<span class="sd">    coupon at maturity. If the asset is below strike, the principal payment is scaled down proportionately</span>
+<span class="sd">    with the asset price.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        ccy: the currency of the option.</span>
@@ -1240,13 +1273,14 @@ till the call date. At maturity, if the note is not called by then,</p>
 <span class="sd">        barrier: the note is called above this barrier level.</span>
 <span class="sd">        barrier_dates: the barrier observation points.</span>
 <span class="sd">        cpn_rate: the coupon rate.</span>
+<span class="sd">        notional: the notional amount.</span>
 <span class="sd">        track: an optional identifier for the contract.</span>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; start = datetime(2024, 3, 31)</span>
 <span class="sd">        &gt;&gt;&gt; maturity = datetime(2024, 9, 30)</span>
 <span class="sd">        &gt;&gt;&gt; barrier_dates = pd.date_range(start, maturity, freq=&quot;ME&quot;, inclusive=&quot;right&quot;)</span>
-<span class="sd">        &gt;&gt;&gt; tt = AutoCallable(</span>
+<span class="sd">        &gt;&gt;&gt; tt = DiscountCert(</span>
 <span class="sd">            &quot;USD&quot;, &quot;AAPL&quot;, 100, 80, start, maturity, 102, barrier_dates, 0.092</span>
 <span class="sd">        ).timetable()</span>
 <span class="sd">        &gt;&gt;&gt; print(tt[&quot;events&quot;].to_pandas())</span>
@@ -1269,6 +1303,7 @@ till the call date. At maturity, if the note is not called by then,</p>
     <span class="n">barrier</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">barrier_dates</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">datetime</span><span class="p">]</span>
     <span class="n">cpn_rate</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">notional</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">100.0</span>
     <span class="n">track</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1282,7 +1317,7 @@ till the call date. At maturity, if the note is not called by then,</p>
                     <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="p">,</span>
                     <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">barrier_date</span><span class="p">,</span>
                     <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;CALL&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">frac</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpn_rate</span><span class="p">),</span>
+                    <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">notional</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">frac</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpn_rate</span><span class="p">),</span>
                     <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccy</span><span class="p">,</span>
                 <span class="p">}</span>
             <span class="p">)</span>
@@ -1299,11 +1334,16 @@ till the call date. At maturity, if the note is not called by then,</p>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">events</span>
 
+    <span class="k">def</span> <span class="nf">fixed_payoff</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">notional</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>
+            <span class="n">dcf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maturity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">accrual_start</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpn_rate</span>
+        <span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">expressions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Define the autocall condition</span>
         <span class="k">def</span> <span class="nf">ko_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
             <span class="p">[</span><span class="n">S</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">S</span> <span class="o">&gt;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">barrier</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_spot</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)]</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">S</span> <span class="o">&gt;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">barrier</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_spot</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">notional</span><span class="p">)]</span>
 
         <span class="n">call</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;phrase&quot;</span><span class="p">,</span>
@@ -1312,14 +1352,12 @@ till the call date. At maturity, if the note is not called by then,</p>
         <span class="p">}</span>
 
         <span class="c1"># Define the final payoff</span>
-        <span class="n">fixed_pay</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span>
-            <span class="n">dcf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maturity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">accrual_start</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpn_rate</span>
-        <span class="p">)</span>
-
         <span class="k">def</span> <span class="nf">payoff_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
             <span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span>
-            <span class="n">eq_pay</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="p">(</span><span class="mi">100</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_spot</span><span class="p">)</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">eq_pay</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">strike</span><span class="p">,</span> <span class="n">eq_pay</span><span class="p">,</span> <span class="n">fixed_pay</span><span class="p">)]</span>
+            <span class="n">eq_pay</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">notional</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_spot</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">eq_pay</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">strike</span><span class="p">,</span> <span class="n">eq_pay</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fixed_payoff</span><span class="p">())</span>
+            <span class="p">]</span>
 
         <span class="n">payoff</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;phrase&quot;</span><span class="p">,</span>
@@ -1328,6 +1366,404 @@ till the call date. At maturity, if the note is not called by then,</p>
         <span class="p">}</span>
 
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;PAYOFF&quot;</span><span class="p">:</span> <span class="n">payoff</span><span class="p">,</span> <span class="s2">&quot;CALL&quot;</span><span class="p">:</span> <span class="n">call</span><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="qablet_contracts.eq.autocall.ReverseCB" class="doc doc-heading">
+          <code>ReverseCB</code>
+
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="qablet_contracts.eq.autocall.DiscountCert" href="#qablet_contracts.eq.autocall.DiscountCert">DiscountCert</a></code></p>
+
+  
+      <p>An <strong>Autocallable Reverse Convertible</strong> is called if the asset price is above the barrier level
+on any of the barrier observation dates. Otherwise, at maturity, if the asset is above strike, it pays the principal and the
+coupon at maturity. If the asset is below strike, the principal payment is scaled down proportionately
+with the asset price. The note pays periodic coupons until called or matured.</p>
+
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>ccy</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the currency of the option.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>asset_name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the name of the underlying asset.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>initial_spot</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the initial spot price of the asset.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>strike</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>downside participation below this strike.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>maturity</code></td>
+          <td>
+                <code><span title="datetime.datetime">datetime</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the maturity of the option in years.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>barrier</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the note is called above this barrier level.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>barrier_dates</code></td>
+          <td>
+                <code><span title="typing.List">List</span>[<span title="datetime.datetime">datetime</span>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the barrier observation points.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>cpn_rate</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the coupon rate.</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>notional</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>the notional amount.</p>
+            </div>
+          </td>
+          <td>
+                <code>100.0</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>track</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>an optional identifier for the contract.</p>
+            </div>
+          </td>
+          <td>
+                <code>&#39;&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="n">start</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maturity</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">barrier_dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">maturity</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;ME&quot;</span><span class="p">,</span> <span class="n">inclusive</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tt</span> <span class="o">=</span> <span class="n">ReverseCB</span><span class="p">(</span>
+<span class="go">    &quot;USD&quot;, &quot;AAPL&quot;, 100, 80, start, maturity, 102, barrier_dates, 0.10</span>
+<span class="go">).timetable()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">())</span>
+<span class="go">   track                      time    op    quantity    unit</span>
+<span class="go">0        2024-04-30 00:00:00+00:00     +    0.833333     USD</span>
+<span class="go">1        2024-04-30 00:00:00+00:00  CALL  100.000000     USD</span>
+<span class="go">2        2024-05-31 00:00:00+00:00     +    0.833333     USD</span>
+<span class="go">3        2024-05-31 00:00:00+00:00  CALL  100.000000     USD</span>
+<span class="go">4        2024-06-30 00:00:00+00:00     +    0.833333     USD</span>
+<span class="go">5        2024-06-30 00:00:00+00:00  CALL  100.000000     USD</span>
+<span class="go">6        2024-07-31 00:00:00+00:00     +    0.833333     USD</span>
+<span class="go">7        2024-07-31 00:00:00+00:00  CALL  100.000000     USD</span>
+<span class="go">8        2024-08-31 00:00:00+00:00     +    0.833333     USD</span>
+<span class="go">9        2024-08-31 00:00:00+00:00  CALL  100.000000     USD</span>
+<span class="go">10       2024-09-30 00:00:00+00:00     +    0.833333     USD</span>
+<span class="go">11       2024-09-30 00:00:00+00:00  CALL  100.000000     USD</span>
+<span class="go">12       2024-09-30 00:00:00+00:00     +    1.000000  PAYOFF</span>
+</code></pre></div>
+
+            <details class="quote">
+              <summary>Source code in <code>qablet_contracts\eq\autocall.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">ReverseCB</span><span class="p">(</span><span class="n">DiscountCert</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An **Autocallable Reverse Convertible** is called if the asset price is above the barrier level</span>
+<span class="sd">    on any of the barrier observation dates. Otherwise, at maturity, if the asset is above strike, it pays the principal and the</span>
+<span class="sd">    coupon at maturity. If the asset is below strike, the principal payment is scaled down proportionately</span>
+<span class="sd">    with the asset price. The note pays periodic coupons until called or matured.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ccy: the currency of the option.</span>
+<span class="sd">        asset_name: the name of the underlying asset.</span>
+<span class="sd">        initial_spot: the initial spot price of the asset.</span>
+<span class="sd">        strike: downside participation below this strike.</span>
+<span class="sd">        maturity: the maturity of the option in years.</span>
+<span class="sd">        barrier: the note is called above this barrier level.</span>
+<span class="sd">        barrier_dates: the barrier observation points.</span>
+<span class="sd">        cpn_rate: the coupon rate.</span>
+<span class="sd">        notional: the notional amount.</span>
+<span class="sd">        track: an optional identifier for the contract.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; start = datetime(2024, 3, 31)</span>
+<span class="sd">        &gt;&gt;&gt; maturity = datetime(2024, 9, 30)</span>
+<span class="sd">        &gt;&gt;&gt; barrier_dates = pd.date_range(start, maturity, freq=&quot;ME&quot;, inclusive=&quot;right&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; tt = ReverseCB(</span>
+<span class="sd">            &quot;USD&quot;, &quot;AAPL&quot;, 100, 80, start, maturity, 102, barrier_dates, 0.10</span>
+<span class="sd">        ).timetable()</span>
+<span class="sd">        &gt;&gt;&gt; print(tt[&quot;events&quot;].to_pandas())</span>
+<span class="sd">           track                      time    op    quantity    unit</span>
+<span class="sd">        0        2024-04-30 00:00:00+00:00     +    0.833333     USD</span>
+<span class="sd">        1        2024-04-30 00:00:00+00:00  CALL  100.000000     USD</span>
+<span class="sd">        2        2024-05-31 00:00:00+00:00     +    0.833333     USD</span>
+<span class="sd">        3        2024-05-31 00:00:00+00:00  CALL  100.000000     USD</span>
+<span class="sd">        4        2024-06-30 00:00:00+00:00     +    0.833333     USD</span>
+<span class="sd">        5        2024-06-30 00:00:00+00:00  CALL  100.000000     USD</span>
+<span class="sd">        6        2024-07-31 00:00:00+00:00     +    0.833333     USD</span>
+<span class="sd">        7        2024-07-31 00:00:00+00:00  CALL  100.000000     USD</span>
+<span class="sd">        8        2024-08-31 00:00:00+00:00     +    0.833333     USD</span>
+<span class="sd">        9        2024-08-31 00:00:00+00:00  CALL  100.000000     USD</span>
+<span class="sd">        10       2024-09-30 00:00:00+00:00     +    0.833333     USD</span>
+<span class="sd">        11       2024-09-30 00:00:00+00:00  CALL  100.000000     USD</span>
+<span class="sd">        12       2024-09-30 00:00:00+00:00     +    1.000000  PAYOFF</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">cpn_start_dates</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">accrual_start</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">barrier_dates</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="c1"># Autocall events</span>
+        <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">cpn_start_dates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">barrier_dates</span><span class="p">):</span>
+            <span class="c1"># daycount_fraction</span>
+            <span class="n">frac</span> <span class="o">=</span> <span class="n">dcf</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="p">,</span>
+                    <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">end</span><span class="p">,</span>
+                    <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">notional</span> <span class="o">*</span> <span class="n">frac</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpn_rate</span><span class="p">,</span>
+                    <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccy</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="p">,</span>
+                    <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">end</span><span class="p">,</span>
+                    <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;CALL&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">notional</span><span class="p">,</span>
+                    <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccy</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
+        <span class="c1"># payoff at maturity</span>
+        <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">maturity</span><span class="p">,</span>
+                <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;PAYOFF&quot;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">events</span>
+
+    <span class="k">def</span> <span class="nf">fixed_payoff</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">notional</span>
 </code></pre></div></td></tr></table></div>
             </details>
 
