@@ -18,10 +18,9 @@ class Bond(EventsMixin):
         track: an optional identifier for the contract.
 
     Examples:
-        >>> tt = Bond("USD", datetime(2025, 3, 31)).timetable()
-        >>> print(tt["events"].to_pandas())
-          track                      time op  quantity unit
-        0       2025-03-31 00:00:00+00:00  +       1.0  USD
+        >>> Bond("USD", datetime(2025, 3, 31)).print_events()
+          track        time op  quantity unit
+        0        03/31/2025  +       1.0  USD
     """
 
     ccy: str
@@ -53,14 +52,11 @@ class BondPut(EventsMixin):
         track: an optional identifier for the contract.
 
     Examples:
-        >>> tt = BondPut(
-            "USD", datetime(2024, 9, 30), datetime(2025, 3, 31), 0.95
-        ).timetable()
-        >>> print(tt["events"].to_pandas())
-          track                      time op  quantity unit
-        0       2024-09-30 00:00:00+00:00  >      0.00  USD
-        1       2024-09-30 00:00:00+00:00  +      0.95  USD
-        2       2025-03-31 00:00:00+00:00  +     -1.00  USD
+        >>> BondPut("USD", datetime(2024, 9, 30), datetime(2025, 3, 31), 0.95).print_events()
+          track        time op  quantity unit
+        0        09/30/2024  >      0.00  USD
+        1        09/30/2024  +      0.95  USD
+        2        03/31/2025  +     -1.00  USD
     """
 
     ccy: str
@@ -97,10 +93,8 @@ class BondPut(EventsMixin):
 
 if __name__ == "__main__":
     # Create a zero coupon bond timetable
-    timetable = Bond("USD", datetime(2025, 3, 31)).timetable()
-    print("zcb:\n", timetable["events"].to_pandas())
+    Bond("USD", datetime(2025, 3, 31)).print_events()
 
-    timetable = BondPut(
+    BondPut(
         "USD", datetime(2024, 9, 30), datetime(2025, 3, 31), 0.95
-    ).timetable()
-    print("zbp:\n", timetable["events"].to_pandas())
+    ).print_events()

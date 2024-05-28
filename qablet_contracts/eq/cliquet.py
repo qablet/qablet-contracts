@@ -30,18 +30,17 @@ class Accumulator(EventsMixin):
 
     Examples:
         >>> fix_dates = pd.bdate_range(datetime(2021, 12, 31), datetime(2024, 12, 31), freq="2BQE")
-        >>> tt = Accumulator("USD", "SPX", fix_dates, 0.0, -0.03, 0.05).timetable()
-        >>> print(tt["events"].to_pandas())
-          track                      time   op  quantity     unit
-        0   NaN 2021-12-31 00:00:00+00:00  NaN       0.0     INIT
-        1   NaN 2022-06-30 00:00:00+00:00  NaN       0.0  CALCFIX
-        2   NaN 2022-12-30 00:00:00+00:00  NaN       0.0  CALCFIX
-        3   NaN 2023-06-30 00:00:00+00:00  NaN       0.0  CALCFIX
-        4   NaN 2023-12-29 00:00:00+00:00  NaN       0.0  CALCFIX
-        5   NaN 2024-06-28 00:00:00+00:00  NaN       0.0  CALCFIX
-        6   NaN 2024-12-31 00:00:00+00:00  NaN       0.0  CALCFIX
-        7       2024-12-31 00:00:00+00:00    >       0.0      USD
-        8       2024-12-31 00:00:00+00:00    +     100.0      ACC
+        >>> Accumulator("USD", "SPX", fix_dates, 0.0, -0.03, 0.05).print_events()
+          track        time   op  quantity     unit
+        0   NaN  12/31/2021  NaN       0.0     INIT
+        1   NaN  06/30/2022  NaN       0.0  CALCFIX
+        2   NaN  12/30/2022  NaN       0.0  CALCFIX
+        3   NaN  06/30/2023  NaN       0.0  CALCFIX
+        4   NaN  12/29/2023  NaN       0.0  CALCFIX
+        5   NaN  06/28/2024  NaN       0.0  CALCFIX
+        6   NaN  12/31/2024  NaN       0.0  CALCFIX
+        7        12/31/2024    >       0.0      USD
+        8        12/31/2024    +     100.0      ACC
     """
 
     ccy: str
@@ -144,7 +143,7 @@ if __name__ == "__main__":
     global_floor = 0.0
     local_floor = -0.03
     local_cap = 0.05
-    timetable = Accumulator(
+    Accumulator(
         "USD",
         "SPX",
         fix_dates,
@@ -152,6 +151,4 @@ if __name__ == "__main__":
         local_floor,
         local_cap,
         state={"S_PREV": 1.0},
-    ).timetable()
-
-    print(timetable["events"].to_pandas())
+    ).print_events()

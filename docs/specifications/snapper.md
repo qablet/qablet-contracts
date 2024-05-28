@@ -6,11 +6,11 @@ A Snapper represents a **path dependent calculation**, e.g. calculating returns 
 - the last event represents a payment for the contract, which pays `ACC`, the value of the snap.
 
 ```python
- track                      time   op  quantity     unit
-   NaN 2023-12-29 00:00:00+00:00  NaN       0.0  CALCFIX
-   NaN 2024-06-28 00:00:00+00:00  NaN       0.0  CALCFIX
-   NaN 2024-12-31 00:00:00+00:00  NaN       0.0  CALCFIX
-       2024-12-31 00:00:00+00:00    +       1.0      ACC
+  track        time   op  quantity     unit
+4   NaN  12/29/2023  NaN       0.0  CALCFIX
+5   NaN  06/28/2024  NaN       0.0  CALCFIX
+6   NaN  12/31/2024  NaN       0.0  CALCFIX
+8        12/31/2024    +     100.0      ACC
 ```
 
 A snapper is defined in the dataset, with four parameters. 

@@ -11,7 +11,7 @@ import pandas as pd
 import pyarrow as pa
 
 from qablet_contracts.ir.dcf import dcf_30_360 as dcf
-from qablet_contracts.timetable import TS_EVENT_SCHEMA
+from qablet_contracts.timetable import TS_EVENT_SCHEMA, Contract
 
 
 def _const_dict_array(n, val):
@@ -23,7 +23,7 @@ def _const_dict_array(n, val):
 
 
 @dataclass
-class FixedCashFlows:
+class FixedCashFlows(Contract):
     """A set of **Fixed Cashflows** in a single currency. This example also shows how to create a timetable from arrays
     instead of a list of dictionaries, which is more efficient.
 
@@ -34,20 +34,13 @@ class FixedCashFlows:
         track: an optional identifier for the contract.
 
     Examples:
-        >>> tt = FixedCashFlows(
-            "USD",
-            [
-                datetime(2023, 12, 31),
-                datetime(2024, 6, 30),
-                datetime(2024, 12, 31),
-            ],
-            [0.05, 0.05, 1.05],
-        ).timetable()
-        >>> print(tt["events"].to_pandas())
-          track                      time op  quantity unit
-        0       2023-12-31 00:00:00+00:00  +      0.05  USD
-        1       2024-06-30 00:00:00+00:00  +      0.05  USD
-        2       2024-12-31 00:00:00+00:00  +      1.05  USD
+        >>> times = [datetime(2023, 12, 31), datetime(2024, 6, 30), datetime(2024, 12, 31)]
+        >>> amounts = [0.05, 0.05, 1.05]
+        >>> FixedCashFlows("USD", times, amounts).print_events()
+          track        time op  quantity unit
+        0        12/31/2023  +      0.05  USD
+        1        06/30/2024  +      0.05  USD
+        2        12/31/2024  +      1.05  USD
     """
 
     ccy: str
@@ -73,7 +66,7 @@ class FixedCashFlows:
 
 
 @dataclass
-class FixedBond:
+class FixedBond(Contract):
     """A **Fixed Rate Bond** pays a fixed rate at regular intervals, and the principal at maturity.
 
     Args:
@@ -84,15 +77,12 @@ class FixedBond:
         track: an optional identifier for the contract.
 
     Examples:
-        >>> tt = FixedBond(
-            "USD", 0.05, datetime(2023, 12, 31), datetime(2025, 12, 31), "2QE"
-        ).timetable()
-        >>> print(tt["events"].to_pandas())
-          track                      time op  quantity unit
-        0       2024-06-30 00:00:00+00:00  +     0.025  USD
-        1       2024-12-31 00:00:00+00:00  +     0.025  USD
-        2       2025-06-30 00:00:00+00:00  +     0.025  USD
-        3       2025-12-31 00:00:00+00:00  +     1.025  USD
+        >>> FixedBond("USD", 0.05, datetime(2023, 12, 31), datetime(2025, 12, 31), "2QE").print_events()
+          track        time op  quantity unit
+        0        06/30/2024  +     0.025  USD
+        1        12/31/2024  +     0.025  USD
+        2        06/30/2025  +     0.025  USD
+        3        12/31/2025  +     1.025  USD
     """
 
     ccy: str
@@ -124,7 +114,8 @@ class FixedBond:
 
 if __name__ == "__main__":
     # Create a timetable from cashflows
-    timetable = FixedCashFlows(
+    print("cashflows:\n")
+    FixedCashFlows(
         "USD",
         [
             datetime(2023, 12, 31),
@@ -132,11 +123,10 @@ if __name__ == "__main__":
             datetime(2024, 12, 31),
         ],
         [0.05, 0.05, 1.05],
-    ).timetable()
-    print("cf:\n", timetable["events"].to_pandas())
+    ).print_events()
 
     # Create a fixed bond timetable
-    timetable = FixedBond(
+    print("bond:\n")
+    FixedBond(
         "USD", 0.05, datetime(2023, 12, 31), datetime(2025, 12, 31), "2QE"
-    ).timetable()
-    print("bond:\n", timetable["events"].to_pandas())
+    ).print_events()

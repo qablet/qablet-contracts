@@ -25,14 +25,13 @@ class Swaption(EventsMixin):
 
     Examples:
         >>> dates = pd.bdate_range(datetime(2023, 12, 31), datetime(2024, 12, 31), freq="2QE")
-        >>> tt = Swap("USD", dates, strike_rate = 0.03).timetable()
-        >>> print(tt["events"].to_pandas())
-          track                      time op  quantity  unit
-        0  .opt 2023-12-31 00:00:00+00:00  >     1.000  .swp
-        1  .swp 2023-12-31 00:00:00+00:00  +     1.000   USD
-        2  .swp 2024-06-30 00:00:00+00:00  +    -1.015   USD
-        3  .swp 2024-06-30 00:00:00+00:00  +     1.000   USD
-        4  .swp 2024-12-31 00:00:00+00:00  +    -1.015   USD
+        >>> Swap("USD", dates, strike_rate = 0.03).print_events()
+          track        time op  quantity  unit
+        0  .opt  12/31/2023  >     1.000  .swp
+        1  .swp  12/31/2023  +     1.000   USD
+        2  .swp  06/30/2024  +    -1.015   USD
+        3  .swp  06/30/2024  +     1.000   USD
+        4  .swp  12/31/2024  +    -1.015   USD
     """
 
     ccy: str
@@ -76,15 +75,14 @@ class BermudaSwaption(EventsMixin):
 
     Examples:
         >>> dates = pd.bdate_range(datetime(2023, 12, 31), datetime(2024, 12, 31), freq="2QE")
-        >>> tt = Swap("USD", dates, strike_rate = 0.03).timetable()
-        >>> print(tt["events"].to_pandas())
-          track                      time op  quantity  unit
-        0  .opt 2023-12-31 00:00:00+00:00  >     1.000  .swp
-        1  .swp 2023-12-31 00:00:00+00:00  +     1.000   USD
-        2  .swp 2024-06-30 00:00:00+00:00  +    -1.015   USD
-        3  .opt 2024-06-30 00:00:00+00:00  >     1.000  .swp
-        4  .swp 2024-06-30 00:00:00+00:00  +     1.000   USD
-        5  .swp 2024-12-31 00:00:00+00:00  +    -1.015   USD
+        >>> Swap("USD", dates, strike_rate = 0.03).print_events()
+          track        time op  quantity  unit
+        0  .opt  12/31/2023  >     1.000  .swp
+        1  .swp  12/31/2023  +     1.000   USD
+        2  .swp  06/30/2024  +    -1.015   USD
+        3  .opt  06/30/2024  >     1.000  .swp
+        4  .swp  06/30/2024  +     1.000   USD
+        5  .swp  12/31/2024  +    -1.015   USD
     """
 
     ccy: str
@@ -123,8 +121,6 @@ if __name__ == "__main__":
     )
     strike_rate = 0.03
 
-    timetable = Swaption("USD", dates, strike_rate).timetable()
-    print(timetable["events"].to_pandas())
+    Swaption("USD", dates, strike_rate).print_events()
 
-    timetable = BermudaSwaption("USD", dates, strike_rate).timetable()
-    print(timetable["events"].to_pandas())
+    BermudaSwaption("USD", dates, strike_rate).print_events()
