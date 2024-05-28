@@ -2,7 +2,7 @@
 
 The **op** column contains a string which can be `+`, `>`, `<`, or a condition.
 
-### Payment (+)
+## Payment (+)
 
 `+` in the ops column indicates that the contract holder will receive
 the payment specified by the **quantity** and the **unit**,
@@ -20,7 +20,7 @@ Example: A bond paying 5% semi-annually and maturing in two years.
 ```
 
 
-### Choice of contract holder (>)
+## Choice of contract holder (>)
 
 `>` in the ops column indicates that the **contract holder can choose** from the following two options
 
@@ -42,7 +42,7 @@ Example: An European Call Option with strike 2900, expiring in 2024-03-31.
     makes a decision. This decision takes future expectations into account, i.e. what is coming further down in the timetable.
     For the holder's choice, a reasonable model would choose the option with a greater expected value of future events.
 
-### Choice of counterparty (<)
+## Choice of counterparty (<)
 
 `<` in the ops column indicates that the **counterparty can choose** from the following two options
 
@@ -61,7 +61,7 @@ Example: A callable bond, paying 5% USD semi-annually, maturing in two years, an
 ```
 
 
-### Condition
+## Condition
 
 Any other string in the `op` column is assumed to be a [phrase](phrase.md).
 
@@ -85,6 +85,6 @@ the option is knocked out with a rebate of 1.0. If the barrier is not met, the c
 
 See a complete example in [Barrier Options](../examples/equity_barrier.md).
 
-### Snapper
+## Snapper
 
 If the **unit** is a [Snapper](snapper.md), i.e. a path dependent calculation to be performed at that time, then **op** should be `None` or `"s"`.
