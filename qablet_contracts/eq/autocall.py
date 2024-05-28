@@ -35,20 +35,15 @@ class DiscountCert(EventsMixin):
 
     Examples:
         >>> start = datetime(2024, 3, 31)
-        >>> maturity = datetime(2024, 9, 30)
+        >>> maturity = datetime(2024, 7, 31)
         >>> barrier_dates = pd.date_range(start, maturity, freq="ME", inclusive="right")
-        >>> tt = DiscountCert(
-            "USD", "AAPL", 100, 80, start, maturity, 102, barrier_dates, 0.092
-        ).timetable()
-        >>> print(tt["events"].to_pandas())
-          track                      time    op    quantity    unit
-        0       2024-04-30 00:00:00+00:00  CALL  100.769613     USD
-        1       2024-05-31 00:00:00+00:00  CALL  101.545149     USD
-        2       2024-06-30 00:00:00+00:00  CALL  102.326654     USD
-        3       2024-07-31 00:00:00+00:00  CALL  103.114173     USD
-        4       2024-08-31 00:00:00+00:00  CALL  103.907753     USD
-        5       2024-09-30 00:00:00+00:00  CALL  104.707441     USD
-        6       2024-09-30 00:00:00+00:00     +    1.000000  PAYOFF
+        >>> DiscountCert("USD", "AAPL", 100, 80, start, maturity, 102, barrier_dates, 0.092)print_events()
+          track        time    op    quantity    unit
+        0        04/30/2024  CALL  100.836815     USD
+        1        05/31/2024  CALL  101.680633     USD
+        2        06/30/2024  CALL  102.531512     USD
+        3        07/31/2024  CALL  103.389511     USD
+        4        07/31/2024     +    1.000000  PAYOFF
     """
 
     ccy: str
@@ -146,26 +141,19 @@ class ReverseCB(DiscountCert):
 
     Examples:
         >>> start = datetime(2024, 3, 31)
-        >>> maturity = datetime(2024, 9, 30)
+        >>> maturity = datetime(2024, 7, 31)
         >>> barrier_dates = pd.date_range(start, maturity, freq="ME", inclusive="right")
-        >>> tt = ReverseCB(
-            "USD", "AAPL", 100, 80, start, maturity, 102, barrier_dates, 0.10
-        ).timetable()
-        >>> print(tt["events"].to_pandas())
-           track                      time    op    quantity    unit
-        0        2024-04-30 00:00:00+00:00     +    0.833333     USD
-        1        2024-04-30 00:00:00+00:00  CALL  100.000000     USD
-        2        2024-05-31 00:00:00+00:00     +    0.833333     USD
-        3        2024-05-31 00:00:00+00:00  CALL  100.000000     USD
-        4        2024-06-30 00:00:00+00:00     +    0.833333     USD
-        5        2024-06-30 00:00:00+00:00  CALL  100.000000     USD
-        6        2024-07-31 00:00:00+00:00     +    0.833333     USD
-        7        2024-07-31 00:00:00+00:00  CALL  100.000000     USD
-        8        2024-08-31 00:00:00+00:00     +    0.833333     USD
-        9        2024-08-31 00:00:00+00:00  CALL  100.000000     USD
-        10       2024-09-30 00:00:00+00:00     +    0.833333     USD
-        11       2024-09-30 00:00:00+00:00  CALL  100.000000     USD
-        12       2024-09-30 00:00:00+00:00     +    1.000000  PAYOFF
+        >>> ReverseCB("USD", "AAPL", 100, 80, start, maturity, 102, barrier_dates, 0.10).print_events()
+          track        time    op    quantity    unit
+        0        04/30/2024     +    0.833333     USD
+        1        04/30/2024  CALL  100.000000     USD
+        2        05/31/2024     +    0.833333     USD
+        3        05/31/2024  CALL  100.000000     USD
+        4        06/30/2024     +    0.833333     USD
+        5        06/30/2024  CALL  100.000000     USD
+        6        07/31/2024     +    0.833333     USD
+        7        07/31/2024  CALL  100.000000     USD
+        8        07/31/2024     +    1.000000  PAYOFF
     """
 
     def events(self):
@@ -213,11 +201,10 @@ class ReverseCB(DiscountCert):
 if __name__ == "__main__":
     # Create the autocallable contract
     start = datetime(2024, 3, 31)
-    maturity = datetime(2024, 9, 30)
+    maturity = datetime(2024, 7, 31)
     barrier_dates = pd.date_range(
         start, maturity, freq="ME", inclusive="right"
     )
-    timetable = ReverseCB(
+    DiscountCert(
         "USD", "AAPL", 100, 80, start, maturity, 102, barrier_dates, 0.10
-    ).timetable()
-    print(timetable["events"].to_pandas())
+    ).print_events()

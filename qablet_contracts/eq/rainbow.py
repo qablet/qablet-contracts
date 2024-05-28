@@ -28,14 +28,13 @@ class Rainbow(EventsMixin):
     Examples:
         >>> assets = ["SPX", "FTSE", "N225"]
         >>> strikes = [5087, 7684, 39100]
-        >>> tt = Rainbow("USD", assets, strikes, 100_000, datetime(2024, 3, 31), True).timetable()
-        >>> print(tt["events"].to_pandas())
-          track                      time op       quantity  unit
-        0       2024-03-31 00:00:00+00:00  + -100000.000000   USD
-        1       2024-03-31 00:00:00+00:00  >      19.657952   SPX
-        2       2024-03-31 00:00:00+00:00  >      13.014055  FTSE
-        3       2024-03-31 00:00:00+00:00  >       2.557545  N225
-        4       2024-03-31 00:00:00+00:00  +  100000.000000   USD
+        >>> Rainbow("USD", assets, strikes, 100_000, datetime(2024, 3, 31), True).print_events()
+          track        time op       quantity  unit
+        0        03/31/2024  + -100000.000000   USD
+        1        03/31/2024  >      19.657952   SPX
+        2        03/31/2024  >      13.014055  FTSE
+        3        03/31/2024  >       2.557545  N225
+        4        03/31/2024  +  100000.000000   USD
     """
 
     ccy: str
@@ -86,13 +85,11 @@ class Rainbow(EventsMixin):
 
 if __name__ == "__main__":
     # Create the rainbow option
-    timetable = Rainbow(
+    Rainbow(
         "USD",
         ["SPX", "FTSE", "N225"],
         [5087, 7684, 39100],
         100_000,
         datetime(2024, 3, 31),
         True,
-    ).timetable()
-
-    print(timetable["events"].to_pandas())
+    ).print_events()

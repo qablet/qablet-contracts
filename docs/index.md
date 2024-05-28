@@ -1,12 +1,12 @@
-## What is Qablet?
+# What is Qablet?
 
 A Qablet timetable defines a financial product using a sequence of payments, choices and conditions. A valuation model implemented with a Qablet parser can value any contract, as long as the contract can be described using a Qablet Timetable such as this one -
 
 ```
-               track                      time op  quantity unit
-        0  <SPX2900> 2024-03-31 00:00:00+00:00  >       0.0  USD
-        1  <SPX2900> 2024-03-31 00:00:00+00:00  +   -2900.0  USD
-        2  <SPX2900> 2024-03-31 00:00:00+00:00  +       1.0  SPX
+          track        time op  quantity unit
+        0    #1  03/31/2024  >       0.0  USD
+        1    #1  03/31/2024  +   -2900.0  USD
+        2    #1  03/31/2024  +       1.0  SPX
 ```
 
 

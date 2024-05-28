@@ -63,7 +63,21 @@ def py_to_ts(py_dt):
     return pa.scalar(py_dt, type=TS_TYPE)
 
 
-class EventsMixin(ABC):
+class Contract(ABC):
+    """A base class for contracts."""
+
+    @abstractmethod
+    def timetable(self): ...
+
+    def print_events(self):
+        df = self.timetable()["events"].to_pandas()
+        df["time"] = df["time"].dt.strftime(
+            "%m/%d/%Y"
+        )  # replace timestamp by Date
+        print(df)
+
+
+class EventsMixin(Contract):
     """A mixin class for contracts that generates a timetable from events list.
     A derived class needs to implement the events method that returns a list of dicts,
     and the expressions method (optional) that returns a dictionary of expressions, batches, and snappers."""
@@ -81,6 +95,13 @@ class EventsMixin(ABC):
             ),
             "expressions": self.expressions(),
         }
+
+    # def print_events(self):
+    #     df = self.timetable()["events"].to_pandas()
+    #     df["time"] = df["time"].dt.strftime(
+    #         "%m/%d/%Y"
+    #     )  # replace timestamp by Date
+    #     print(df)
 
 
 def convert_time_to_ts(timetable, base_ts):

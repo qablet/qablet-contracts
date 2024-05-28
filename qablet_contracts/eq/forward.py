@@ -24,13 +24,12 @@ class ForwardOption(EventsMixin):
 
     Examples:
         >>> timetable = ForwardOption( "USD", "SPX", 1.0,
-        datetime(2024, 3, 31), datetime(2024, 9, 30), True).timetable()
-        >>> print(timetable["events"].to_pandas())
-          track                      time   op  quantity    unit
-        0   NaN 2024-03-31 00:00:00+00:00  NaN       0.0  .FIX_K
-        1       2024-09-30 00:00:00+00:00    >       0.0     USD
-        2       2024-09-30 00:00:00+00:00    +      -1.0      .K
-        3       2024-09-30 00:00:00+00:00    +       1.0     SPX
+        datetime(2024, 3, 31), datetime(2024, 9, 30), True).print_events()
+          track        time   op  quantity    unit
+        0   NaN  03/31/2024  NaN       0.0  .FIX_K
+        1        09/30/2024    >       0.0     USD
+        2        09/30/2024    +      -1.0      .K
+        3        09/30/2024    +       1.0     SPX
     """
 
     ccy: str
@@ -91,13 +90,11 @@ class ForwardOption(EventsMixin):
 
 if __name__ == "__main__":
     # Create the option timetable
-    timetable = ForwardOption(
+    ForwardOption(
         "USD",
         "SPX",
         1.0,
         datetime(2024, 3, 31),
         datetime(2024, 9, 30),
         True,
-    ).timetable()
-
-    print(timetable["events"].to_pandas())
+    ).print_events()

@@ -35,18 +35,15 @@ class OptionKO(EventsMixin):
         >>> start = datetime(2024, 3, 31)
         >>> maturity = datetime(2024, 9, 30)
         >>> barrier_dates = pd.date_range(start, maturity, freq="2ME")
-        >>> tt = OptionKO(
-            "USD", "EQ", 100, maturity, True, 102, "Up/Out", barrier_dates
-        ).timetable()
-        >>> print(tt["events"].to_pandas())
-          track                      time  op  quantity unit
-        0       2024-03-31 00:00:00+00:00  KO       0.0  USD
-        1       2024-05-31 00:00:00+00:00  KO       0.0  USD
-        2       2024-07-31 00:00:00+00:00  KO       0.0  USD
-        3       2024-09-30 00:00:00+00:00  KO       0.0  USD
-        4       2024-09-30 00:00:00+00:00   >       0.0  USD
-        5       2024-09-30 00:00:00+00:00   +    -100.0  USD
-        6       2024-09-30 00:00:00+00:00   +       1.0   EQ
+        >>> OptionKO("USD", "EQ", 100, maturity, True, 102, "Up/Out", barrier_dates).print_events()
+          track        time  op  quantity unit
+        0        03/31/2024  KO       0.0  USD
+        1        05/31/2024  KO       0.0  USD
+        2        07/31/2024  KO       0.0  USD
+        3        09/30/2024  KO       0.0  USD
+        4        09/30/2024   >       0.0  USD
+        5        09/30/2024   +    -100.0  USD
+        6        09/30/2024   +       1.0   EQ
     """
 
     ccy: str
@@ -114,7 +111,6 @@ if __name__ == "__main__":
     start = datetime(2024, 3, 31)
     maturity = datetime(2024, 9, 30)
     barrier_dates = pd.date_range(start, maturity, freq="2ME")
-    timetable = OptionKO(
+    OptionKO(
         "USD", "EQ", 100, maturity, True, 102, "Up/Out", barrier_dates
-    ).timetable()
-    print(timetable["events"].to_pandas())
+    ).print_events()

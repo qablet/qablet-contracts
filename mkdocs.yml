@@ -1,8 +1,27 @@
-site_name: qablet_contracts
+site_name: Qablet Contracts
 theme:
   name: material
-  icon:
-    logo: material/triangle
+  palette:
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: brown
+
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - scheme: default
+      primary: brown
+
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+
+
+  logo: assets/logo.png
+  features:
+    - navigation.tabs
 
 markdown_extensions:
   - admonition
@@ -29,8 +48,8 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 nav:
-  - 'index.md'
   - 'Specifications':
+    - 'index.md'
     - 'specifications/timetable.md'
     - 'specifications/operations.md'
     - 'specifications/units.md'

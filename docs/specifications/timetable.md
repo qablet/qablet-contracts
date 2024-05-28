@@ -5,10 +5,10 @@ A contract is described by a list of events. An event has five properties -
 It is described using three events.
 
 ```python
-       track                      time op  quantity unit
-0  <SPX2900> 2024-03-31 00:00:00+00:00  >       0.0  USD
-1  <SPX2900> 2024-03-31 00:00:00+00:00  +    2900.0  USD
-2  <SPX2900> 2024-03-31 00:00:00+00:00  +      -1.0  SPX
+  track        time op  quantity unit
+0    #1  03/31/2024  >       0.0  USD
+1    #1  03/31/2024  +   -2900.0  USD
+2    #1  03/31/2024  +       1.0  SPX
 ```
 
 

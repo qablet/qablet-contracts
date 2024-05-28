@@ -12,11 +12,11 @@ in the **same track**.
 Example: A bond paying 5% semi-annually and maturing in two years. 
 
 ```python
-   track                      time op  quantity unit
-0       2024-06-30 00:00:00+00:00  +     0.025  USD
-1       2024-12-31 00:00:00+00:00  +     0.025  USD
-2       2025-06-30 00:00:00+00:00  +     0.025  USD
-3       2025-12-31 00:00:00+00:00  +     1.025  USD
+  track        time op  quantity unit
+0        06/30/2024  +     0.025  USD
+1        12/31/2024  +     0.025  USD
+2        06/30/2025  +     0.025  USD
+3        12/31/2025  +     1.025  USD
 ```
 
 
@@ -30,10 +30,10 @@ Example: A bond paying 5% semi-annually and maturing in two years.
 Example: An European Call Option with strike 2900, expiring in 2024-03-31.
 
 ```python
-       track                      time op  quantity unit
-0  <SPX2900> 2024-03-31 00:00:00+00:00  >       0.0  USD
-1  <SPX2900> 2024-03-31 00:00:00+00:00  +   -2900.0  USD
-2  <SPX2900> 2024-03-31 00:00:00+00:00  +       1.0  SPX
+  track        time op  quantity unit
+0    #1  03/31/2024  >       0.0  USD
+1    #1  03/31/2024  +   -2900.0  USD
+2    #1  03/31/2024  +       1.0  SPX
 ```
 
 
@@ -52,12 +52,12 @@ Example: An European Call Option with strike 2900, expiring in 2024-03-31.
 Example: A callable bond, paying 5% USD semi-annually, maturing in two years, and callable at the end of the first year.
 
 ```python
-   track                      time op  quantity unit
-0       2024-06-30 00:00:00+00:00  +     0.025  USD
-1       2024-12-31 00:00:00+00:00  +     0.025  USD
-1       2024-12-31 00:00:00+00:00  <     1.000  USD
-2       2025-06-30 00:00:00+00:00  +     0.025  USD
-3       2025-12-31 00:00:00+00:00  +     1.025  USD
+  track        time op  quantity unit
+0        06/30/2024  +     0.025  USD
+1        12/31/2024  +     0.025  USD
+2        12/31/2024  <     1.000  USD
+3        06/30/2025  +     0.025  USD
+4        12/31/2025  +     1.025  USD
 ```
 
 
@@ -73,14 +73,14 @@ Example: knock-in or knock-out events in a barrier option. In the example below 
 the option is knocked out with a rebate of 1.0. If the barrier is not met, the contract continues further down the track.
 
 ```python
-  track                      time  op  quantity unit
-0       2024-03-31 00:00:00+00:00  KO       1.0  USD
-1       2024-05-31 00:00:00+00:00  KO       1.0  USD
-2       2024-07-31 00:00:00+00:00  KO       1.0  USD
-3       2024-09-30 00:00:00+00:00  KO       1.0  USD
-4       2024-09-30 00:00:00+00:00   >       0.0  USD
-5       2024-09-30 00:00:00+00:00   +    -100.0  USD
-6       2024-09-30 00:00:00+00:00   +       1.0   EQ
+          track        time  op  quantity unit
+        0        03/31/2024  KO       1.0  USD
+        1        05/31/2024  KO       1.0  USD
+        2        07/31/2024  KO       1.0  USD
+        3        09/30/2024  KO       1.0  USD
+        4        09/30/2024   >       0.0  USD
+        5        09/30/2024   +    -100.0  USD
+        6        09/30/2024   +       1.0   EQ
 ```
 
 See a complete example in [Barrier Options](../examples/equity_barrier.md).
