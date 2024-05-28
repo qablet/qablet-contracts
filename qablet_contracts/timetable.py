@@ -69,12 +69,15 @@ class Contract(ABC):
     @abstractmethod
     def timetable(self): ...
 
-    def print_events(self):
+    def to_string(self, index=False) -> str:
         df = self.timetable()["events"].to_pandas()
         df["time"] = df["time"].dt.strftime(
             "%m/%d/%Y"
         )  # replace timestamp by Date
-        print(df)
+        return df.to_string(index=index)
+
+    def print_events(self):
+        print(self.to_string(index=False))
 
 
 class EventsMixin(Contract):
@@ -95,13 +98,6 @@ class EventsMixin(Contract):
             ),
             "expressions": self.expressions(),
         }
-
-    # def print_events(self):
-    #     df = self.timetable()["events"].to_pandas()
-    #     df["time"] = df["time"].dt.strftime(
-    #         "%m/%d/%Y"
-    #     )  # replace timestamp by Date
-    #     print(df)
 
 
 def convert_time_to_ts(timetable, base_ts):
