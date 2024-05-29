@@ -1015,12 +1015,12 @@
 <li>the first three events represent a <strong>snapper</strong> operation <code>CALCFIX</code>. These operations store results in a <strong>snap</strong>.</li>
 <li>the last event represents a payment for the contract, which pays <code>ACC</code>, the value of the snap.</li>
 </ul>
-<pre><code class="language-python">  track        time   op  quantity     unit
-4   NaN  12/29/2023  NaN       0.0  CALCFIX
-5   NaN  06/28/2024  NaN       0.0  CALCFIX
-6   NaN  12/31/2024  NaN       0.0  CALCFIX
-8        12/31/2024    +     100.0      ACC
-</code></pre>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>  <span class="n">track</span>        <span class="n">time</span>   <span class="n">op</span>  <span class="n">quantity</span>     <span class="n">unit</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="mi">4</span>   <span class="n">NaN</span>  <span class="mi">12</span><span class="o">/</span><span class="mi">29</span><span class="o">/</span><span class="mi">2023</span>  <span class="n">NaN</span>       <span class="mf">0.0</span>  <span class="n">CALCFIX</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="mi">5</span>   <span class="n">NaN</span>  <span class="mi">06</span><span class="o">/</span><span class="mi">28</span><span class="o">/</span><span class="mi">2024</span>  <span class="n">NaN</span>       <span class="mf">0.0</span>  <span class="n">CALCFIX</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="mi">6</span>   <span class="n">NaN</span>  <span class="mi">12</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>  <span class="n">NaN</span>       <span class="mf">0.0</span>  <span class="n">CALCFIX</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="mi">8</span>        <span class="mi">12</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>    <span class="o">+</span>     <span class="mf">100.0</span>      <span class="n">ACC</span>
+</span></code></pre></div>
 <p>A snapper is defined in the dataset, with four parameters. </p>
 <ul>
 <li><strong>type</strong>, which must be "snapper"</li>
@@ -1028,25 +1028,25 @@
 <li><strong>fn</strong>, a python function that takes a list of inputs, and returns a list of outputs. The length of expected inputs list must match the length of <strong>inp</strong>, while the length of the output list must match the length of <strong>out</strong>.</li>
 <li><strong>out</strong>, the list of name of snaps where the outputs are stored.  </li>
 </ul>
-<p>e.g.</p>
-<pre><code class="language-python"># Define the function
-def accumulator_update_fn(inputs):
-    [s, s_last, a] = inputs
-
-    ret = s / s_last - 1.0  # ret = S / S_last - 1
-    ret = np.maximum(local_floor, ret)
-    ret = np.minimum(local_cap, ret)
-
-    return [a + ret, s]  # [A, S_last]
-
-# Define the snapper
-&quot;CALCFIX&quot;: {
-    &quot;type&quot;: &quot;snapper&quot;,
-    &quot;inp&quot;: [&quot;SPX&quot;, &quot;S_last&quot;, &quot;ACC&quot;],
-    &quot;fn&quot;: accumulator_update_fn,
-    &quot;out&quot;: [&quot;ACC&quot;, &quot;S_last&quot;],
-},
-</code></pre>
+<p>e.g.
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Define the function</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">def</span> <span class="nf">accumulator_update_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">s_last</span><span class="p">,</span> <span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">ret</span> <span class="o">=</span> <span class="n">s</span> <span class="o">/</span> <span class="n">s_last</span> <span class="o">-</span> <span class="mf">1.0</span>  <span class="c1"># ret = S / S_last - 1</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">local_floor</span><span class="p">,</span> <span class="n">ret</span><span class="p">)</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">ret</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">local_cap</span><span class="p">,</span> <span class="n">ret</span><span class="p">)</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="n">ret</span><span class="p">,</span> <span class="n">s</span><span class="p">]</span>  <span class="c1"># [A, S_last]</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="c1"># Define the snapper</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="s2">&quot;CALCFIX&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;snapper&quot;</span><span class="p">,</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="s2">&quot;inp&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;SPX&quot;</span><span class="p">,</span> <span class="s2">&quot;S_last&quot;</span><span class="p">,</span> <span class="s2">&quot;ACC&quot;</span><span class="p">],</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="s2">&quot;fn&quot;</span><span class="p">:</span> <span class="n">accumulator_update_fn</span><span class="p">,</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    <span class="s2">&quot;out&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ACC&quot;</span><span class="p">,</span> <span class="s2">&quot;S_last&quot;</span><span class="p">],</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="p">},</span>
+</span></code></pre></div></p>
 <h2 id="function-signature">Function Signature</h2>
 <p>See <a href="../phrase/#function-signature">Phrase Function Signature</a></p>
 

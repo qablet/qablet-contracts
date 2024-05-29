@@ -1027,21 +1027,19 @@
 
 <h1 id="what-is-qablet">What is Qablet?</h1>
 <p>A Qablet timetable defines a financial product using a sequence of payments, choices and conditions. A valuation model implemented with a Qablet parser can value any contract, as long as the contract can be described using a Qablet Timetable such as this one -</p>
-<pre><code>          track        time op  quantity unit
-        0    #1  03/31/2024  &gt;       0.0  USD
-        1    #1  03/31/2024  +   -2900.0  USD
-        2    #1  03/31/2024  +       1.0  SPX
-</code></pre>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>          track        time op  quantity unit
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>        0    #1  03/31/2024  &gt;       0.0  USD
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        1    #1  03/31/2024  +   -2900.0  USD
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        2    #1  03/31/2024  +       1.0  SPX
+</span></code></pre></div>
 <h2 id="overview-of-documentation">Overview of Documentation</h2>
 <p>The <strong>SPECIFICATIONS</strong> section describes the various elements of the language.
 Start with the <a href="specifications/timetable/">timetable</a>.</p>
 <p>The <strong>CONTRACTS</strong> section documents <a href="https://github.com/qablet/qablet-contracts">this repository</a> which contains classes to create qablet timetables
-for many common financial contracts such as</p>
-<ul>
-<li><a href="examples/bond_zero/">Bonds</a></li>
-<li><a href="examples/equity_vanilla/">Options</a></li>
-<li><a href="examples/rate_swap/">Swaps</a> and <a href="examples/rate_swaption/">Swaptions</a></li>
-</ul>
+for many common financial contracts such as
+<a href="examples/bond_zero/">Bonds</a>,
+<a href="examples/equity_vanilla/">Options</a>,
+<a href="examples/rate_swap/">Swaps</a>, and <a href="examples/rate_swaption/">Swaptions</a>.</p>
 <h2 id="also-see">Also See</h2>
 <p>The repo documented here does not contain models that price qablet timetables. Valuation and backtesting models are available in other independent projects, such as qablet-basic.</p>
 <ul>

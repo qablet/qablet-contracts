@@ -956,36 +956,44 @@
 <h1 id="unit">Unit</h1>
 <p>A string representing what is being paid. It can be a </p>
 <ul>
-<li>a currency like <code>USD</code>, <code>EUR</code>. e.g. in a <a href="../../examples/bond_fixed/">Bond</a></li>
+<li>
+<p>a currency like <code>USD</code>, <code>EUR</code>. e.g. in a <a href="../../examples/bond_fixed/">Bond</a>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>          <span class="n">track</span>       <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                <span class="mi">12</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2023</span>  <span class="o">+</span>      <span class="mf">0.05</span>  <span class="n">USD</span>
+</span></code></pre></div></p>
+</li>
+<li>
+<p>a stock, index, or a commodity, like <code>SPX</code>, <code>AAPL</code>, <code>CL</code>. e.g. in a <a href="../../examples/equity_vanilla/">Vanilla Option</a>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>          <span class="n">track</span>       <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>                <span class="mi">03</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>  <span class="o">+</span>       <span class="mf">1.0</span>  <span class="n">SPX</span>
+</span></code></pre></div></p>
+</li>
+<li>
+<p>a Track, e.g. the underlying swap in a <a href="../../examples/rate_swaption/#qablet_contracts.rate.swaption.bermuda_swaption_timetable">Bermuda Swaption</a>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>          <span class="n">track</span>       <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>          <span class="o">.</span><span class="n">opt</span>  <span class="mi">12</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2023</span>  <span class="o">&gt;</span>    <span class="mf">1.000</span>  <span class="o">.</span><span class="n">swp</span>
+</span></code></pre></div></p>
+</li>
+<li>
+<p>a Phrase, e.g. a libor fixing, or a digital payoff. e.g. see <a href="../../examples/equity_autocall/">Autocallable Note</a>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>          <span class="n">track</span>       <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span>    <span class="n">unit</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>                <span class="mi">07</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>  <span class="o">+</span>     <span class="mf">1.000</span>  <span class="n">PAYOFF</span>
+</span></code></pre></div></p>
+</li>
+<li>
+<p>a Snap, i.e. a path dependent quantity, e.g. an accumulator cliquet. See more in the <a href="../snapper/">Snapper</a> section.
+<div class="language-py highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>          <span class="n">track</span>       <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span>   <span class="n">unit</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>                <span class="mi">12</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>  <span class="o">+</span>    <span class="mf">100.0</span>     <span class="n">ACC</span>
+</span></code></pre></div></p>
+</li>
 </ul>
-<pre><code>                12/31/2023  +      0.05  USD
-</code></pre>
-<ul>
-<li>a stock, or a commodity, like <code>AAPL</code>, <code>CL</code>. e.g. in a <a href="../../examples/equity_vanilla/">Vanilla Option</a></li>
-</ul>
-<pre><code>                03/31/2024  +       1.0  SPX
-</code></pre>
-<ul>
-<li>a Track, e.g. the fixed leg of a swap. e.g. in a <a href="../../examples/rate_swaption/#qablet_contracts.rate.swaption.bermuda_swaption_timetable">Bermuda Swaption</a></li>
-</ul>
-<pre><code>          .opt  12/31/2023  &gt;     1.000  .swp
-</code></pre>
-<ul>
-<li>a Phrase, e.g. a libor fixing, or a digital payoff. e.g. see <a href="../../examples/equity_autocall/">Autocallable Note</a></li>
-</ul>
-<pre><code>                07/31/2024  +    1.000  PAYOFF
-</code></pre>
-<ul>
-<li>a Snap, i.e. a path dependent quantity, e.g. an accumulator cliquet. See more in the <a href="../snapper/">Snapper</a> section.</li>
-</ul>
-<pre><code>                12/31/2024  +    100.0     ACC
-</code></pre>
 <p>It can also represent an action, such as</p>
 <ul>
-<li>a Snapper, e.g update an accumulator from the current return.</li>
+<li>a Snapper, e.g update an accumulator from the current return.
+<div class="language-py highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>          <span class="n">track</span>       <span class="n">time</span>   <span class="n">op</span>  <span class="n">quantity</span>     <span class="n">unit</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>           <span class="n">NaN</span>  <span class="mi">06</span><span class="o">/</span><span class="mi">30</span><span class="o">/</span><span class="mi">2022</span>  <span class="n">NaN</span>       <span class="mf">0.0</span>  <span class="n">CALCFIX</span>
+</span></code></pre></div></li>
 </ul>
-<pre><code>           NaN  06/30/2022  NaN    0.0  CALCFIX
-</code></pre>
 
 
 

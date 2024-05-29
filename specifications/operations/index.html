@@ -1089,12 +1089,12 @@ the payment specified by the <strong>quantity</strong> and the <strong>unit</str
 and then continue to receive whatever else is further down in the timetable
 in the <strong>same track</strong>.</p>
 <p>Example: A bond paying 5% semi-annually and maturing in two years. </p>
-<pre><code class="language-python">  track        time op  quantity unit
-0        06/30/2024  +     0.025  USD
-1        12/31/2024  +     0.025  USD
-2        06/30/2025  +     0.025  USD
-3        12/31/2025  +     1.025  USD
-</code></pre>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>  <span class="n">track</span>        <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="mi">0</span>        <span class="mi">06</span><span class="o">/</span><span class="mi">30</span><span class="o">/</span><span class="mi">2024</span>  <span class="o">+</span>     <span class="mf">0.025</span>  <span class="n">USD</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="mi">1</span>        <span class="mi">12</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>  <span class="o">+</span>     <span class="mf">0.025</span>  <span class="n">USD</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="mi">2</span>        <span class="mi">06</span><span class="o">/</span><span class="mi">30</span><span class="o">/</span><span class="mi">2025</span>  <span class="o">+</span>     <span class="mf">0.025</span>  <span class="n">USD</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="mi">3</span>        <span class="mi">12</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2025</span>  <span class="o">+</span>     <span class="mf">1.025</span>  <span class="n">USD</span>
+</span></code></pre></div>
 <h2 id="choice-of-contract-holder">Choice of contract holder (&gt;)</h2>
 <p><code>&gt;</code> in the ops column indicates that the <strong>contract holder can choose</strong> from the following two options</p>
 <ul>
@@ -1102,11 +1102,11 @@ in the <strong>same track</strong>.</p>
 <li>or, instead of that payment, receive whatever else is further down in the timetable in the same track.</li>
 </ul>
 <p>Example: An European Call Option with strike 2900, expiring in 2024-03-31.</p>
-<pre><code class="language-python">  track        time op  quantity unit
-0    #1  03/31/2024  &gt;       0.0  USD
-1    #1  03/31/2024  +   -2900.0  USD
-2    #1  03/31/2024  +       1.0  SPX
-</code></pre>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>  <span class="n">track</span>        <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="mi">0</span>        <span class="mi">03</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>  <span class="o">&gt;</span>       <span class="mf">0.0</span>  <span class="n">USD</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="mi">1</span>        <span class="mi">03</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>  <span class="o">+</span>   <span class="o">-</span><span class="mf">2900.0</span>  <span class="n">USD</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="mi">2</span>        <span class="mi">03</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>  <span class="o">+</span>       <span class="mf">1.0</span>  <span class="n">SPX</span>
+</span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>A <strong>choice</strong> is different from a <strong>condition</strong>. In a choice, the holder of the contract (or counterparty)
@@ -1120,13 +1120,13 @@ For the holder's choice, a reasonable model would choose the option with a great
 <li>or, instead of that payment, pay the holder whatever else is further down in the timetable in the same track.</li>
 </ul>
 <p>Example: A callable bond, paying 5% USD semi-annually, maturing in two years, and callable at the end of the first year.</p>
-<pre><code class="language-python">  track        time op  quantity unit
-0        06/30/2024  +     0.025  USD
-1        12/31/2024  +     0.025  USD
-2        12/31/2024  &lt;     1.000  USD
-3        06/30/2025  +     0.025  USD
-4        12/31/2025  +     1.025  USD
-</code></pre>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>  <span class="n">track</span>        <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="mi">0</span>        <span class="mi">06</span><span class="o">/</span><span class="mi">30</span><span class="o">/</span><span class="mi">2024</span>  <span class="o">+</span>     <span class="mf">0.025</span>  <span class="n">USD</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="mi">1</span>        <span class="mi">12</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>  <span class="o">+</span>     <span class="mf">0.025</span>  <span class="n">USD</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="mi">2</span>        <span class="mi">12</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>  <span class="o">&lt;</span>     <span class="mf">1.000</span>  <span class="n">USD</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="mi">3</span>        <span class="mi">06</span><span class="o">/</span><span class="mi">30</span><span class="o">/</span><span class="mi">2025</span>  <span class="o">+</span>     <span class="mf">0.025</span>  <span class="n">USD</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="mi">4</span>        <span class="mi">12</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2025</span>  <span class="o">+</span>     <span class="mf">1.025</span>  <span class="n">USD</span>
+</span></code></pre></div>
 <h2 id="condition">Condition</h2>
 <p>Any other string in the <code>op</code> column is assumed to be a <a href="../phrase/">phrase</a>.</p>
 <ul>
@@ -1136,15 +1136,15 @@ For the holder's choice, a reasonable model would choose the option with a great
 </ul>
 <p>Example: knock-in or knock-out events in a barrier option. In the example below <code>KO</code> is a phrase that describes the barrier condition. If the condition is met
 the option is knocked out with a rebate of 1.0. If the barrier is not met, the contract continues further down the track.</p>
-<pre><code class="language-python">          track        time  op  quantity unit
-        0        03/31/2024  KO       1.0  USD
-        1        05/31/2024  KO       1.0  USD
-        2        07/31/2024  KO       1.0  USD
-        3        09/30/2024  KO       1.0  USD
-        4        09/30/2024   &gt;       0.0  USD
-        5        09/30/2024   +    -100.0  USD
-        6        09/30/2024   +       1.0   EQ
-</code></pre>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>          <span class="n">track</span>        <span class="n">time</span>  <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>        <span class="mi">0</span>        <span class="mi">03</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>  <span class="n">KO</span>       <span class="mf">1.0</span>  <span class="n">USD</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        <span class="mi">1</span>        <span class="mi">05</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>  <span class="n">KO</span>       <span class="mf">1.0</span>  <span class="n">USD</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        <span class="mi">2</span>        <span class="mi">07</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>  <span class="n">KO</span>       <span class="mf">1.0</span>  <span class="n">USD</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="mi">3</span>        <span class="mi">09</span><span class="o">/</span><span class="mi">30</span><span class="o">/</span><span class="mi">2024</span>  <span class="n">KO</span>       <span class="mf">1.0</span>  <span class="n">USD</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="mi">4</span>        <span class="mi">09</span><span class="o">/</span><span class="mi">30</span><span class="o">/</span><span class="mi">2024</span>   <span class="o">&gt;</span>       <span class="mf">0.0</span>  <span class="n">USD</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="mi">5</span>        <span class="mi">09</span><span class="o">/</span><span class="mi">30</span><span class="o">/</span><span class="mi">2024</span>   <span class="o">+</span>    <span class="o">-</span><span class="mf">100.0</span>  <span class="n">USD</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="mi">6</span>        <span class="mi">09</span><span class="o">/</span><span class="mi">30</span><span class="o">/</span><span class="mi">2024</span>   <span class="o">+</span>       <span class="mf">1.0</span>   <span class="n">EQ</span>
+</span></code></pre></div>
 <p>See a complete example in <a href="../../examples/equity_barrier/">Barrier Options</a>.</p>
 <h2 id="snapper">Snapper</h2>
 <p>If the <strong>unit</strong> is a <a href="../snapper/">Snapper</a>, i.e. a path dependent calculation to be performed at that time, then <strong>op</strong> should be <code>None</code> or <code>"s"</code>.</p>
