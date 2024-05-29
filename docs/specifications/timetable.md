@@ -34,19 +34,20 @@ A string that represents what is being paid. It can be a currency like `USD`, `E
 a stock like `SPX`, `AAPL`, etc. See the [Units](units.md) section for all possible variants.
 
 
-## How to create a timetable
+## Create a timetable
 The timetable is a dictionary with two components.
 
 - events: the sequence of events stored as a pyarrow recordbatch
 - [expressions](expressions.md): a dictionary defining any [phrases](phrase.md), [snappers](snapper.md), or [batches](batch.md) used in the timetable
 
+### Create using `from_pylist`
 
 A timetable can be created as follows, from a list of dicts.
 In this example we define a contract that pays 100 USD on 2024-12-31.
 
 ```python
 import pyarrow as pa
-import datetime
+from datetime import datetime
 from qablet_contracts.timetable import TS_EVENT_SCHEMA
 
 events = [
@@ -64,7 +65,7 @@ timetable = {
 }
 ```
 
-## Create a Timetable using `EventsMixin`
+### Create using `EventsMixin`
 Alternatively, the same timetable as above can also be created using the `EventsMixin` class as shown below.
 
 ```python
@@ -88,12 +89,49 @@ class Bond(EventsMixin):
         ]
 
 timetable = Bond("USD", datetime(2024, 12, 31)).timetable()
-print("zcb:\n", timetable["events"].to_pandas())
 ```
 
-## `qablet_contracts.timetable`
+## Print a timetable
 
-This module has several utilities to help create timetables.
+The events of a timetable is a `pyarrow` recordbatch. While it is an efficient data structure, it doesn't print pretty.
 
-### ::: qablet_contracts.timetable
+### Print using `pandas`
 
+We can print by converting it to a pandas dataframe.
+
+```py
+timetable["events"].to_pandas()
+
+  track                      time op  quantity unit
+0       2025-03-31 00:00:00+00:00  +       1.0  USD
+```
+### Print using `polars`
+
+We can print by converting it to a polars dataframe.
+
+```py
+from polars import from_arrow
+df = from_arrow(timetable["events"])
+print(df)
+
+shape: (1, 5)
+┌-------┬-------------------------┬-----┬----------┬------┐
+│ track ┆ time                    ┆ op  ┆ quantity ┆ unit │
+│ ---   ┆ ---                     ┆ --- ┆ ---      ┆ ---  │
+│ cat   ┆ datetime[ms, UTC]       ┆ cat ┆ f64      ┆ cat  │
+╞-------╪-------------------------╪-----╪----------╪------╡
+│       ┆ 2025-03-31 00:00:00 UTC ┆ +   ┆ 1.0      ┆ USD  │
+└-------┴-------------------------┴-----┴----------┴------┘
+```
+
+### Print using `print_events`
+
+The contract dataclass has a convenience function `print_events` to print a shorter form using pandas.
+
+```py
+contract = Bond("USD", datetime(2025, 3, 31))
+contract.print_events()
+
+track       time op  quantity unit
+      03/31/2025  +       1.0  USD
+```

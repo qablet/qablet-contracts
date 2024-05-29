@@ -18,10 +18,9 @@ Start with the [timetable](specifications/timetable.md).
 
 The **CONTRACTS** section documents [this repository](https://github.com/qablet/qablet-contracts) which contains classes to create qablet timetables
 for many common financial contracts such as
-
-- [Bonds](examples/bond_zero.md)
-- [Options](examples/equity_vanilla.md)
-- [Swaps](examples/rate_swap.md) and [Swaptions](examples/rate_swaption.md)
+[Bonds](examples/bond_zero.md),
+[Options](examples/equity_vanilla.md),
+[Swaps](examples/rate_swap.md), and [Swaptions](examples/rate_swaption.md).
 
 ## Also See
 The repo documented here does not contain models that price qablet timetables. Valuation and backtesting models are available in other independent projects, such as qablet-basic.

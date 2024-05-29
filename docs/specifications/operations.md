@@ -31,9 +31,9 @@ Example: An European Call Option with strike 2900, expiring in 2024-03-31.
 
 ```python
   track        time op  quantity unit
-0    #1  03/31/2024  >       0.0  USD
-1    #1  03/31/2024  +   -2900.0  USD
-2    #1  03/31/2024  +       1.0  SPX
+0        03/31/2024  >       0.0  USD
+1        03/31/2024  +   -2900.0  USD
+2        03/31/2024  +       1.0  SPX
 ```
 
 

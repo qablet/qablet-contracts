@@ -93,7 +93,9 @@ class BondPut(EventsMixin):
 
 if __name__ == "__main__":
     # Create a zero coupon bond timetable
-    Bond("USD", datetime(2025, 3, 31)).print_events()
+    timetable = Bond("USD", datetime(2025, 3, 31)).timetable()
+
+    print(timetable["events"].to_pandas())
 
     BondPut(
         "USD", datetime(2024, 9, 30), datetime(2025, 3, 31), 0.95

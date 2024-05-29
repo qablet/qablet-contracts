@@ -33,8 +33,11 @@ TS_EVENT_SCHEMA = pa.schema(
 
 
 def timetable_from_dicts(events: List[Dict]) -> Dict:
-    """Create timetable from a list of dicts. This method creates a timetable
-    with floating point for time, which is now being deprecated.
+    """Create timetable from a list of dicts.
+
+    Warning: Deprecated
+        This method creates a timetable
+        with floating point for time, which is now deprecated.
 
     Args:
         events: a list of dicts with the following fields:
