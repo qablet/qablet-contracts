@@ -2,7 +2,7 @@
 
 A track identifies the contract, a leg of the contract, or a state of the contract. For simple contracts this might be just blank.
 
-```python
+```py
 >>> Option("USD", "SPX", 2900, datetime(2024, 3, 31), True).print_events()
 
   track        time op  quantity unit
@@ -13,7 +13,7 @@ A track identifies the contract, a leg of the contract, or a state of the contra
 
 Or you could assign a name to the track.
 
-```python
+```py
 >>> Option("USD", "SPX", 2900, datetime(2024, 3, 31), True, track="<SPX2900>").print_events()
 
        track        time op  quantity unit
@@ -26,7 +26,7 @@ In this example there are two tracks - `.opt` and `.swp`. In the event `0` and `
 track (which has no payments) to the `.swp` track (which has payments).
 See [Bermuda Swaption](../examples/rate_swaption.md#qablet_contracts.rate.swaption.bermuda_swaption_timetable) for more on this example.
 
-```python
+```py
   track        time op  quantity  unit
 0  .opt  12/31/2023  >     1.000  .swp
 1  .swp  12/31/2023  +     1.000   USD

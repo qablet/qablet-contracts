@@ -10,7 +10,7 @@ A phrase is defined in the dataset, with three parameters.
 
 
 e.g.
-```python
+```py
 
 def ko_fn(inputs):
     [S] = inputs
@@ -33,7 +33,5 @@ The function should expect that inputs is a list of items.
 
 The function should return a list of items.
 
-- For a phrase the length of the output list must be exactly **one**, while for a snapper the length of the output list must match the lnegth of **out**.
-- Each item inthe list should be a float, or a 1-D numpy array of size 1 or N. 
-
-The item requirements are consistent with [numpy broadcasting](https://numpy.org/doc/stable/user/basics.broadcasting.html), therefore a function written using arithmetic operations like `+`, `-`, `*`, or element-wise numpy functions (e.g. `numpy.maximum`, `np.sqrt`) would satisfy these requirements.
+- For a phrase the length of the output list must be exactly **one**, while for a snapper the length of the output list must match the length of **out**.
+- Each item in the list should be a float, or a 1-D numpy array of size 1 or N. This is consistent with [numpy broadcasting](https://numpy.org/doc/stable/user/basics.broadcasting.html), therefore a function written using arithmetic operations like `+`, `-`, `*`, or element-wise numpy functions (e.g. `numpy.maximum`, `np.sqrt`) would satisfy the requirement.

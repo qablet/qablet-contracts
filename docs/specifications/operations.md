@@ -2,7 +2,10 @@
 
 The **op** column contains a string which can be `+`, `>`, `<`, or a condition.
 
-## Payment (+)
+## Payment
+```
++
+```
 
 `+` in the ops column indicates that the contract holder will receive
 the payment specified by the **quantity** and the **unit**,
@@ -11,7 +14,7 @@ in the **same track**.
 
 Example: A bond paying 5% semi-annually and maturing in two years. 
 
-```python
+```py
   track        time op  quantity unit
 0        06/30/2024  +     0.025  USD
 1        12/31/2024  +     0.025  USD
@@ -20,7 +23,10 @@ Example: A bond paying 5% semi-annually and maturing in two years.
 ```
 
 
-## Choice of contract holder (>)
+## Choice of holder
+```
+>
+```
 
 `>` in the ops column indicates that the **contract holder can choose** from the following two options
 
@@ -29,7 +35,7 @@ Example: A bond paying 5% semi-annually and maturing in two years.
 
 Example: An European Call Option with strike 2900, expiring in 2024-03-31.
 
-```python
+```py
   track        time op  quantity unit
 0        03/31/2024  >       0.0  USD
 1        03/31/2024  +   -2900.0  USD
@@ -42,7 +48,10 @@ Example: An European Call Option with strike 2900, expiring in 2024-03-31.
     makes a decision. This decision takes future expectations into account, i.e. what is coming further down in the timetable.
     For the holder's choice, a reasonable model would choose the option with a greater expected value of future events.
 
-## Choice of counterparty (<)
+## Choice of counterparty
+```
+<
+```
 
 `<` in the ops column indicates that the **counterparty can choose** from the following two options
 
@@ -51,7 +60,7 @@ Example: An European Call Option with strike 2900, expiring in 2024-03-31.
 
 Example: A callable bond, paying 5% USD semi-annually, maturing in two years, and callable at the end of the first year.
 
-```python
+```py
   track        time op  quantity unit
 0        06/30/2024  +     0.025  USD
 1        12/31/2024  +     0.025  USD
@@ -62,6 +71,9 @@ Example: A callable bond, paying 5% USD semi-annually, maturing in two years, an
 
 
 ## Condition
+```
+KO
+```
 
 Any other string in the `op` column is assumed to be a [phrase](phrase.md).
 
@@ -72,7 +84,7 @@ Any other string in the `op` column is assumed to be a [phrase](phrase.md).
 Example: knock-in or knock-out events in a barrier option. In the example below `KO` is a phrase that describes the barrier condition. If the condition is met
 the option is knocked out with a rebate of 1.0. If the barrier is not met, the contract continues further down the track.
 
-```python
+```py
           track        time  op  quantity unit
         0        03/31/2024  KO       1.0  USD
         1        05/31/2024  KO       1.0  USD
@@ -86,5 +98,8 @@ the option is knocked out with a rebate of 1.0. If the barrier is not met, the c
 See a complete example in [Barrier Options](../examples/equity_barrier.md).
 
 ## Snapper
+```
+
+```
 
 If the **unit** is a [Snapper](snapper.md), i.e. a path dependent calculation to be performed at that time, then **op** should be `None` or `"s"`.

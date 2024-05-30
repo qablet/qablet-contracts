@@ -4,7 +4,7 @@ A contract is described by a list of events. An event has five properties -
  track, time, op, quantity, and unit. Here is an example of an equity call option contract on SPX, with strike 2800 and one year expiration.
 It is described using three events.
 
-```python
+```py
   track        time op  quantity unit
 0    #1  03/31/2024  >       0.0  USD
 1    #1  03/31/2024  +   -2900.0  USD
@@ -38,14 +38,14 @@ a stock like `SPX`, `AAPL`, etc. See the [Units](units.md) section for all possi
 The timetable is a dictionary with two components.
 
 - events: the sequence of events stored as a pyarrow recordbatch
-- [expressions](expressions.md): a dictionary defining any [phrases](phrase.md), [snappers](snapper.md), or [batches](batch.md) used in the timetable
+- [expressions](expressions.md): a dictionary defining any [phrases](phrase.md) or [snappers](snapper.md) used in the timetable
 
 ### Create using `from_pylist`
 
 A timetable can be created as follows, from a list of dicts.
 In this example we define a contract that pays 100 USD on 2024-12-31.
 
-```python
+```py
 import pyarrow as pa
 from datetime import datetime
 from qablet_contracts.timetable import TS_EVENT_SCHEMA
@@ -68,7 +68,7 @@ timetable = {
 ### Create using `EventsMixin`
 Alternatively, the same timetable as above can also be created using the `EventsMixin` class as shown below.
 
-```python
+```py
 from qablet_contracts.timetable import EventsMixin
 
 @dataclass

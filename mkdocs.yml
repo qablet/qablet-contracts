@@ -64,7 +64,6 @@ nav:
     - 'specifications/expressions.md'
     - 'specifications/phrase.md'
     - 'specifications/snapper.md'
-    - 'specifications/batch.md'
   - 'Contracts':
     - Bond:
       - 'examples/bond_zero.md'

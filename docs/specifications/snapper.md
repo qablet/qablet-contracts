@@ -5,7 +5,7 @@ A Snapper represents a **path dependent calculation**, e.g. calculating returns 
 - the first three events represent a **snapper** operation `CALCFIX`. These operations store results in a **snap**.
 - the last event represents a payment for the contract, which pays `ACC`, the value of the snap.
 
-```python
+```py
   track        time   op  quantity     unit
 4   NaN  12/29/2023  NaN       0.0  CALCFIX
 5   NaN  06/28/2024  NaN       0.0  CALCFIX
@@ -23,7 +23,7 @@ A snapper is defined in the dataset, with four parameters.
 
 
 e.g.
-```python
+```py
 # Define the function
 def accumulator_update_fn(inputs):
     [s, s_last, a] = inputs
