@@ -53,10 +53,10 @@ class BondPut(EventsMixin):
 
     Examples:
         >>> BondPut("USD", datetime(2024, 9, 30), datetime(2025, 3, 31), 0.95).print_events()
-          track        time op  quantity unit
-        0        09/30/2024  >      0.00  USD
-        1        09/30/2024  +      0.95  USD
-        2        03/31/2025  +     -1.00  USD
+        track        time op  quantity unit
+               09/30/2024  >      0.00  USD
+               09/30/2024  +      0.95  USD
+               03/31/2025  +     -1.00  USD
     """
 
     ccy: str
@@ -66,37 +66,61 @@ class BondPut(EventsMixin):
     track: str = ""
 
     def events(self):
-        return [
-            {
-                "track": self.track,
-                "time": self.opt_maturity,
-                "op": ">",
-                "quantity": 0,
-                "unit": self.ccy,
-            },  # Choose greater of nothing (get 0) or exercise (continue to remaining events)
-            {
-                "track": self.track,
-                "time": self.opt_maturity,
-                "op": "+",
-                "quantity": self.strike,
-                "unit": self.ccy,
-            },  # get strike at expiration
-            {
-                "track": self.track,
-                "time": self.bond_maturity,
-                "op": "+",
-                "quantity": -1,
-                "unit": self.ccy,
-            },  # pay bond notional at bond expiration
+        keys = ["track", "time", "op", "quantity", "unit"]
+        events_list = [
+            [self.track, self.opt_maturity, ">", 0, self.ccy],
+            [self.track, self.opt_maturity, "+", self.strike, self.ccy],
+            [self.track, self.bond_maturity, "+", -1, self.ccy],
         ]
+        return [dict(zip(keys, event)) for event in events_list]
+
+
+@dataclass
+class BondCall(EventsMixin):
+    """A **zero coupon bond call** offers the holder the option to buy a zero coupon bond for
+    a fixed strike price, on the option maturity date.
+
+    Args:
+        ccy: the currency of the bond.
+        opt_maturity: the maturity of the option.
+        bond_maturity: the maturity of the bond.
+        strike: the option strike.
+        track: an optional identifier for the contract.
+
+    Examples:
+        >>> BondCall("USD", datetime(2024, 9, 30), datetime(2025, 3, 31), 0.95).print_events()
+        track       time op  quantity unit
+              09/30/2024  >      0.00  USD
+              09/30/2024  +     -0.95  USD
+              03/31/2025  +      1.00  USD
+    """
+
+    ccy: str
+    opt_maturity: datetime
+    bond_maturity: datetime
+    strike: float
+    track: str = ""
+
+    def events(self):
+        keys = ["track", "time", "op", "quantity", "unit"]
+        events_list = [
+            [self.track, self.opt_maturity, ">", 0, self.ccy],
+            [self.track, self.opt_maturity, "+", -self.strike, self.ccy],
+            [self.track, self.bond_maturity, "+", 1, self.ccy],
+        ]
+        return [dict(zip(keys, event)) for event in events_list]
 
 
 if __name__ == "__main__":
-    # Create a zero coupon bond timetable
-    timetable = Bond("USD", datetime(2025, 3, 31)).timetable()
+    print("Zero Coupon Bond")
+    Bond("USD", datetime(2025, 3, 31)).print_events()
 
-    print(timetable["events"].to_pandas())
+    print("Zero Coupon Bond Call")
+    BondCall(
+        "USD", datetime(2024, 9, 30), datetime(2025, 3, 31), 0.95
+    ).print_events()
 
+    print("Zero Coupon Bond Put")
     BondPut(
         "USD", datetime(2024, 9, 30), datetime(2025, 3, 31), 0.95
     ).print_events()
