@@ -17,7 +17,7 @@ such as `SPX`, `AAPL`, `CL`. e.g. in a [Vanilla Option](../examples/equity_vanil
 ```
 
 ### Track
-such as the underlying swap in a [Bermuda Swaption](../examples/rate_swaption.md#qablet_contracts.rate.swaption.bermuda_swaption_timetable)
+such as the underlying swap in a [Bermuda Swaption](../examples/rate_swaption.md#qablet_contracts.ir.swaption.BermudaSwaption)
 ```py
           track       time op  quantity unit
           .opt  12/31/2023  >    1.000  .swp

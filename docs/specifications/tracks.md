@@ -24,7 +24,7 @@ Or you could assign a name to the track.
 
 In this example there are two tracks - `.opt` and `.swp`. In the event `0` and `3` the holder has an opportunity to switch from the `.opt`
 track (which has no payments) to the `.swp` track (which has payments).
-See [Bermuda Swaption](../examples/rate_swaption.md#qablet_contracts.rate.swaption.bermuda_swaption_timetable) for more on this example.
+See [Bermuda Swaption](../examples/rate_swaption.md#qablet_contracts.ir.swaption.BermudaSwaption) for more on this example.
 
 ```py
   track        time op  quantity  unit

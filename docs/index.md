@@ -12,11 +12,10 @@ A Qablet timetable defines a financial product using a sequence of payments, cho
 
 ## Overview of Documentation
 
-The **SPECIFICATIONS** section describes the various elements of the language.
+- The **SPECIFICATIONS** section describes the various elements of the language.
 Start with the [timetable](specifications/timetable.md).
 
-
-The **CONTRACTS** section documents [this repository](https://github.com/qablet/qablet-contracts) which contains classes to create qablet timetables
+- The **CONTRACTS** section documents [this repository](https://github.com/qablet/qablet-contracts) which contains classes to create qablet timetables
 for many common financial contracts such as
 [Bonds](examples/bond_zero.md),
 [Options](examples/equity_vanilla.md),

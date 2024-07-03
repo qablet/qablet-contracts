@@ -14,23 +14,23 @@ It is described using three events.
 
 ### Track
 
-A string identifier for the contract, a leg of the contract, or a state of the contract. For simple contracts this might be just blank. See more in [Tracks](tracks.md).
+A **string** identifier for the contract, a leg of the contract, or a state of the contract. For simple contracts this might be just blank. See more in [Tracks](tracks.md).
 
 ### Time
 
-The UNIX timestamp (milliseconds) of an event.
+The UNIX timestamp (milliseconds) of an event. It can be specified as **datetime** and any of the methods of creating timetable below will convert it to the right format.
 
 ### Op
 
-A string which can be `+`, `>`, `<`, or a condition. See more in [Operations](operations.md).
+A **string** which can be `+`, `>`, `<`, or a condition. See more in [Operations](operations.md).
 
 ### Quantity
 
-The quantity being paid (float).
+The quantity being paid (**float**).
 
 ### Unit
 
-A string that represents what is being paid. It can be a currency like `USD`, `EUR`, or
+A **string** that represents what is being paid. It can be a currency like `USD`, `EUR`, or
 a stock like `SPX`, `AAPL`, etc. See the [Units](units.md) section for all possible variants.
 
 
@@ -38,7 +38,7 @@ a stock like `SPX`, `AAPL`, etc. See the [Units](units.md) section for all possi
 The timetable is a dictionary with two components.
 
 - events: the sequence of events stored as a pyarrow recordbatch
-- [expressions](expressions.md): a dictionary defining any [phrases](phrase.md) or [snappers](snapper.md) used in the timetable
+- [expressions](expressions.md) (optional): a dictionary defining any [phrases](phrase.md) or [snappers](snapper.md) used in the timetable
 
 ### Create using `from_pylist`
 
@@ -46,7 +46,7 @@ A timetable can be created as follows, from a list of dicts.
 In this example we define a contract that pays 100 USD on 2024-12-31.
 
 ```py
-import pyarrow as pa
+from pyarrow import RecordBatch as rb
 from datetime import datetime
 from qablet_contracts.timetable import TS_EVENT_SCHEMA
 
@@ -60,8 +60,7 @@ events = [
     },
 ]
 timetable = {
-    "events": pa.RecordBatch.from_pylist(events, schema=TS_EVENT_SCHEMA),
-    "expressions": {},
+    "events": rb.from_pylist(events, schema=TS_EVENT_SCHEMA)
 }
 ```
 
@@ -91,9 +90,29 @@ class Bond(EventsMixin):
 timetable = Bond("USD", datetime(2024, 12, 31)).timetable()
 ```
 
+### Create using `from_pandas`
+Here we create a timetable with two events using a pandas dataframe.
+
+```py
+import pandas as pd
+
+df = pd.DataFrame(
+    [
+        ["", datetime(2024, 6, 30), "+", 5.0, "USD"],
+        ["", datetime(2024, 12, 31), "+", 100.0, "USD"],
+    ],
+    columns=["track", "time", "op", "quantity", "unit"],
+)
+
+timetable = {
+    "events": rb.from_pandas(df, schema=TS_EVENT_SCHEMA),
+}
+```
+
+
 ## Print a timetable
 
-The events of a timetable is a `pyarrow` recordbatch. While it is an efficient data structure, it doesn't print pretty.
+The events of a timetable is a `pyarrow` recordbatch. It is an efficient data structure for storage, read, write and platform interoperabiity. However, it doesn't print pretty.
 
 ### Print using `pandas`
 
