@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -172,7 +172,7 @@
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
@@ -467,6 +467,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#create-using-from_pandas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create using from_pandas
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -640,27 +649,6 @@
   
   <span class="md-ellipsis">
     Snapper
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../batch/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Batch
   </span>
   
 
@@ -1169,6 +1157,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#create-using-from_pandas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create using from_pandas
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1235,32 +1232,32 @@
 <p>A contract is described by a list of events. An event has five properties -
  track, time, op, quantity, and unit. Here is an example of an equity call option contract on SPX, with strike 2800 and one year expiration.
 It is described using three events.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>  <span class="n">track</span>        <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>  <span class="n">track</span>        <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="mi">0</span>    <span class="c1">#1  03/31/2024  &gt;       0.0  USD</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="mi">1</span>    <span class="c1">#1  03/31/2024  +   -2900.0  USD</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="mi">2</span>    <span class="c1">#1  03/31/2024  +       1.0  SPX</span>
 </span></code></pre></div>
 <h3 id="track">Track</h3>
-<p>A string identifier for the contract, a leg of the contract, or a state of the contract. For simple contracts this might be just blank. See more in <a href="../tracks/">Tracks</a>.</p>
+<p>A <strong>string</strong> identifier for the contract, a leg of the contract, or a state of the contract. For simple contracts this might be just blank. See more in <a href="../tracks/">Tracks</a>.</p>
 <h3 id="time">Time</h3>
-<p>The UNIX timestamp (milliseconds) of an event.</p>
+<p>The UNIX timestamp (milliseconds) of an event. It can be specified as <strong>datetime</strong> and any of the methods of creating timetable below will convert it to the right format.</p>
 <h3 id="op">Op</h3>
-<p>A string which can be <code>+</code>, <code>&gt;</code>, <code>&lt;</code>, or a condition. See more in <a href="../operations/">Operations</a>.</p>
+<p>A <strong>string</strong> which can be <code>+</code>, <code>&gt;</code>, <code>&lt;</code>, or a condition. See more in <a href="../operations/">Operations</a>.</p>
 <h3 id="quantity">Quantity</h3>
-<p>The quantity being paid (float).</p>
+<p>The quantity being paid (<strong>float</strong>).</p>
 <h3 id="unit">Unit</h3>
-<p>A string that represents what is being paid. It can be a currency like <code>USD</code>, <code>EUR</code>, or
+<p>A <strong>string</strong> that represents what is being paid. It can be a currency like <code>USD</code>, <code>EUR</code>, or
 a stock like <code>SPX</code>, <code>AAPL</code>, etc. See the <a href="../units/">Units</a> section for all possible variants.</p>
 <h2 id="create-a-timetable">Create a timetable</h2>
 <p>The timetable is a dictionary with two components.</p>
 <ul>
 <li>events: the sequence of events stored as a pyarrow recordbatch</li>
-<li><a href="../expressions/">expressions</a>: a dictionary defining any <a href="../phrase/">phrases</a>, <a href="../snapper/">snappers</a>, or <a href="../batch/">batches</a> used in the timetable</li>
+<li><a href="../expressions/">expressions</a> (optional): a dictionary defining any <a href="../phrase/">phrases</a> or <a href="../snapper/">snappers</a> used in the timetable</li>
 </ul>
 <h3 id="create-using-from_pylist">Create using <code>from_pylist</code></h3>
 <p>A timetable can be created as follows, from a list of dicts.
 In this example we define a contract that pays 100 USD on 2024-12-31.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span> <span class="nn">pyarrow</span> <span class="k">as</span> <span class="nn">pa</span>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">pyarrow</span> <span class="kn">import</span> <span class="n">RecordBatch</span> <span class="k">as</span> <span class="n">rb</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kn">from</span> <span class="nn">qablet_contracts.timetable</span> <span class="kn">import</span> <span class="n">TS_EVENT_SCHEMA</span>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
@@ -1274,13 +1271,12 @@ In this example we define a contract that pays 100 USD on 2024-12-31.</p>
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="p">},</span>
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">]</span>
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="n">timetable</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="s2">&quot;events&quot;</span><span class="p">:</span> <span class="n">pa</span><span class="o">.</span><span class="n">RecordBatch</span><span class="o">.</span><span class="n">from_pylist</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">TS_EVENT_SCHEMA</span><span class="p">),</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>    <span class="s2">&quot;expressions&quot;</span><span class="p">:</span> <span class="p">{},</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="p">}</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="s2">&quot;events&quot;</span><span class="p">:</span> <span class="n">rb</span><span class="o">.</span><span class="n">from_pylist</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">TS_EVENT_SCHEMA</span><span class="p">)</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p">}</span>
 </span></code></pre></div>
 <h3 id="create-using-eventsmixin">Create using <code>EventsMixin</code></h3>
 <p>Alternatively, the same timetable as above can also be created using the <code>EventsMixin</code> class as shown below.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">qablet_contracts.timetable</span> <span class="kn">import</span> <span class="n">EventsMixin</span>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">qablet_contracts.timetable</span> <span class="kn">import</span> <span class="n">EventsMixin</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nd">@dataclass</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">class</span> <span class="nc">Bond</span><span class="p">(</span><span class="n">EventsMixin</span><span class="p">):</span>
@@ -1301,37 +1297,53 @@ In this example we define a contract that pays 100 USD on 2024-12-31.</p>
 </span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
 </span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="n">timetable</span> <span class="o">=</span> <span class="n">Bond</span><span class="p">(</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">))</span><span class="o">.</span><span class="n">timetable</span><span class="p">()</span>
 </span></code></pre></div>
+<h3 id="create-using-from_pandas">Create using <code>from_pandas</code></h3>
+<p>Here we create a timetable with two events using a pandas dataframe.</p>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="p">[</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="s2">&quot;USD&quot;</span><span class="p">],</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="s2">&quot;USD&quot;</span><span class="p">],</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="p">],</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;track&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;op&quot;</span><span class="p">,</span> <span class="s2">&quot;quantity&quot;</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">],</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">)</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="n">timetable</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="s2">&quot;events&quot;</span><span class="p">:</span> <span class="n">rb</span><span class="o">.</span><span class="n">from_pandas</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">TS_EVENT_SCHEMA</span><span class="p">),</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="p">}</span>
+</span></code></pre></div>
 <h2 id="print-a-timetable">Print a timetable</h2>
-<p>The events of a timetable is a <code>pyarrow</code> recordbatch. While it is an efficient data structure, it doesn't print pretty.</p>
+<p>The events of a timetable is a <code>pyarrow</code> recordbatch. It is an efficient data structure for storage, read, write and platform interoperabiity. However, it doesn't print pretty.</p>
 <h3 id="print-using-pandas">Print using <code>pandas</code></h3>
 <p>We can print by converting it to a pandas dataframe.</p>
-<div class="language-py highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">timetable</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  <span class="n">track</span>                      <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="mi">0</span>       <span class="mi">2025</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">31</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="o">+</span>       <span class="mf">1.0</span>  <span class="n">USD</span>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">timetable</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  <span class="n">track</span>                      <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="mi">0</span>       <span class="mi">2025</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">31</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="o">+</span>       <span class="mf">1.0</span>  <span class="n">USD</span>
 </span></code></pre></div>
 <h3 id="print-using-polars">Print using <code>polars</code></h3>
 <p>We can print by converting it to a polars dataframe.</p>
-<div class="language-py highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">polars</span> <span class="kn">import</span> <span class="n">from_arrow</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">df</span> <span class="o">=</span> <span class="n">from_arrow</span><span class="p">(</span><span class="n">timetable</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">])</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">shape</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="err">┌</span><span class="o">-------</span><span class="err">┬</span><span class="o">-------------------------</span><span class="err">┬</span><span class="o">-----</span><span class="err">┬</span><span class="o">----------</span><span class="err">┬</span><span class="o">------</span><span class="err">┐</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="err">│</span> <span class="n">track</span> <span class="err">┆</span> <span class="n">time</span>                    <span class="err">┆</span> <span class="n">op</span>  <span class="err">┆</span> <span class="n">quantity</span> <span class="err">┆</span> <span class="n">unit</span> <span class="err">│</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="err">│</span> <span class="o">---</span>   <span class="err">┆</span> <span class="o">---</span>                     <span class="err">┆</span> <span class="o">---</span> <span class="err">┆</span> <span class="o">---</span>      <span class="err">┆</span> <span class="o">---</span>  <span class="err">│</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="err">│</span> <span class="n">cat</span>   <span class="err">┆</span> <span class="n">datetime</span><span class="p">[</span><span class="n">ms</span><span class="p">,</span> <span class="n">UTC</span><span class="p">]</span>       <span class="err">┆</span> <span class="n">cat</span> <span class="err">┆</span> <span class="n">f64</span>      <span class="err">┆</span> <span class="n">cat</span>  <span class="err">│</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="err">╞</span><span class="o">-------</span><span class="err">╪</span><span class="o">-------------------------</span><span class="err">╪</span><span class="o">-----</span><span class="err">╪</span><span class="o">----------</span><span class="err">╪</span><span class="o">------</span><span class="err">╡</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="err">│</span>       <span class="err">┆</span> <span class="mi">2025</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">31</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="n">UTC</span> <span class="err">┆</span> <span class="o">+</span>   <span class="err">┆</span> <span class="mf">1.0</span>      <span class="err">┆</span> <span class="n">USD</span>  <span class="err">│</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="err">└</span><span class="o">-------</span><span class="err">┴</span><span class="o">-------------------------</span><span class="err">┴</span><span class="o">-----</span><span class="err">┴</span><span class="o">----------</span><span class="err">┴</span><span class="o">------</span><span class="err">┘</span>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span> <span class="nn">polars</span> <span class="kn">import</span> <span class="n">from_arrow</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">df</span> <span class="o">=</span> <span class="n">from_arrow</span><span class="p">(</span><span class="n">timetable</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">])</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">shape</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="err">┌</span><span class="o">-------</span><span class="err">┬</span><span class="o">-------------------------</span><span class="err">┬</span><span class="o">-----</span><span class="err">┬</span><span class="o">----------</span><span class="err">┬</span><span class="o">------</span><span class="err">┐</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="err">│</span> <span class="n">track</span> <span class="err">┆</span> <span class="n">time</span>                    <span class="err">┆</span> <span class="n">op</span>  <span class="err">┆</span> <span class="n">quantity</span> <span class="err">┆</span> <span class="n">unit</span> <span class="err">│</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="err">│</span> <span class="o">---</span>   <span class="err">┆</span> <span class="o">---</span>                     <span class="err">┆</span> <span class="o">---</span> <span class="err">┆</span> <span class="o">---</span>      <span class="err">┆</span> <span class="o">---</span>  <span class="err">│</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="err">│</span> <span class="n">cat</span>   <span class="err">┆</span> <span class="n">datetime</span><span class="p">[</span><span class="n">ms</span><span class="p">,</span> <span class="n">UTC</span><span class="p">]</span>       <span class="err">┆</span> <span class="n">cat</span> <span class="err">┆</span> <span class="n">f64</span>      <span class="err">┆</span> <span class="n">cat</span>  <span class="err">│</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="err">╞</span><span class="o">-------</span><span class="err">╪</span><span class="o">-------------------------</span><span class="err">╪</span><span class="o">-----</span><span class="err">╪</span><span class="o">----------</span><span class="err">╪</span><span class="o">------</span><span class="err">╡</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="err">│</span>       <span class="err">┆</span> <span class="mi">2025</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">31</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="n">UTC</span> <span class="err">┆</span> <span class="o">+</span>   <span class="err">┆</span> <span class="mf">1.0</span>      <span class="err">┆</span> <span class="n">USD</span>  <span class="err">│</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="err">└</span><span class="o">-------</span><span class="err">┴</span><span class="o">-------------------------</span><span class="err">┴</span><span class="o">-----</span><span class="err">┴</span><span class="o">----------</span><span class="err">┴</span><span class="o">------</span><span class="err">┘</span>
 </span></code></pre></div>
 <h3 id="print-using-print_events">Print using <code>print_events</code></h3>
 <p>The contract dataclass has a convenience function <code>print_events</code> to print a shorter form using pandas.</p>
-<div class="language-py highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">contract</span> <span class="o">=</span> <span class="n">Bond</span><span class="p">(</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">31</span><span class="p">))</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">contract</span><span class="o">.</span><span class="n">print_events</span><span class="p">()</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">track</span>       <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>      <span class="mi">03</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2025</span>  <span class="o">+</span>       <span class="mf">1.0</span>  <span class="n">USD</span>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">contract</span> <span class="o">=</span> <span class="n">Bond</span><span class="p">(</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">31</span><span class="p">))</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">contract</span><span class="o">.</span><span class="n">print_events</span><span class="p">()</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">track</span>       <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>      <span class="mi">03</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2025</span>  <span class="o">+</span>       <span class="mf">1.0</span>  <span class="n">USD</span>
 </span></code></pre></div>
 
 
@@ -1382,7 +1394,7 @@ In this example we define a contract that pays 100 USD on 2024-12-31.</p>
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
       
         <script src="../../javascripts/mathjax.js"></script>
       
