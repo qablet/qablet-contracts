@@ -29,12 +29,12 @@ class Rainbow(EventsMixin):
         >>> assets = ["SPX", "FTSE", "N225"]
         >>> strikes = [5087, 7684, 39100]
         >>> Rainbow("USD", assets, strikes, 100_000, datetime(2024, 3, 31), True).print_events()
-          track        time op       quantity  unit
-        0        03/31/2024  + -100000.000000   USD
-        1        03/31/2024  >      19.657952   SPX
-        2        03/31/2024  >      13.014055  FTSE
-        3        03/31/2024  >       2.557545  N225
-        4        03/31/2024  +  100000.000000   USD
+              time op       quantity unit track
+        03/31/2024  + -100000.000000  USD
+        03/31/2024  >      19.657952  SPX
+        03/31/2024  >      13.014055 FTSE
+        03/31/2024  >       2.557545 N225
+        03/31/2024  +  100000.000000  USD
     """
 
     ccy: str

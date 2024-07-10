@@ -37,10 +37,10 @@ class FixedCashFlows(Contract):
         >>> times = [datetime(2023, 12, 31), datetime(2024, 6, 30), datetime(2024, 12, 31)]
         >>> amounts = [0.05, 0.05, 1.05]
         >>> FixedCashFlows("USD", times, amounts).print_events()
-          track        time op  quantity unit
-        0        12/31/2023  +      0.05  USD
-        1        06/30/2024  +      0.05  USD
-        2        12/31/2024  +      1.05  USD
+              time op  quantity unit track
+        12/31/2023  +      0.05  USD
+        06/30/2024  +      0.05  USD
+        12/31/2024  +      1.05  USD
     """
 
     ccy: str
@@ -53,11 +53,11 @@ class FixedCashFlows(Contract):
         return {
             "events": pa.RecordBatch.from_arrays(
                 [
-                    _const_dict_array(n, self.track),  # tracks
                     pa.array(self.dates),
                     _const_dict_array(n, "+"),  # ops
                     pa.array(self.amounts),
                     _const_dict_array(n, self.ccy),  # units
+                    _const_dict_array(n, self.track),  # tracks
                 ],
                 schema=TS_EVENT_SCHEMA,
             ),
@@ -78,11 +78,11 @@ class FixedBond(Contract):
 
     Examples:
         >>> FixedBond("USD", 0.05, datetime(2023, 12, 31), datetime(2025, 12, 31), "2QE").print_events()
-          track        time op  quantity unit
-        0        06/30/2024  +     0.025  USD
-        1        12/31/2024  +     0.025  USD
-        2        06/30/2025  +     0.025  USD
-        3        12/31/2025  +     1.025  USD
+              time op  quantity unit track
+        06/30/2024  +     0.025  USD
+        12/31/2024  +     0.025  USD
+        06/30/2025  +     0.025  USD
+        12/31/2025  +     1.025  USD
     """
 
     ccy: str

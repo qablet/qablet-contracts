@@ -2,20 +2,20 @@
 
 A Qablet timetable defines a financial product using a sequence of payments, choices and conditions. A valuation model implemented with a Qablet parser can value any contract, as long as the contract can be described using a Qablet Timetable such as this one -
 
-```
-          track        time op  quantity unit
-        0    #1  03/31/2024  >       0.0  USD
-        1    #1  03/31/2024  +   -2900.0  USD
-        2    #1  03/31/2024  +       1.0  SPX
+```py
+      time op  quantity unit track
+03/31/2024  >       0.0  USD    #1
+03/31/2024  +    2900.0  USD    #1
+03/31/2024  +      -1.0  SPX    #1
 ```
 
 
 ## Overview of Documentation
 
-- The **SPECIFICATIONS** section describes the various elements of the language.
+- The **SPECIFICATIONS** section describes the elements of the language.
 Start with the [timetable](specifications/timetable.md).
 
-- The **CONTRACTS** section documents [this repository](https://github.com/qablet/qablet-contracts) which contains classes to create qablet timetables
+- The **CONTRACTS** section documents the [qablet-contracts package](https://github.com/qablet/qablet-contracts) which contains qablet timetables
 for many common financial contracts such as
 [Bonds](examples/bond_zero.md),
 [Options](examples/equity_vanilla.md),

@@ -19,8 +19,8 @@ class Bond(EventsMixin):
 
     Examples:
         >>> Bond("USD", datetime(2025, 3, 31)).print_events()
-          track        time op  quantity unit
-        0        03/31/2025  +       1.0  USD
+              time op  quantity unit track
+        03/31/2025  +       1.0  USD
     """
 
     ccy: str
@@ -53,10 +53,10 @@ class BondPut(EventsMixin):
 
     Examples:
         >>> BondPut("USD", datetime(2024, 9, 30), datetime(2025, 3, 31), 0.95).print_events()
-        track        time op  quantity unit
-               09/30/2024  >      0.00  USD
-               09/30/2024  +      0.95  USD
-               03/31/2025  +     -1.00  USD
+              time op  quantity unit track
+        09/30/2024  >      0.00  USD
+        09/30/2024  +      0.95  USD
+        03/31/2025  +     -1.00  USD
     """
 
     ccy: str
@@ -89,10 +89,10 @@ class BondCall(EventsMixin):
 
     Examples:
         >>> BondCall("USD", datetime(2024, 9, 30), datetime(2025, 3, 31), 0.95).print_events()
-        track       time op  quantity unit
-              09/30/2024  >      0.00  USD
-              09/30/2024  +     -0.95  USD
-              03/31/2025  +      1.00  USD
+              time op  quantity unit track
+        09/30/2024  >      0.00  USD
+        09/30/2024  +     -0.95  USD
+        03/31/2025  +      1.00  USD
     """
 
     ccy: str

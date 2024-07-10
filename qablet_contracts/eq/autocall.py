@@ -38,12 +38,12 @@ class DiscountCert(EventsMixin):
         >>> maturity = datetime(2024, 7, 31)
         >>> barrier_dates = pd.date_range(start, maturity, freq="ME", inclusive="right")
         >>> DiscountCert("USD", "AAPL", 100, 80, start, maturity, 102, barrier_dates, 0.092)print_events()
-          track        time    op    quantity    unit
-        0        04/30/2024  CALL  100.836815     USD
-        1        05/31/2024  CALL  101.680633     USD
-        2        06/30/2024  CALL  102.531512     USD
-        3        07/31/2024  CALL  103.389511     USD
-        4        07/31/2024     +    1.000000  PAYOFF
+              time   op   quantity   unit track
+        04/30/2024 call 100.836815    USD
+        05/31/2024 call 101.680633    USD
+        06/30/2024 call 102.531512    USD
+        07/31/2024 call 103.389511    USD
+        07/31/2024    +   1.000000 payoff
     """
 
     ccy: str
@@ -68,7 +68,7 @@ class DiscountCert(EventsMixin):
                 {
                     "track": self.track,
                     "time": barrier_date,
-                    "op": "CALL",
+                    "op": "call",
                     "quantity": self.notional * np.exp(frac * self.cpn_rate),
                     "unit": self.ccy,
                 }
@@ -81,7 +81,7 @@ class DiscountCert(EventsMixin):
                 "time": self.maturity,
                 "op": "+",
                 "quantity": 1.0,
-                "unit": "PAYOFF",
+                "unit": "payoff",
             }
         )
         return events
@@ -117,7 +117,7 @@ class DiscountCert(EventsMixin):
             "fn": payoff_fn,
         }
 
-        return {"PAYOFF": payoff, "CALL": call}
+        return {"payoff": payoff, "call": call}
 
 
 @dataclass
@@ -144,16 +144,16 @@ class ReverseCB(DiscountCert):
         >>> maturity = datetime(2024, 7, 31)
         >>> barrier_dates = pd.date_range(start, maturity, freq="ME", inclusive="right")
         >>> ReverseCB("USD", "AAPL", 100, 80, start, maturity, 102, barrier_dates, 0.10).print_events()
-          track        time    op    quantity    unit
-        0        04/30/2024     +    0.833333     USD
-        1        04/30/2024  CALL  100.000000     USD
-        2        05/31/2024     +    0.833333     USD
-        3        05/31/2024  CALL  100.000000     USD
-        4        06/30/2024     +    0.833333     USD
-        5        06/30/2024  CALL  100.000000     USD
-        6        07/31/2024     +    0.833333     USD
-        7        07/31/2024  CALL  100.000000     USD
-        8        07/31/2024     +    1.000000  PAYOFF
+              time   op   quantity   unit track
+        04/30/2024    +   0.833333    USD
+        04/30/2024 call 100.000000    USD
+        05/31/2024    +   0.833333    USD
+        05/31/2024 call 100.000000    USD
+        06/30/2024    +   0.833333    USD
+        06/30/2024 call 100.000000    USD
+        07/31/2024    +   0.833333    USD
+        07/31/2024 call 100.000000    USD
+        07/31/2024    +   1.000000 payoff
     """
 
     def events(self):
@@ -176,7 +176,7 @@ class ReverseCB(DiscountCert):
                 {
                     "track": self.track,
                     "time": end,
-                    "op": "CALL",
+                    "op": "call",
                     "quantity": self.notional,
                     "unit": self.ccy,
                 }
@@ -189,7 +189,7 @@ class ReverseCB(DiscountCert):
                 "time": self.maturity,
                 "op": "+",
                 "quantity": 1.0,
-                "unit": "PAYOFF",
+                "unit": "payoff",
             }
         )
         return events
@@ -206,5 +206,9 @@ if __name__ == "__main__":
         start, maturity, freq="ME", inclusive="right"
     )
     DiscountCert(
+        "USD", "AAPL", 100, 80, start, maturity, 102, barrier_dates, 0.10
+    ).print_events()
+
+    ReverseCB(
         "USD", "AAPL", 100, 80, start, maturity, 102, barrier_dates, 0.10
     ).print_events()

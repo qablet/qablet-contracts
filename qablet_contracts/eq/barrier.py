@@ -13,7 +13,7 @@ from qablet_contracts.timetable import EventsMixin
 
 
 @dataclass
-class OptionKO(EventsMixin):
+class Optionko(EventsMixin):
     """In a **Dn/Out Option** the contract is cancelled if the underlying asset price
     falls below the barrier level on any of the barrier observation dates.
     In an **Up/Out Option** the contract is cancelled if the underlying asset price
@@ -35,15 +35,15 @@ class OptionKO(EventsMixin):
         >>> start = datetime(2024, 3, 31)
         >>> maturity = datetime(2024, 9, 30)
         >>> barrier_dates = pd.date_range(start, maturity, freq="2ME")
-        >>> OptionKO("USD", "EQ", 100, maturity, True, 102, "Up/Out", barrier_dates).print_events()
-          track        time  op  quantity unit
-        0        03/31/2024  KO       0.0  USD
-        1        05/31/2024  KO       0.0  USD
-        2        07/31/2024  KO       0.0  USD
-        3        09/30/2024  KO       0.0  USD
-        4        09/30/2024   >       0.0  USD
-        5        09/30/2024   +    -100.0  USD
-        6        09/30/2024   +       1.0   EQ
+        >>> Optionko("USD", "EQ", 100, maturity, True, 102, "Up/Out", barrier_dates).print_events()
+              time op  quantity unit track
+        03/31/2024 ko       0.0  USD
+        05/31/2024 ko       0.0  USD
+        07/31/2024 ko       0.0  USD
+        09/30/2024 ko       0.0  USD
+        09/30/2024  >       0.0  USD
+        09/30/2024  +    -100.0  USD
+        09/30/2024  +       1.0   EQ
     """
 
     ccy: str
@@ -64,7 +64,7 @@ class OptionKO(EventsMixin):
                 {
                     "track": self.track,
                     "time": barrier_date,
-                    "op": "KO",
+                    "op": "ko",
                     "quantity": self.rebate,
                     "unit": self.ccy,
                 }
@@ -83,7 +83,7 @@ class OptionKO(EventsMixin):
         return events
 
     def expressions(self):
-        """Define the knockout expression (KO)."""
+        """Define the knockout expression (ko)."""
         if self.barrier_type == "Dn/Out":
 
             def ko_fn(inputs):
@@ -98,7 +98,7 @@ class OptionKO(EventsMixin):
             raise ValueError(f"Unknown barrier type: {self.barrier_type}")
 
         return {
-            "KO": {
+            "ko": {
                 "type": "phrase",
                 "inp": [self.asset_name],
                 "fn": ko_fn,
@@ -107,10 +107,10 @@ class OptionKO(EventsMixin):
 
 
 if __name__ == "__main__":
-    # Create the KO option
+    # Create the ko option
     start = datetime(2024, 3, 31)
     maturity = datetime(2024, 9, 30)
     barrier_dates = pd.date_range(start, maturity, freq="2ME")
-    OptionKO(
+    Optionko(
         "USD", "EQ", 100, maturity, True, 102, "Up/Out", barrier_dates
     ).print_events()

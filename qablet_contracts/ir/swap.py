@@ -61,11 +61,11 @@ class Swap(EventsMixin):
     Examples:
         >>> dates = pd.bdate_range(datetime(2023, 12, 31), datetime(2024, 12, 31), freq="2QE")
         >>> Swap("USD", dates, strike_rate = 0.03).print_events()
-          track        time op  quantity unit
-        0  .swp  12/31/2023  +     1.000  USD
-        1  .swp  06/30/2024  +    -1.015  USD
-        2  .swp  06/30/2024  +     1.000  USD
-        3  .swp  12/31/2024  +    -1.015  USD
+              time op  quantity unit track
+        12/31/2023  +     1.000  USD  .swp
+        06/30/2024  +    -1.015  USD  .swp
+        06/30/2024  +     1.000  USD  .swp
+        12/31/2024  +    -1.015  USD  .swp
     """
 
     ccy: str
