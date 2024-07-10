@@ -15,11 +15,11 @@ in the **same track**.
 Example: A bond paying 5% semi-annually and maturing in two years. 
 
 ```py
-  track        time op  quantity unit
-0        06/30/2024  +     0.025  USD
-1        12/31/2024  +     0.025  USD
-2        06/30/2025  +     0.025  USD
-3        12/31/2025  +     1.025  USD
+      time op  quantity unit track
+06/30/2024  +     0.025  USD
+12/31/2024  +     0.025  USD
+06/30/2025  +     0.025  USD
+12/31/2025  +     1.025  USD
 ```
 
 
@@ -36,10 +36,10 @@ Example: A bond paying 5% semi-annually and maturing in two years.
 Example: An European Call Option with strike 2900, expiring in 2024-03-31.
 
 ```py
-  track        time op  quantity unit
-0        03/31/2024  >       0.0  USD
-1        03/31/2024  +   -2900.0  USD
-2        03/31/2024  +       1.0  SPX
+      time op  quantity unit track
+03/31/2024  >       0.0  USD
+03/31/2024  +   -2900.0  USD
+03/31/2024  +       1.0  SPX
 ```
 
 
@@ -61,18 +61,18 @@ Example: An European Call Option with strike 2900, expiring in 2024-03-31.
 Example: A callable bond, paying 5% USD semi-annually, maturing in two years, and callable at the end of the first year.
 
 ```py
-  track        time op  quantity unit
-0        06/30/2024  +     0.025  USD
-1        12/31/2024  +     0.025  USD
-2        12/31/2024  <     1.000  USD
-3        06/30/2025  +     0.025  USD
-4        12/31/2025  +     1.025  USD
+      time op  quantity unit track
+06/30/2024  +     0.025  USD
+12/31/2024  +     0.025  USD
+12/31/2024  <     1.000  USD
+06/30/2025  +     0.025  USD
+12/31/2025  +     1.025  USD
 ```
 
 
 ## Condition
 ```
-KO
+ko
 ```
 
 Any other string in the `op` column is assumed to be a [phrase](phrase.md).
@@ -81,18 +81,18 @@ Any other string in the `op` column is assumed to be a [phrase](phrase.md).
  - If the phrase evaluates to false, then instead of that payment, holder will receive whatever else is further down in the timetable in the same track.
  - If the phrase returns a float array instead of a bool array, the holder will receive a weighted sum of both outcomes.
 
-Example: knock-in or knock-out events in a barrier option. In the example below `KO` is a phrase that describes the barrier condition. If the condition is met
+Example: knock-in or knock-out events in a barrier option. In the example below `ko` is a phrase that describes the barrier condition. If the condition is met
 the option is knocked out with a rebate of 1.0. If the barrier is not met, the contract continues further down the track.
 
 ```py
-          track        time  op  quantity unit
-        0        03/31/2024  KO       1.0  USD
-        1        05/31/2024  KO       1.0  USD
-        2        07/31/2024  KO       1.0  USD
-        3        09/30/2024  KO       1.0  USD
-        4        09/30/2024   >       0.0  USD
-        5        09/30/2024   +    -100.0  USD
-        6        09/30/2024   +       1.0   EQ
+      time op  quantity unit track
+03/31/2024 ko       0.0  USD
+05/31/2024 ko       0.0  USD
+07/31/2024 ko       0.0  USD
+09/30/2024 ko       0.0  USD
+09/30/2024  >       0.0  USD
+09/30/2024  +    -100.0  USD
+09/30/2024  +       1.0   EQ
 ```
 
 See a complete example in [Barrier Options](../examples/equity_barrier.md).

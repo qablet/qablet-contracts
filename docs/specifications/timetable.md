@@ -1,20 +1,16 @@
 # Timetable
 
 A contract is described by a list of events. An event has five properties -
- track, time, op, quantity, and unit. Here is an example of an equity call option contract on SPX, with strike 2800 and one year expiration.
+ time, op, quantity, unit, and track. Here is an example of an equity call option contract on SPX, with strike 2800 and one year expiration.
 It is described using three events.
 
 ```py
-  track        time op  quantity unit
-0    #1  03/31/2024  >       0.0  USD
-1    #1  03/31/2024  +   -2900.0  USD
-2    #1  03/31/2024  +       1.0  SPX
+            time   op  quantity unit track
+        03/31/2024  >       0.0  USD
+        03/31/2024  +   -2900.0  USD
+        03/31/2024  +       1.0  SPX
 ```
 
-
-### Track
-
-A **string** identifier for the contract, a leg of the contract, or a state of the contract. For simple contracts this might be just blank. See more in [Tracks](tracks.md).
 
 ### Time
 
@@ -32,6 +28,10 @@ The quantity being paid (**float**).
 
 A **string** that represents what is being paid. It can be a currency like `USD`, `EUR`, or
 a stock like `SPX`, `AAPL`, etc. See the [Units](units.md) section for all possible variants.
+
+### Track
+
+A **string** identifier for the contract, a leg of the contract, or a state of the contract. For simple contracts this might be just blank. See more in [Tracks](tracks.md).
 
 
 ## Create a timetable
@@ -52,11 +52,11 @@ from qablet_contracts.timetable import TS_EVENT_SCHEMA
 
 events = [
     {
-        "track": "",
         "time": datetime(2024, 12, 31),
         "op": "+",
         "quantity": 100.0,
         "unit": "USD",
+        "track": "",
     },
 ]
 timetable = {
@@ -79,11 +79,11 @@ class Bond(EventsMixin):
     def events(self):
         return [
             {
-                "track": self.track,
                 "time": self.maturity,
                 "op": "+",
                 "quantity": 1,
                 "unit": self.ccy,
+                "track": self.track,
             }
         ]
 
@@ -98,10 +98,10 @@ import pandas as pd
 
 df = pd.DataFrame(
     [
-        ["", datetime(2024, 6, 30), "+", 5.0, "USD"],
-        ["", datetime(2024, 12, 31), "+", 100.0, "USD"],
+        [datetime(2024, 6, 30), "+", 5.0, "USD", ""],
+        [datetime(2024, 12, 31), "+", 100.0, "USD", ""],
     ],
-    columns=["track", "time", "op", "quantity", "unit"],
+    columns=["time", "op", "quantity", "unit", "track"],
 )
 
 timetable = {
@@ -121,8 +121,8 @@ We can print by converting it to a pandas dataframe.
 ```py
 timetable["events"].to_pandas()
 
-  track                      time op  quantity unit
-0       2025-03-31 00:00:00+00:00  +       1.0  USD
+                       time op  quantity unit track
+0 2025-03-31 00:00:00+00:00  +       1.0  USD
 ```
 ### Print using `polars`
 
@@ -134,13 +134,14 @@ df = from_arrow(timetable["events"])
 print(df)
 
 shape: (1, 5)
-┌-------┬-------------------------┬-----┬----------┬------┐
-│ track ┆ time                    ┆ op  ┆ quantity ┆ unit │
-│ ---   ┆ ---                     ┆ --- ┆ ---      ┆ ---  │
-│ cat   ┆ datetime[ms, UTC]       ┆ cat ┆ f64      ┆ cat  │
-╞-------╪-------------------------╪-----╪----------╪------╡
-│       ┆ 2025-03-31 00:00:00 UTC ┆ +   ┆ 1.0      ┆ USD  │
-└-------┴-------------------------┴-----┴----------┴------┘
+┌-------------------------┬-----┬----------┬------┬-------┐
+│ time                    ┆ op  ┆ quantity ┆ unit ┆ track │
+│ ---                     ┆ --- ┆ ---      ┆ ---  ┆ ---   │
+│ datetime[ms, UTC]       ┆ cat ┆ f64      ┆ cat  ┆ cat   │
+╞-------------------------╪-----╪----------╪------╪-------╡
+│ 2025-03-31 00:00:00 UTC ┆ +   ┆ 1.0      ┆ USD  ┆       │
+└-------------------------┴-----┴----------┴------┴-------┘
+
 ```
 
 ### Print using `print_events`
@@ -151,6 +152,6 @@ The contract dataclass has a convenience function `print_events` to print a shor
 contract = Bond("USD", datetime(2025, 3, 31))
 contract.print_events()
 
-track       time op  quantity unit
-      03/31/2025  +       1.0  USD
+      time op  quantity unit track
+03/31/2025  +       1.0  USD
 ```

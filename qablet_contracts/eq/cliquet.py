@@ -31,16 +31,16 @@ class Accumulator(EventsMixin):
     Examples:
         >>> fix_dates = pd.bdate_range(datetime(2021, 12, 31), datetime(2024, 12, 31), freq="2BQE")
         >>> Accumulator("USD", "SPX", fix_dates, 0.0, -0.03, 0.05).print_events()
-          track        time   op  quantity     unit
-        0   NaN  12/31/2021  NaN       0.0     INIT
-        1   NaN  06/30/2022  NaN       0.0  CALCFIX
-        2   NaN  12/30/2022  NaN       0.0  CALCFIX
-        3   NaN  06/30/2023  NaN       0.0  CALCFIX
-        4   NaN  12/29/2023  NaN       0.0  CALCFIX
-        5   NaN  06/28/2024  NaN       0.0  CALCFIX
-        6   NaN  12/31/2024  NaN       0.0  CALCFIX
-        7        12/31/2024    >       0.0      USD
-        8        12/31/2024    +     100.0      ACC
+              time  op  quantity   unit track
+        12/31/2021 NaN       0.0  start   NaN
+        06/30/2022 NaN       0.0 addfix   NaN
+        12/30/2022 NaN       0.0 addfix   NaN
+        06/30/2023 NaN       0.0 addfix   NaN
+        12/29/2023 NaN       0.0 addfix   NaN
+        06/28/2024 NaN       0.0 addfix   NaN
+        12/31/2024 NaN       0.0 addfix   NaN
+        12/31/2024   >       0.0    USD
+        12/31/2024   +     100.0    ACC
     """
 
     ccy: str
@@ -62,7 +62,7 @@ class Accumulator(EventsMixin):
                 "time": self.fix_dates[0],
                 "op": None,
                 "quantity": 0,
-                "unit": "INIT",  # initialize accumulator
+                "unit": "start",  # start accumulator
             }
         ]
         for fixing_time in self.fix_dates[1:]:
@@ -72,7 +72,7 @@ class Accumulator(EventsMixin):
                     "time": fixing_time,
                     "op": None,
                     "quantity": 0,
-                    "unit": "CALCFIX",  # update accumulator
+                    "unit": "addfix",  # update accumulator
                 }
             )
         events.append(
@@ -119,13 +119,13 @@ class Accumulator(EventsMixin):
             return [a + ret, s]  # [ACC, S_PREV]
 
         return {
-            "INIT": {
+            "start": {
                 "type": "snapper",
                 "inp": [self.asset_name],
                 "fn": accumulator_init_fn,
                 "out": ["ACC", "S_PREV"],
             },
-            "CALCFIX": {
+            "addfix": {
                 "type": "snapper",
                 "inp": [self.asset_name, "S_PREV", "ACC"],
                 "fn": accumulator_update_fn,

@@ -25,11 +25,11 @@ class ForwardOption(EventsMixin):
     Examples:
         >>> timetable = ForwardOption( "USD", "SPX", 1.0,
         datetime(2024, 3, 31), datetime(2024, 9, 30), True).print_events()
-          track        time   op  quantity    unit
-        0   NaN  03/31/2024  NaN       0.0  .FIX_K
-        1        09/30/2024    >       0.0     USD
-        2        09/30/2024    +      -1.0      .K
-        3        09/30/2024    +       1.0     SPX
+              time  op  quantity   unit track
+        03/31/2024 NaN       0.0 .fix_K   NaN
+        09/30/2024   >       0.0    USD
+        09/30/2024   +      -1.0     .K
+        09/30/2024   +       1.0    SPX
     """
 
     ccy: str
@@ -48,7 +48,7 @@ class ForwardOption(EventsMixin):
                 "time": self.strike_date,
                 "op": None,
                 "quantity": 0,
-                "unit": f"{self.track}.FIX_K",  # set the strike
+                "unit": f"{self.track}.fix_K",  # set the strike
             },
             {
                 "track": self.track,
@@ -79,7 +79,7 @@ class ForwardOption(EventsMixin):
             return inputs
 
         return {
-            f"{self.track}.FIX_K": {
+            f"{self.track}.fix_K": {
                 "type": "snapper",
                 "inp": [self.asset_name],
                 "fn": strike_fn,

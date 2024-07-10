@@ -2,15 +2,15 @@
 
 A Snapper represents a **path dependent calculation**, e.g. calculating returns in an equity cliquet. In the following timetable
 
-- the first three events represent a **snapper** operation `CALCFIX`. These operations store results in a **snap**.
+- the first three events represent a **snapper** operation `addfix`. These operations store results in a **snap**.
 - the last event represents a payment for the contract, which pays `ACC`, the value of the snap.
 
 ```py
-  track        time   op  quantity     unit
-4   NaN  12/29/2023  NaN       0.0  CALCFIX
-5   NaN  06/28/2024  NaN       0.0  CALCFIX
-6   NaN  12/31/2024  NaN       0.0  CALCFIX
-8        12/31/2024    +     100.0      ACC
+      time  op  quantity   unit track
+12/29/2023 NaN       0.0 addfix   NaN
+06/28/2024 NaN       0.0 addfix   NaN
+12/31/2024 NaN       0.0 addfix   NaN
+12/31/2024   +     100.0    ACC
 ```
 
 A snapper is defined in the dataset, with four parameters. 

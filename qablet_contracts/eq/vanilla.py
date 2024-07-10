@@ -25,18 +25,18 @@ class Option(EventsMixin):
 
     Examples:
         Call:
-        >>> Option("USD", "SPX", 2900, datetime(2024, 3, 31), True, track="#1").print_events()
-          track        time op  quantity unit
-        0    #1  03/31/2024  >       0.0  USD
-        1    #1  03/31/2024  +   -2900.0  USD
-        2    #1  03/31/2024  +       1.0  SPX
+        >>> Option("USD", "SPX", 2900, datetime(2024, 3, 31), True).print_events()
+            time   op  quantity unit track
+        03/31/2024  >       0.0  USD
+        03/31/2024  +   -2900.0  USD
+        03/31/2024  +       1.0  SPX
 
         Put:
-        >>> Option("USD", "SPX", 2900, datetime(2024, 3, 31), False, track="#1").print_events()
-        track        time op  quantity unit
-        0    #1  03/31/2024  >       0.0  USD
-        1    #1  03/31/2024  +    2900.0  USD
-        2    #1  03/31/2024  +      -1.0  SPX
+        >>> Option("USD", "SPX", 2900, datetime(2024, 3, 31), False).print_events()
+              time op  quantity unit track
+        03/31/2024  >       0.0  USD
+        03/31/2024  +    2900.0  USD
+        03/31/2024  +      -1.0  SPX
     """
 
     ccy: str
@@ -75,11 +75,12 @@ class Option(EventsMixin):
 
 if __name__ == "__main__":
     # Create the option timetable
-    Option(
-        "USD",
-        "SPX",
-        2900,
-        datetime(2024, 3, 31),
-        False,
-        track="#1",
-    ).print_events()
+    for iscall in [True, False]:
+        Option(
+            "USD",
+            "SPX",
+            2900,
+            datetime(2024, 3, 31),
+            iscall,
+            track="<SPX2900>",
+        ).print_events()
