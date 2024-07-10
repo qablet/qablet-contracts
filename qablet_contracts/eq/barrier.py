@@ -13,7 +13,7 @@ from qablet_contracts.timetable import EventsMixin
 
 
 @dataclass
-class Optionko(EventsMixin):
+class OptionKO(EventsMixin):
     """In a **Dn/Out Option** the contract is cancelled if the underlying asset price
     falls below the barrier level on any of the barrier observation dates.
     In an **Up/Out Option** the contract is cancelled if the underlying asset price
@@ -35,7 +35,7 @@ class Optionko(EventsMixin):
         >>> start = datetime(2024, 3, 31)
         >>> maturity = datetime(2024, 9, 30)
         >>> barrier_dates = pd.date_range(start, maturity, freq="2ME")
-        >>> Optionko("USD", "EQ", 100, maturity, True, 102, "Up/Out", barrier_dates).print_events()
+        >>> OptionKO("USD", "EQ", 100, maturity, True, 102, "Up/Out", barrier_dates).print_events()
               time op  quantity unit track
         03/31/2024 ko       0.0  USD
         05/31/2024 ko       0.0  USD
@@ -111,6 +111,6 @@ if __name__ == "__main__":
     start = datetime(2024, 3, 31)
     maturity = datetime(2024, 9, 30)
     barrier_dates = pd.date_range(start, maturity, freq="2ME")
-    Optionko(
+    OptionKO(
         "USD", "EQ", 100, maturity, True, 102, "Up/Out", barrier_dates
     ).print_events()
