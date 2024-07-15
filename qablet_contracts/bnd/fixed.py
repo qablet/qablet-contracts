@@ -22,6 +22,24 @@ def _const_dict_array(n, val):
     )
 
 
+def timetable_from_cf(
+    ccy: str, dates: List[datetime], amounts: List[float], track: str = ""
+):
+    n = len(dates)
+    return {
+        "events": pa.RecordBatch.from_arrays(
+            [
+                pa.array(dates),
+                _const_dict_array(n, "+"),  # ops
+                pa.array(amounts),
+                _const_dict_array(n, ccy),  # units
+                _const_dict_array(n, track),  # tracks
+            ],
+            schema=TS_EVENT_SCHEMA,
+        )
+    }
+
+
 @dataclass
 class FixedCashFlows(Contract):
     """A set of **Fixed Cashflows** in a single currency. This example also shows how to create a timetable from arrays
@@ -49,20 +67,9 @@ class FixedCashFlows(Contract):
     track: str = ""
 
     def timetable(self):
-        n = len(self.dates)
-        return {
-            "events": pa.RecordBatch.from_arrays(
-                [
-                    pa.array(self.dates),
-                    _const_dict_array(n, "+"),  # ops
-                    pa.array(self.amounts),
-                    _const_dict_array(n, self.ccy),  # units
-                    _const_dict_array(n, self.track),  # tracks
-                ],
-                schema=TS_EVENT_SCHEMA,
-            ),
-            "expressions": {},
-        }
+        return timetable_from_cf(
+            self.ccy, self.dates, self.amounts, self.track
+        )
 
 
 @dataclass
@@ -107,9 +114,7 @@ class FixedBond(Contract):
         ]
 
         amounts[-1] += 1  # The last payment includes the principal
-        return FixedCashFlows(
-            self.ccy, cpn_dates[1:], amounts, self.track
-        ).timetable()
+        return timetable_from_cf(self.ccy, cpn_dates[1:], amounts, self.track)
 
 
 if __name__ == "__main__":

@@ -38,7 +38,7 @@ A **string** identifier for the contract, a leg of the contract, or a state of t
 The timetable is a dictionary with two components.
 
 - events: the sequence of events stored as a pyarrow recordbatch
-- [expressions](expressions.md) (optional): a dictionary defining any [phrases](phrase.md) or [snappers](snapper.md) used in the timetable
+- [expressions](phrase.md) (optional): a dictionary defining any [phrases](phrase.md) or [snappers](snapper.md) used in the timetable
 
 ### Create using `from_pylist`
 

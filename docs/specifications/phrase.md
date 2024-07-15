@@ -1,28 +1,42 @@
+# Expressions
+
+
+The event table often requires one or more of the following to capture the features of contract.
+
+- A **Phrase** that represents a value calculated from one or more assets. e.g. calculating the barrier condition in a knock out option.
+- A [Snapper](snapper.md) that represents a **path dependent calculation**, e.g. calculating returns in an equity cliquet.
+
 # Phrase
 
-A Phrase represents a value calculated from one or more assets. e.g. calculating the barrier condition in a knock out option.
-
-A phrase is defined in the dataset, with three parameters.
+A Phrase is defined with three parameters.
 
  - **type**, which must be "phrase"
  - **inp**, a list of inputs to the phrase **fn**. An input can be an asset, such as "SPX", whose value comes from the model. It can also be a snap which has been stored as a result of previous snapper operation. It can also be another phrase.
  - **fn**, a python function that takes a list of inputs, and returns a list of outputs. The length of expected inputs list must match the length of **inp**, while the length of the output list must be exactly one.
 
 
-e.g.
+e.g. for a Down-and-Out Barrier Option the knock out condition `ko` is defined as
 ```py
 
 def ko_fn(inputs):
     [S] = inputs
     return [S < barrier]
 
-"KO": {
+"ko": {
     "type": "phrase",
     "inp": [asset_name],
     "fn": ko_fn,
 }
 
 ```
+
+and used in the timetable as an `op`
+```py
+      time op  quantity unit track
+03/31/2024 ko       0.0  USD
+```
+
+See [Barrier Option](../examples/equity_barrier.md/#qablet_contracts.eq.barrier.OptionKO) for more on this example.
 
 ## Function Signature
 

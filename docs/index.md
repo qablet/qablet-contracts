@@ -21,9 +21,8 @@ for many common financial contracts such as
 [Options](examples/equity_vanilla.md),
 [Swaps](examples/rate_swap.md), and [Swaptions](examples/rate_swaption.md).
 
-## Also See
-The repo documented here does not contain models that price qablet timetables. Valuation and backtesting models are available in other independent projects, such as qablet-basic.
+If you are new to Qablet, 
 
-- [Qablet Models](https://qablet-academy.github.io/intro/) documents the Monte-Carlo and Finite Difference models in qablet-basic.
-- [Qablet Learning Path](https://github.com/qablet-academy/intro) is a set of Jupyter notebooks that value contracts using the qablet-basic package.
+- Start with a [simple end to end example](https://qablet-academy.github.io/intro/quickstart/)
+- Then follow the [Qablet Learning Path](https://github.com/qablet-academy/intro) which is a set of Jupyter notebooks to walk you through simple to advanced uses of Qablet
 - [Qablet Demo](https://apps-dash.onrender.com/) is an interactive experience.
