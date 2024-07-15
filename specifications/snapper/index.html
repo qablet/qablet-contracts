@@ -433,32 +433,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../expressions/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Expressions
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../phrase/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Phrase
+    Expressions
   </span>
   
 
@@ -991,14 +970,14 @@
 <h1 id="snapper">Snapper</h1>
 <p>A Snapper represents a <strong>path dependent calculation</strong>, e.g. calculating returns in an equity cliquet. In the following timetable</p>
 <ul>
-<li>the first three events represent a <strong>snapper</strong> operation <code>CALCFIX</code>. These operations store results in a <strong>snap</strong>.</li>
+<li>the first three events represent a <strong>snapper</strong> operation <code>addfix</code>. These operations store results in a <strong>snap</strong>.</li>
 <li>the last event represents a payment for the contract, which pays <code>ACC</code>, the value of the snap.</li>
 </ul>
-<div class="language-py highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>  <span class="n">track</span>        <span class="n">time</span>   <span class="n">op</span>  <span class="n">quantity</span>     <span class="n">unit</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="mi">4</span>   <span class="n">NaN</span>  <span class="mi">12</span><span class="o">/</span><span class="mi">29</span><span class="o">/</span><span class="mi">2023</span>  <span class="n">NaN</span>       <span class="mf">0.0</span>  <span class="n">CALCFIX</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="mi">5</span>   <span class="n">NaN</span>  <span class="mi">06</span><span class="o">/</span><span class="mi">28</span><span class="o">/</span><span class="mi">2024</span>  <span class="n">NaN</span>       <span class="mf">0.0</span>  <span class="n">CALCFIX</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="mi">6</span>   <span class="n">NaN</span>  <span class="mi">12</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>  <span class="n">NaN</span>       <span class="mf">0.0</span>  <span class="n">CALCFIX</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="mi">8</span>        <span class="mi">12</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>    <span class="o">+</span>     <span class="mf">100.0</span>      <span class="n">ACC</span>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>      <span class="n">time</span>  <span class="n">op</span>  <span class="n">quantity</span>   <span class="n">unit</span> <span class="n">track</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="mi">12</span><span class="o">/</span><span class="mi">29</span><span class="o">/</span><span class="mi">2023</span> <span class="n">NaN</span>       <span class="mf">0.0</span> <span class="n">addfix</span>   <span class="n">NaN</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="mi">06</span><span class="o">/</span><span class="mi">28</span><span class="o">/</span><span class="mi">2024</span> <span class="n">NaN</span>       <span class="mf">0.0</span> <span class="n">addfix</span>   <span class="n">NaN</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="mi">12</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span> <span class="n">NaN</span>       <span class="mf">0.0</span> <span class="n">addfix</span>   <span class="n">NaN</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="mi">12</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>   <span class="o">+</span>     <span class="mf">100.0</span>    <span class="n">ACC</span>
 </span></code></pre></div>
 <p>A snapper is defined in the dataset, with four parameters. </p>
 <ul>

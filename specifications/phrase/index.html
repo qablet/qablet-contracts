@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../expressions/">
+        <link rel="prev" href="../tracks/">
       
       
         <link rel="next" href="../snapper/">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Phrase - Qablet Contracts</title>
+        <title>Expressions - Qablet Contracts</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#phrase" class="md-skip">
+        <a href="#expressions" class="md-skip">
           Skip to content
         </a>
       
@@ -109,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Phrase
+              Expressions
             
           </span>
         </div>
@@ -430,27 +430,6 @@
                 
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../expressions/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Expressions
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
     
   
   
@@ -463,54 +442,15 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Phrase
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    Phrase
+    Expressions
   </span>
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#function-signature" class="md-nav__link">
-    <span class="md-ellipsis">
-      Function Signature
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -958,23 +898,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#function-signature" class="md-nav__link">
-    <span class="md-ellipsis">
-      Function Signature
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -988,25 +911,35 @@
                   
 
 
+<h1 id="expressions">Expressions</h1>
+<p>The event table often requires one or more of the following to capture the features of contract.</p>
+<ul>
+<li>A <strong>Phrase</strong> that represents a value calculated from one or more assets. e.g. calculating the barrier condition in a knock out option.</li>
+<li>A <a href="../snapper/">Snapper</a> that represents a <strong>path dependent calculation</strong>, e.g. calculating returns in an equity cliquet.</li>
+</ul>
 <h1 id="phrase">Phrase</h1>
-<p>A Phrase represents a value calculated from one or more assets. e.g. calculating the barrier condition in a knock out option.</p>
-<p>A phrase is defined in the dataset, with three parameters.</p>
+<p>A Phrase is defined with three parameters.</p>
 <ul>
 <li><strong>type</strong>, which must be "phrase"</li>
 <li><strong>inp</strong>, a list of inputs to the phrase <strong>fn</strong>. An input can be an asset, such as "SPX", whose value comes from the model. It can also be a snap which has been stored as a result of previous snapper operation. It can also be another phrase.</li>
 <li><strong>fn</strong>, a python function that takes a list of inputs, and returns a list of outputs. The length of expected inputs list must match the length of <strong>inp</strong>, while the length of the output list must be exactly one.</li>
 </ul>
-<p>e.g.
+<p>e.g. for a Down-and-Out Barrier Option the knock out condition <code>ko</code> is defined as
 <div class="language-py highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span> <span class="nf">ko_fn</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="p">[</span><span class="n">S</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">S</span> <span class="o">&lt;</span> <span class="n">barrier</span><span class="p">]</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="s2">&quot;KO&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="s2">&quot;ko&quot;</span><span class="p">:</span> <span class="p">{</span>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;phrase&quot;</span><span class="p">,</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="s2">&quot;inp&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">asset_name</span><span class="p">],</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="s2">&quot;fn&quot;</span><span class="p">:</span> <span class="n">ko_fn</span><span class="p">,</span>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">}</span>
 </span></code></pre></div></p>
+<p>and used in the timetable as an <code>op</code>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>      <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span> <span class="n">track</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="mi">03</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span> <span class="n">ko</span>       <span class="mf">0.0</span>  <span class="n">USD</span>
+</span></code></pre></div></p>
+<p>See <a href="../../examples/equity_barrier/#qablet_contracts.eq.barrier.OptionKO">Barrier Option</a> for more on this example.</p>
 <h2 id="function-signature">Function Signature</h2>
 <p>The function should expect that inputs is a list of items. </p>
 <ul>

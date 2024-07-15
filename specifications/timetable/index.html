@@ -395,15 +395,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#track" class="md-nav__link">
-    <span class="md-ellipsis">
-      Track
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#time" class="md-nav__link">
     <span class="md-ellipsis">
       Time
@@ -434,6 +425,15 @@
   <a href="#unit" class="md-nav__link">
     <span class="md-ellipsis">
       Unit
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#track" class="md-nav__link">
+    <span class="md-ellipsis">
+      Track
     </span>
   </a>
   
@@ -602,32 +602,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../expressions/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Expressions
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../phrase/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Phrase
+    Expressions
   </span>
   
 
@@ -1085,15 +1064,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#track" class="md-nav__link">
-    <span class="md-ellipsis">
-      Track
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#time" class="md-nav__link">
     <span class="md-ellipsis">
       Time
@@ -1124,6 +1094,15 @@
   <a href="#unit" class="md-nav__link">
     <span class="md-ellipsis">
       Unit
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#track" class="md-nav__link">
+    <span class="md-ellipsis">
+      Track
     </span>
   </a>
   
@@ -1230,15 +1209,13 @@
 
 <h1 id="timetable">Timetable</h1>
 <p>A contract is described by a list of events. An event has five properties -
- track, time, op, quantity, and unit. Here is an example of an equity call option contract on SPX, with strike 2800 and one year expiration.
+ time, op, quantity, unit, and track. Here is an example of an equity call option contract on SPX, with strike 2800 and one year expiration.
 It is described using three events.</p>
-<div class="language-py highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>  <span class="n">track</span>        <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="mi">0</span>    <span class="c1">#1  03/31/2024  &gt;       0.0  USD</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="mi">1</span>    <span class="c1">#1  03/31/2024  +   -2900.0  USD</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="mi">2</span>    <span class="c1">#1  03/31/2024  +       1.0  SPX</span>
+<div class="language-py highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>            <span class="n">time</span>   <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span> <span class="n">track</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>        <span class="mi">03</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>  <span class="o">&gt;</span>       <span class="mf">0.0</span>  <span class="n">USD</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="mi">03</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>  <span class="o">+</span>   <span class="o">-</span><span class="mf">2900.0</span>  <span class="n">USD</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="mi">03</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2024</span>  <span class="o">+</span>       <span class="mf">1.0</span>  <span class="n">SPX</span>
 </span></code></pre></div>
-<h3 id="track">Track</h3>
-<p>A <strong>string</strong> identifier for the contract, a leg of the contract, or a state of the contract. For simple contracts this might be just blank. See more in <a href="../tracks/">Tracks</a>.</p>
 <h3 id="time">Time</h3>
 <p>The UNIX timestamp (milliseconds) of an event. It can be specified as <strong>datetime</strong> and any of the methods of creating timetable below will convert it to the right format.</p>
 <h3 id="op">Op</h3>
@@ -1248,11 +1225,13 @@ It is described using three events.</p>
 <h3 id="unit">Unit</h3>
 <p>A <strong>string</strong> that represents what is being paid. It can be a currency like <code>USD</code>, <code>EUR</code>, or
 a stock like <code>SPX</code>, <code>AAPL</code>, etc. See the <a href="../units/">Units</a> section for all possible variants.</p>
+<h3 id="track">Track</h3>
+<p>A <strong>string</strong> identifier for the contract, a leg of the contract, or a state of the contract. For simple contracts this might be just blank. See more in <a href="../tracks/">Tracks</a>.</p>
 <h2 id="create-a-timetable">Create a timetable</h2>
 <p>The timetable is a dictionary with two components.</p>
 <ul>
 <li>events: the sequence of events stored as a pyarrow recordbatch</li>
-<li><a href="../expressions/">expressions</a> (optional): a dictionary defining any <a href="../phrase/">phrases</a> or <a href="../snapper/">snappers</a> used in the timetable</li>
+<li><a href="../phrase/">expressions</a> (optional): a dictionary defining any <a href="../phrase/">phrases</a> or <a href="../snapper/">snappers</a> used in the timetable</li>
 </ul>
 <h3 id="create-using-from_pylist">Create using <code>from_pylist</code></h3>
 <p>A timetable can be created as follows, from a list of dicts.
@@ -1263,11 +1242,11 @@ In this example we define a contract that pays 100 USD on 2024-12-31.</p>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">events</span> <span class="o">=</span> <span class="p">[</span>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="p">{</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mf">100.0</span><span class="p">,</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;USD&quot;</span><span class="p">,</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mf">100.0</span><span class="p">,</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;USD&quot;</span><span class="p">,</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="p">},</span>
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="p">]</span>
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="n">timetable</span> <span class="o">=</span> <span class="p">{</span>
@@ -1287,11 +1266,11 @@ In this example we define a contract that pays 100 USD on 2024-12-31.</p>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="k">def</span> <span class="nf">events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 </span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>        <span class="k">return</span> <span class="p">[</span>
 </span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>            <span class="p">{</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>                <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="p">,</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">maturity</span><span class="p">,</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>                <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccy</span><span class="p">,</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">maturity</span><span class="p">,</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>                <span class="s2">&quot;op&quot;</span><span class="p">:</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>                <span class="s2">&quot;quantity&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>                <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ccy</span><span class="p">,</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>                <span class="s2">&quot;track&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">track</span><span class="p">,</span>
 </span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>            <span class="p">}</span>
 </span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>        <span class="p">]</span>
 </span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
@@ -1303,10 +1282,10 @@ In this example we define a contract that pays 100 USD on 2024-12-31.</p>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="p">[</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="s2">&quot;USD&quot;</span><span class="p">],</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="s2">&quot;USD&quot;</span><span class="p">],</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="p">[</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">],</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>        <span class="p">[</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">],</span>
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="p">],</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;track&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;op&quot;</span><span class="p">,</span> <span class="s2">&quot;quantity&quot;</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">],</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;op&quot;</span><span class="p">,</span> <span class="s2">&quot;quantity&quot;</span><span class="p">,</span> <span class="s2">&quot;unit&quot;</span><span class="p">,</span> <span class="s2">&quot;track&quot;</span><span class="p">],</span>
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p">)</span>
 </span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
 </span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="n">timetable</span> <span class="o">=</span> <span class="p">{</span>
@@ -1319,8 +1298,8 @@ In this example we define a contract that pays 100 USD on 2024-12-31.</p>
 <p>We can print by converting it to a pandas dataframe.</p>
 <div class="language-py highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">timetable</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  <span class="n">track</span>                      <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="mi">0</span>       <span class="mi">2025</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">31</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="o">+</span>       <span class="mf">1.0</span>  <span class="n">USD</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>                       <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span> <span class="n">track</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="mi">0</span> <span class="mi">2025</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">31</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="o">+</span>       <span class="mf">1.0</span>  <span class="n">USD</span>
 </span></code></pre></div>
 <h3 id="print-using-polars">Print using <code>polars</code></h3>
 <p>We can print by converting it to a polars dataframe.</p>
@@ -1329,21 +1308,21 @@ In this example we define a contract that pays 100 USD on 2024-12-31.</p>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">shape</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="err">┌</span><span class="o">-------</span><span class="err">┬</span><span class="o">-------------------------</span><span class="err">┬</span><span class="o">-----</span><span class="err">┬</span><span class="o">----------</span><span class="err">┬</span><span class="o">------</span><span class="err">┐</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="err">│</span> <span class="n">track</span> <span class="err">┆</span> <span class="n">time</span>                    <span class="err">┆</span> <span class="n">op</span>  <span class="err">┆</span> <span class="n">quantity</span> <span class="err">┆</span> <span class="n">unit</span> <span class="err">│</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="err">│</span> <span class="o">---</span>   <span class="err">┆</span> <span class="o">---</span>                     <span class="err">┆</span> <span class="o">---</span> <span class="err">┆</span> <span class="o">---</span>      <span class="err">┆</span> <span class="o">---</span>  <span class="err">│</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="err">│</span> <span class="n">cat</span>   <span class="err">┆</span> <span class="n">datetime</span><span class="p">[</span><span class="n">ms</span><span class="p">,</span> <span class="n">UTC</span><span class="p">]</span>       <span class="err">┆</span> <span class="n">cat</span> <span class="err">┆</span> <span class="n">f64</span>      <span class="err">┆</span> <span class="n">cat</span>  <span class="err">│</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="err">╞</span><span class="o">-------</span><span class="err">╪</span><span class="o">-------------------------</span><span class="err">╪</span><span class="o">-----</span><span class="err">╪</span><span class="o">----------</span><span class="err">╪</span><span class="o">------</span><span class="err">╡</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="err">│</span>       <span class="err">┆</span> <span class="mi">2025</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">31</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="n">UTC</span> <span class="err">┆</span> <span class="o">+</span>   <span class="err">┆</span> <span class="mf">1.0</span>      <span class="err">┆</span> <span class="n">USD</span>  <span class="err">│</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="err">└</span><span class="o">-------</span><span class="err">┴</span><span class="o">-------------------------</span><span class="err">┴</span><span class="o">-----</span><span class="err">┴</span><span class="o">----------</span><span class="err">┴</span><span class="o">------</span><span class="err">┘</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="err">┌</span><span class="o">-------------------------</span><span class="err">┬</span><span class="o">-----</span><span class="err">┬</span><span class="o">----------</span><span class="err">┬</span><span class="o">------</span><span class="err">┬</span><span class="o">-------</span><span class="err">┐</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="err">│</span> <span class="n">time</span>                    <span class="err">┆</span> <span class="n">op</span>  <span class="err">┆</span> <span class="n">quantity</span> <span class="err">┆</span> <span class="n">unit</span> <span class="err">┆</span> <span class="n">track</span> <span class="err">│</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="err">│</span> <span class="o">---</span>                     <span class="err">┆</span> <span class="o">---</span> <span class="err">┆</span> <span class="o">---</span>      <span class="err">┆</span> <span class="o">---</span>  <span class="err">┆</span> <span class="o">---</span>   <span class="err">│</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="err">│</span> <span class="n">datetime</span><span class="p">[</span><span class="n">ms</span><span class="p">,</span> <span class="n">UTC</span><span class="p">]</span>       <span class="err">┆</span> <span class="n">cat</span> <span class="err">┆</span> <span class="n">f64</span>      <span class="err">┆</span> <span class="n">cat</span>  <span class="err">┆</span> <span class="n">cat</span>   <span class="err">│</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="err">╞</span><span class="o">-------------------------</span><span class="err">╪</span><span class="o">-----</span><span class="err">╪</span><span class="o">----------</span><span class="err">╪</span><span class="o">------</span><span class="err">╪</span><span class="o">-------</span><span class="err">╡</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="err">│</span> <span class="mi">2025</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">31</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="n">UTC</span> <span class="err">┆</span> <span class="o">+</span>   <span class="err">┆</span> <span class="mf">1.0</span>      <span class="err">┆</span> <span class="n">USD</span>  <span class="err">┆</span>       <span class="err">│</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="err">└</span><span class="o">-------------------------</span><span class="err">┴</span><span class="o">-----</span><span class="err">┴</span><span class="o">----------</span><span class="err">┴</span><span class="o">------</span><span class="err">┴</span><span class="o">-------</span><span class="err">┘</span>
 </span></code></pre></div>
 <h3 id="print-using-print_events">Print using <code>print_events</code></h3>
 <p>The contract dataclass has a convenience function <code>print_events</code> to print a shorter form using pandas.</p>
 <div class="language-py highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">contract</span> <span class="o">=</span> <span class="n">Bond</span><span class="p">(</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2025</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">31</span><span class="p">))</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">contract</span><span class="o">.</span><span class="n">print_events</span><span class="p">()</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">track</span>       <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>      <span class="mi">03</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2025</span>  <span class="o">+</span>       <span class="mf">1.0</span>  <span class="n">USD</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>      <span class="n">time</span> <span class="n">op</span>  <span class="n">quantity</span> <span class="n">unit</span> <span class="n">track</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="mi">03</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2025</span>  <span class="o">+</span>       <span class="mf">1.0</span>  <span class="n">USD</span>
 </span></code></pre></div>
 
 
