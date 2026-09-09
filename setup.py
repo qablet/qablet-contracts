@@ -40,6 +40,7 @@ setup(
     long_description_content_type="text/markdown",
     author="qablet",
     packages=find_packages(exclude=["tests", ".github"]),
+    python_requires=">=3.12",
     install_requires=read_requirements("requirements.txt"),
     extras_require={"test": read_requirements("requirements-test.txt")},
 )

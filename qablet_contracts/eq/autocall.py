@@ -4,7 +4,6 @@ This module contains examples of autocallable notes.
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List
 
 import numpy as np
 import pandas as pd
@@ -53,7 +52,7 @@ class DiscountCert(EventsMixin):
     accrual_start: datetime
     maturity: datetime
     barrier: float
-    barrier_dates: List[datetime]
+    barrier_dates: list[datetime]
     cpn_rate: float
     notional: float = 100.0
     track: str = ""

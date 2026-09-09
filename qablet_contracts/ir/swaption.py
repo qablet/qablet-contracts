@@ -4,7 +4,6 @@ This module contains examples of interest rate swaptions.
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List
 
 import pandas as pd
 
@@ -35,7 +34,7 @@ class Swaption(EventsMixin):
     """
 
     ccy: str
-    dates: List[datetime]
+    dates: list[datetime]
     strike_rate: float
     track: str = ""
 
@@ -86,7 +85,7 @@ class BermudaSwaption(EventsMixin):
     """
 
     ccy: str
-    dates: List[datetime]
+    dates: list[datetime]
     strike_rate: float
     track: str = ""
 

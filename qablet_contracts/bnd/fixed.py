@@ -4,7 +4,6 @@ This module contains examples of fixed rate bonds.
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List
 
 import numpy as np
 import pandas as pd
@@ -23,7 +22,7 @@ def _const_dict_array(n, val):
 
 
 def timetable_from_cf(
-    ccy: str, dates: List[datetime], amounts: List[float], track: str = ""
+    ccy: str, dates: list[datetime], amounts: list[float], track: str = ""
 ):
     n = len(dates)
     return {
@@ -62,8 +61,8 @@ class FixedCashFlows(Contract):
     """
 
     ccy: str
-    dates: List[datetime]
-    amounts: List[float]
+    dates: list[datetime]
+    amounts: list[float]
     track: str = ""
 
     def timetable(self):

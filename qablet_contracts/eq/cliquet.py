@@ -4,7 +4,6 @@ This module contains examples of equity cliquet contracts.
 
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import List
 
 import numpy as np
 import pandas as pd
@@ -45,7 +44,7 @@ class Accumulator(EventsMixin):
 
     ccy: str
     asset_name: str
-    fix_dates: List[datetime]
+    fix_dates: list[datetime]
     global_floor: float
     local_floor: float
     local_cap: float

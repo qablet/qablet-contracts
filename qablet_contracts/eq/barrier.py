@@ -4,7 +4,6 @@ This module contains examples of barrier options.
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List
 
 import pandas as pd
 
@@ -53,7 +52,7 @@ class OptionKO(EventsMixin):
     is_call: bool
     barrier: float
     barrier_type: str
-    barrier_dates: List[datetime]
+    barrier_dates: list[datetime]
     rebate: float = 0
     track: str = ""
 

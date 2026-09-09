@@ -1,7 +1,6 @@
 # Define the timetable schema
 
 from abc import ABC, abstractmethod
-from typing import Dict, List
 
 import pyarrow as pa
 
@@ -48,9 +47,9 @@ class EventsMixin(Contract):
     and the expressions method (optional) that returns a dictionary of expressions, batches, and snappers."""
 
     @abstractmethod
-    def events(self) -> List[Dict]: ...
+    def events(self) -> list[dict]: ...
 
-    def expressions(self) -> Dict:
+    def expressions(self) -> dict:
         return {}
 
     def timetable(self):

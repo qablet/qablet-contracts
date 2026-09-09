@@ -16,3 +16,37 @@ It does not contain models that price qablet timetables. Such models will be ava
 ```bash
 pip install qablet_contracts
 ```
+
+## Development
+
+**Prerequisites:** Python 3.12
+
+### Create a virtual environment
+
+**Linux / macOS**
+
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+pip install -e .[test]
+```
+
+**Windows**
+
+```
+py -3.12 -m venv .venv
+.venv\Scripts\activate
+pip install -e .[test]
+```
+
+### Run tests
+
+```bash
+pytest tests/
+```
+
+On Linux/macOS you can also use the Makefile, which runs linters before tests and generates a coverage report:
+
+```bash
+make test
+```
