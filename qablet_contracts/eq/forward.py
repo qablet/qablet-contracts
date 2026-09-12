@@ -5,7 +5,7 @@ This module contains examples of forward starting options.
 from dataclasses import dataclass
 from datetime import datetime
 
-from qablet_contracts.timetable import EventsMixin
+from qablet_contracts.timetable import EventsMixin, utc_dt
 
 
 @dataclass
@@ -94,7 +94,7 @@ if __name__ == "__main__":
         "USD",
         "SPX",
         1.0,
-        datetime(2024, 3, 31),
-        datetime(2024, 9, 30),
+        utc_dt(2024, 3, 31),
+        utc_dt(2024, 9, 30),
         True,
     ).print_events()

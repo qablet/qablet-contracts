@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 from qablet_contracts.ir.dcf import dcf_30_360 as dcf
-from qablet_contracts.timetable import EventsMixin
+from qablet_contracts.timetable import EventsMixin, utc_dt
 
 
 @dataclass
@@ -199,8 +199,8 @@ class ReverseCB(DiscountCert):
 
 if __name__ == "__main__":
     # Create the autocallable contract
-    start = datetime(2024, 3, 31)
-    maturity = datetime(2024, 7, 31)
+    start = utc_dt(2024, 3, 31)
+    maturity = utc_dt(2024, 7, 31)
     barrier_dates = pd.date_range(
         start, maturity, freq="ME", inclusive="right"
     )

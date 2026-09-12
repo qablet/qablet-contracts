@@ -8,7 +8,7 @@ from datetime import datetime
 import pandas as pd
 
 from qablet_contracts.eq.vanilla import Option
-from qablet_contracts.timetable import EventsMixin
+from qablet_contracts.timetable import EventsMixin, utc_dt
 
 
 @dataclass
@@ -107,8 +107,8 @@ class OptionKO(EventsMixin):
 
 if __name__ == "__main__":
     # Create the ko option
-    start = datetime(2024, 3, 31)
-    maturity = datetime(2024, 9, 30)
+    start = utc_dt(2024, 3, 31)
+    maturity = utc_dt(2024, 9, 30)
     barrier_dates = pd.date_range(start, maturity, freq="2ME")
     OptionKO(
         "USD", "EQ", 100, maturity, True, 102, "Up/Out", barrier_dates

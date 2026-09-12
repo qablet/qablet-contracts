@@ -5,7 +5,7 @@ This module contains examples of zero coupon bond and related contracts.
 from dataclasses import dataclass
 from datetime import datetime
 
-from qablet_contracts.timetable import EventsMixin
+from qablet_contracts.timetable import EventsMixin, utc_dt
 
 
 @dataclass
@@ -113,14 +113,14 @@ class BondCall(EventsMixin):
 
 if __name__ == "__main__":
     print("Zero Coupon Bond")
-    Bond("USD", datetime(2025, 3, 31)).print_events()
+    Bond("USD", utc_dt(2025, 3, 31)).print_events()
 
     print("Zero Coupon Bond Call")
     BondCall(
-        "USD", datetime(2024, 9, 30), datetime(2025, 3, 31), 0.95
+        "USD", utc_dt(2024, 9, 30), utc_dt(2025, 3, 31), 0.95
     ).print_events()
 
     print("Zero Coupon Bond Put")
     BondPut(
-        "USD", datetime(2024, 9, 30), datetime(2025, 3, 31), 0.95
+        "USD", utc_dt(2024, 9, 30), utc_dt(2025, 3, 31), 0.95
     ).print_events()

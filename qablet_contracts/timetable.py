@@ -1,6 +1,7 @@
 # Define the timetable schema
 
 from abc import ABC, abstractmethod
+from datetime import datetime, timezone
 
 import pyarrow as pa
 
@@ -17,6 +18,10 @@ TS_EVENT_SCHEMA = pa.schema(
         pa.field("track", DICT_TYPE),
     ]
 )
+
+
+def utc_dt(*args) -> datetime:
+    return datetime(*args, tzinfo=timezone.utc)
 
 
 def py_to_ts(py_dt):

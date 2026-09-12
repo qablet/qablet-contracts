@@ -8,7 +8,7 @@ from datetime import datetime
 import pandas as pd
 
 from qablet_contracts.ir.swap import simple_swap_period
-from qablet_contracts.timetable import EventsMixin
+from qablet_contracts.timetable import EventsMixin, utc_dt
 
 
 @dataclass
@@ -114,8 +114,8 @@ class BermudaSwaption(EventsMixin):
 
 if __name__ == "__main__":
     dates = pd.bdate_range(
-        datetime(2023, 12, 31),
-        datetime(2024, 12, 31),
+        utc_dt(2023, 12, 31),
+        utc_dt(2024, 12, 31),
         freq="2QE",
     )
     strike_rate = 0.03

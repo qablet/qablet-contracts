@@ -10,7 +10,7 @@ import pandas as pd
 import pyarrow as pa
 
 from qablet_contracts.ir.dcf import dcf_30_360 as dcf
-from qablet_contracts.timetable import TS_EVENT_SCHEMA, Contract
+from qablet_contracts.timetable import TS_EVENT_SCHEMA, Contract, utc_dt
 
 
 def _const_dict_array(n, val):
@@ -122,9 +122,9 @@ if __name__ == "__main__":
     FixedCashFlows(
         "USD",
         [
-            datetime(2023, 12, 31),
-            datetime(2024, 6, 30),
-            datetime(2024, 12, 31),
+            utc_dt(2023, 12, 31),
+            utc_dt(2024, 6, 30),
+            utc_dt(2024, 12, 31),
         ],
         [0.05, 0.05, 1.05],
     ).print_events()
@@ -132,5 +132,5 @@ if __name__ == "__main__":
     # Create a fixed bond timetable
     print("bond:\n")
     FixedBond(
-        "USD", 0.05, datetime(2023, 12, 31), datetime(2025, 12, 31), "2QE"
+        "USD", 0.05, utc_dt(2023, 12, 31), utc_dt(2025, 12, 31), "2QE"
     ).print_events()

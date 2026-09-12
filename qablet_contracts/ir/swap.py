@@ -8,7 +8,7 @@ from datetime import datetime
 import pandas as pd
 
 from qablet_contracts.ir.dcf import dcf_30_360 as dcf
-from qablet_contracts.timetable import EventsMixin
+from qablet_contracts.timetable import EventsMixin, utc_dt
 
 
 def simple_swap_period(
@@ -87,8 +87,8 @@ class Swap(EventsMixin):
 
 if __name__ == "__main__":
     dates = pd.bdate_range(
-        datetime(2023, 12, 31),
-        datetime(2024, 12, 31),
+        utc_dt(2023, 12, 31),
+        utc_dt(2024, 12, 31),
         freq="2QE",
     )
     Swap("USD", dates, strike_rate=0.03).print_events()
