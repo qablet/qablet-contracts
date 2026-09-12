@@ -4,9 +4,8 @@ This module contains examples of equity rainbow options.
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List
 
-from qablet_contracts.timetable import EventsMixin
+from qablet_contracts.timetable import EventsMixin, utc_dt
 
 
 @dataclass
@@ -38,8 +37,8 @@ class Rainbow(EventsMixin):
     """
 
     ccy: str
-    asset_names: List[str]
-    strikes: List[float]
+    asset_names: list[str]
+    strikes: list[float]
     notional: float
     maturity: datetime
     is_call: bool
@@ -90,6 +89,6 @@ if __name__ == "__main__":
         ["SPX", "FTSE", "N225"],
         [5087, 7684, 39100],
         100_000,
-        datetime(2024, 3, 31),
+        utc_dt(2024, 3, 31),
         True,
     ).print_events()

@@ -1,17 +1,16 @@
-from datetime import datetime
-
 import pandas as pd
 
 from qablet_contracts.eq.autocall import DiscountCert, ReverseCB
 from qablet_contracts.eq.barrier import OptionKO
 from qablet_contracts.eq.cliquet import Accumulator
 from qablet_contracts.eq.forward import ForwardOption
+from qablet_contracts.timetable import utc_dt
 
 
 def test_classes():
     # Autocallable Discount Certificate and Reverse Convertible
-    start = datetime(2024, 3, 31)
-    maturity = datetime(2024, 9, 30)
+    start = utc_dt(2024, 3, 31)
+    maturity = utc_dt(2024, 9, 30)
     barrier_dates = pd.date_range(
         start, maturity, freq="ME", inclusive="right"
     )
@@ -26,8 +25,8 @@ def test_classes():
     assert len(tt["events"]) == 13
 
     # Barrier
-    start = datetime(2024, 3, 31)
-    maturity = datetime(2024, 9, 30)
+    start = utc_dt(2024, 3, 31)
+    maturity = utc_dt(2024, 9, 30)
     barrier_dates = pd.date_range(
         start, maturity, freq="ME", inclusive="right"
     )
@@ -38,7 +37,7 @@ def test_classes():
 
     # Cliquet
     fix_dates = pd.bdate_range(
-        datetime(2021, 12, 31), datetime(2024, 12, 31), freq="2BQE"
+        utc_dt(2021, 12, 31), utc_dt(2024, 12, 31), freq="2BQE"
     )
     global_floor = 0.0
     local_floor = -0.03
@@ -53,8 +52,8 @@ def test_classes():
         "USD",
         "SPX",
         1.0,
-        datetime(2024, 3, 31),
-        datetime(2024, 9, 30),
+        utc_dt(2024, 3, 31),
+        utc_dt(2024, 9, 30),
         True,
     ).timetable()
     assert len(tt["events"]) == 4

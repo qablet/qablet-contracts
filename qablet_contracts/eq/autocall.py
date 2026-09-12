@@ -4,13 +4,12 @@ This module contains examples of autocallable notes.
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List
 
 import numpy as np
 import pandas as pd
 
 from qablet_contracts.ir.dcf import dcf_30_360 as dcf
-from qablet_contracts.timetable import EventsMixin
+from qablet_contracts.timetable import EventsMixin, utc_dt
 
 
 @dataclass
@@ -53,7 +52,7 @@ class DiscountCert(EventsMixin):
     accrual_start: datetime
     maturity: datetime
     barrier: float
-    barrier_dates: List[datetime]
+    barrier_dates: list[datetime]
     cpn_rate: float
     notional: float = 100.0
     track: str = ""
@@ -200,8 +199,8 @@ class ReverseCB(DiscountCert):
 
 if __name__ == "__main__":
     # Create the autocallable contract
-    start = datetime(2024, 3, 31)
-    maturity = datetime(2024, 7, 31)
+    start = utc_dt(2024, 3, 31)
+    maturity = utc_dt(2024, 7, 31)
     barrier_dates = pd.date_range(
         start, maturity, freq="ME", inclusive="right"
     )

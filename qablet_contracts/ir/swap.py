@@ -4,12 +4,11 @@ This module contains examples of interest rate swaps.
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List
 
 import pandas as pd
 
 from qablet_contracts.ir.dcf import dcf_30_360 as dcf
-from qablet_contracts.timetable import EventsMixin
+from qablet_contracts.timetable import EventsMixin, utc_dt
 
 
 def simple_swap_period(
@@ -69,7 +68,7 @@ class Swap(EventsMixin):
     """
 
     ccy: str
-    dates: List[datetime]
+    dates: list[datetime]
     strike_rate: float
     track: str = ""
 
@@ -88,8 +87,8 @@ class Swap(EventsMixin):
 
 if __name__ == "__main__":
     dates = pd.bdate_range(
-        datetime(2023, 12, 31),
-        datetime(2024, 12, 31),
+        utc_dt(2023, 12, 31),
+        utc_dt(2024, 12, 31),
         freq="2QE",
     )
     Swap("USD", dates, strike_rate=0.03).print_events()

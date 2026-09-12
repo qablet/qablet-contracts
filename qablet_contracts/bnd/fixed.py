@@ -2,16 +2,16 @@
 This module contains examples of fixed rate bonds.
 """
 
+import itertools
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List
 
 import numpy as np
 import pandas as pd
 import pyarrow as pa
 
 from qablet_contracts.ir.dcf import dcf_30_360 as dcf
-from qablet_contracts.timetable import TS_EVENT_SCHEMA, Contract
+from qablet_contracts.timetable import TS_EVENT_SCHEMA, Contract, utc_dt
 
 
 def _const_dict_array(n, val):
@@ -23,7 +23,7 @@ def _const_dict_array(n, val):
 
 
 def timetable_from_cf(
-    ccy: str, dates: List[datetime], amounts: List[float], track: str = ""
+    ccy: str, dates: list[datetime], amounts: list[float], track: str = ""
 ):
     n = len(dates)
     return {
@@ -62,8 +62,8 @@ class FixedCashFlows(Contract):
     """
 
     ccy: str
-    dates: List[datetime]
-    amounts: List[float]
+    dates: list[datetime]
+    amounts: list[float]
     track: str = ""
 
     def timetable(self):
@@ -110,7 +110,7 @@ class FixedBond(Contract):
 
         amounts = [
             dcf(end, start) * self.coupon
-            for start, end in zip(cpn_dates[:-1], cpn_dates[1:])
+            for start, end in itertools.pairwise(cpn_dates)
         ]
 
         amounts[-1] += 1  # The last payment includes the principal
@@ -123,9 +123,9 @@ if __name__ == "__main__":
     FixedCashFlows(
         "USD",
         [
-            datetime(2023, 12, 31),
-            datetime(2024, 6, 30),
-            datetime(2024, 12, 31),
+            utc_dt(2023, 12, 31),
+            utc_dt(2024, 6, 30),
+            utc_dt(2024, 12, 31),
         ],
         [0.05, 0.05, 1.05],
     ).print_events()
@@ -133,5 +133,5 @@ if __name__ == "__main__":
     # Create a fixed bond timetable
     print("bond:\n")
     FixedBond(
-        "USD", 0.05, datetime(2023, 12, 31), datetime(2025, 12, 31), "2QE"
+        "USD", 0.05, utc_dt(2023, 12, 31), utc_dt(2025, 12, 31), "2QE"
     ).print_events()

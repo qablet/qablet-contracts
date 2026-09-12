@@ -4,12 +4,11 @@ This module contains examples of equity cliquet contracts.
 
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import List
 
 import numpy as np
 import pandas as pd
 
-from qablet_contracts.timetable import EventsMixin
+from qablet_contracts.timetable import EventsMixin, utc_dt
 
 
 @dataclass
@@ -45,7 +44,7 @@ class Accumulator(EventsMixin):
 
     ccy: str
     asset_name: str
-    fix_dates: List[datetime]
+    fix_dates: list[datetime]
     global_floor: float
     local_floor: float
     local_cap: float
@@ -101,7 +100,7 @@ class Accumulator(EventsMixin):
         if "S_PREV" in self.state:
 
             def accumulator_init_fn(inputs):
-                [s] = inputs
+                [_s] = inputs
                 return [last_acc, self.state["S_PREV"]]  # [ACC, S_PREV]
         else:
 
@@ -137,7 +136,7 @@ class Accumulator(EventsMixin):
 if __name__ == "__main__":
     # Create the cliquet
     fix_dates = pd.bdate_range(
-        datetime(2021, 12, 31), datetime(2024, 12, 31), freq="2BQE"
+        utc_dt(2021, 12, 31), utc_dt(2024, 12, 31), freq="2BQE"
     )
 
     global_floor = 0.0

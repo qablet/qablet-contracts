@@ -5,7 +5,7 @@ This module contains examples of equity vanilla options.
 from dataclasses import dataclass
 from datetime import datetime
 
-from qablet_contracts.timetable import EventsMixin
+from qablet_contracts.timetable import EventsMixin, utc_dt
 
 
 @dataclass
@@ -80,7 +80,7 @@ if __name__ == "__main__":
             "USD",
             "SPX",
             2900,
-            datetime(2024, 3, 31),
+            utc_dt(2024, 3, 31),
             iscall,
             track="<SPX2900>",
         ).print_events()

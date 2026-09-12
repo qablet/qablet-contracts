@@ -1,15 +1,14 @@
-from datetime import datetime
-
 import pandas as pd
 
 from qablet_contracts.ir.swap import Swap
 from qablet_contracts.ir.swaption import BermudaSwaption, Swaption
+from qablet_contracts.timetable import utc_dt
 
 
 def test_classes():
     dates = pd.bdate_range(
-        datetime(2023, 12, 31),
-        datetime(2024, 12, 31),
+        utc_dt(2023, 12, 31),
+        utc_dt(2024, 12, 31),
         freq="2QE",
     )
     strike_rate = 0.03

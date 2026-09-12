@@ -1,7 +1,7 @@
 # Define the timetable schema
 
 from abc import ABC, abstractmethod
-from typing import Dict, List
+from datetime import datetime, timezone
 
 import pyarrow as pa
 
@@ -18,6 +18,11 @@ TS_EVENT_SCHEMA = pa.schema(
         pa.field("track", DICT_TYPE),
     ]
 )
+
+
+def utc_dt(year: int, month: int, day: int) -> datetime:
+    """Return a UTC-aware datetime at midnight (00:00:00) on the given date."""
+    return datetime(year, month, day, tzinfo=timezone.utc)
 
 
 def py_to_ts(py_dt):
@@ -48,9 +53,9 @@ class EventsMixin(Contract):
     and the expressions method (optional) that returns a dictionary of expressions, batches, and snappers."""
 
     @abstractmethod
-    def events(self) -> List[Dict]: ...
+    def events(self) -> list[dict]: ...
 
-    def expressions(self) -> Dict:
+    def expressions(self) -> dict:
         return {}
 
     def timetable(self):
