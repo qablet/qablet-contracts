@@ -20,8 +20,9 @@ TS_EVENT_SCHEMA = pa.schema(
 )
 
 
-def utc_dt(*args) -> datetime:
-    return datetime(*args, tzinfo=timezone.utc)
+def utc_dt(year: int, month: int, day: int) -> datetime:
+    """Return a UTC-aware datetime at midnight (00:00:00) on the given date."""
+    return datetime(year, month, day, tzinfo=timezone.utc)
 
 
 def py_to_ts(py_dt):
