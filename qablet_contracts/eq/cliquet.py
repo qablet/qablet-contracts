@@ -100,7 +100,7 @@ class Accumulator(EventsMixin):
         if "S_PREV" in self.state:
 
             def accumulator_init_fn(inputs):
-                [s] = inputs
+                [_s] = inputs
                 return [last_acc, self.state["S_PREV"]]  # [ACC, S_PREV]
         else:
 

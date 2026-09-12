@@ -2,6 +2,7 @@
 This module contains examples of fixed rate bonds.
 """
 
+import itertools
 from dataclasses import dataclass
 from datetime import datetime
 
@@ -109,7 +110,7 @@ class FixedBond(Contract):
 
         amounts = [
             dcf(end, start) * self.coupon
-            for start, end in zip(cpn_dates[:-1], cpn_dates[1:])
+            for start, end in itertools.pairwise(cpn_dates)
         ]
 
         amounts[-1] += 1  # The last payment includes the principal
